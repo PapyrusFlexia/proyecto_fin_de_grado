@@ -14,17 +14,33 @@ public class Exercise1 {
     	JSONArray array = DatabaseJson.loadDatabase().getData();
     	
     	FuncionesEjercicio1 objeto1 = new FuncionesEjercicio1();
-    	objeto1.MarcaModelo(array);
+    	objeto1.marcaModelo(array);
     	
     	System.out.println(" -------------- ");
     	
     	FuncionesEjercicio1 objeto2 = new FuncionesEjercicio1();
-    	objeto2.MarcaModeloHorsepower(array, 10, 150);
+    	objeto2.marcaModeloHorsepower(array, 10, 150);
     	
     	System.out.println(" -------------- ");
     	
     	FuncionesEjercicio1 objeto3 = new FuncionesEjercicio1();
-    	objeto3.MarcaModeloAutomaticos(array, "Automatic transmission");
+    	objeto3.marcaModeloAutomaticos(array, "Automatic transmission");
+    	
+    	System.out.println(" -------------- ");
+    	
+    	FuncionesEjercicio1 objeto4 = new FuncionesEjercicio1();
+    	objeto4.marcaModeloTraccionTrasera(array, "Rear-wheel drive");
+    	
+    	System.out.println(" -------------- ");
+    	
+    	FuncionesEjercicio1 objeto5 = new FuncionesEjercicio1();
+    	objeto5.marcaModeloDiesel(array, "Diesel fuel");
+    	
+    	System.out.println(" -------------- ");
+    	
+    	FuncionesEjercicio1 objeto6 = new FuncionesEjercicio1();
+    	objeto6.marcaModelo2011Potencia(array, 2011);
+    	
     	
     	
     }
