@@ -1,13 +1,15 @@
 package com.practicas.exercise1;
 
+import javax.swing.text.html.HTMLDocument.Iterator;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.practicas.exercise1.utils.DatabaseJson;
 
-public class funcionesEjercicio1 {
+public class FuncionesEjercicio1 {
 
-	public void marcaModelo(JSONArray array) {
+	public void MarcaModelo(JSONArray array) {
 
 		String[] cadena1 = new String[8];
 		String[] cadena2 = new String[8];
@@ -25,7 +27,7 @@ public class funcionesEjercicio1 {
 
 	}
 
-	public void marcaModeloHorsepower(JSONArray array, int coches, int caballos) {
+	public void MarcaModeloHorsepower(JSONArray array, int coches, int caballos) {
 
 		// int que indica la posición inicial
 		int marcaModeloComienzo = 0;
@@ -35,8 +37,7 @@ public class funcionesEjercicio1 {
 			// búsqueda de los caballos
 			int Horsepower = ((JSONObject) array.get(marcaModeloFinal)).getJSONObject("Engine Information")
 					.getJSONObject("Engine Statistics").getInt("Horsepower");
-			System.out.println(Horsepower);
-			// si tienes mas caballos que los indicados en Exercide1.java los muestra
+			// si tienes mas caballos que los indicados en Exercise1.java los muestra
 			if (Horsepower > caballos) {
 				// búsqueda de las marcas
 				String marca = ((JSONObject) array.get(marcaModeloComienzo)).getJSONObject("Identification")
@@ -49,6 +50,35 @@ public class funcionesEjercicio1 {
 				marcaModeloComienzo++;
 			}
 			marcaModeloFinal++;
+		}
+
+	}
+	
+	public void MarcaModeloAutomaticos(JSONArray array, String automatico) {
+		
+		//todo el array
+		int coches = array.length();
+		
+		int marcaModeloComienzo = 0;
+	
+
+		//busca en todo el array
+		while (marcaModeloComienzo < coches) {
+			// búsqueda de los automaticos
+			String tipoAutomatico = ((JSONObject) array.get(marcaModeloComienzo)).getJSONObject("Identification").getString("Classification");
+			// si tienes mas caballos que los indicados en Exercide1.java los muestra
+			if (tipoAutomatico.equals(automatico)) {
+				// búsqueda de las marcas
+				String marca = ((JSONObject) array.get(marcaModeloComienzo)).getJSONObject("Identification")
+						.getString("Model Year");
+				// búsqueda de los modelos
+				String modelo = ((JSONObject) array.get(marcaModeloComienzo)).getJSONObject("Identification")
+						.getString("Make");
+				System.out.println("Coche: " + (marcaModeloComienzo + 1) + ", Modelo: " + marca + ", Marca: " + modelo
+						+ ", Tipo: " + tipoAutomatico + ".");
+			
+			}
+			marcaModeloComienzo++;
 		}
 
 	}
