@@ -430,28 +430,33 @@ public class FuncionesEjercicio1 {
 
 	}
 
-	
-	public JSONArray sept (JSONArray array, int nCharacter) {
+	public JSONArray hp(JSONArray array, String palabra) {
 		JSONArray arrayReturn = new JSONArray();
-
+		// todo el array
 		int coches = array.length();
 		int marcaModeloComienzo = 0;
+		// busca en todo el array
 		while (marcaModeloComienzo < coches) {
-			char tipoNumero = ((JSONObject) array.get(marcaModeloComienzo)).getJSONObject("Identification")
-					.getString("ID").charAt(nCharacter);
+			// búsqueda del Engyne Type
+			String tipoNumero = ((JSONObject) array.get(marcaModeloComienzo)).getJSONObject("Engine Information")
+					.getString("Engine Type");
 
-			boolean comprobacion = Character.isDigit(tipoNumero);
-			if (comprobacion == true) {
-				JSONObject objetoReturn = new JSONObject();
-				JSONObject jObjeto = array.getJSONObject(marcaModeloComienzo);
-				objetoReturn.put("model", jObjeto.getJSONObject("Identification").getString("ID"));
-				arrayReturn.put(objetoReturn);
+			int intIndex = tipoNumero.indexOf("hp");
+			// si el tipo de motor contiene la palabra dada imprime lo siguiente
+			if (tipoNumero.contains(palabra)) {
+				// búsqueda del índice donde se encuentra la palabra
+				if (intIndex == -1) {
+					System.out.println("hp no encontrado");
+				} else {
+					System.out.println("Se ha encontrado hp en el índice " + intIndex + " del coche: " + tipoNumero);
+				}
+
+			} else if (tipoNumero != palabra) {
+				System.out.println("La palabra: " + tipoNumero + " no contiene hp o esta en mayúsculas");
 			}
 			marcaModeloComienzo++;
 		}
 		return arrayReturn;
-
 	}
-	 
 
 }
