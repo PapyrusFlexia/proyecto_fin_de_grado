@@ -39,7 +39,31 @@ public class Exercise1 {
     	System.out.println(" -------------- ");
     	
     	FuncionesEjercicio1 objeto6 = new FuncionesEjercicio1();
-    	objeto6.marcaModelo2011Potencia(array, 2011);
+    	boolean asc = true;
+    	objeto6.marcaModelo2011Potencia(array, 2011, asc);
+    	
+    	System.out.println(" -------------- ");
+    	
+    	FuncionesEjercicio1 objeto7 = new FuncionesEjercicio1();
+    	System.out.print(objeto7.septimaPosicion(array, 6));
+    	
+    	System.out.println(" -------------- ");
+    	
+    	FuncionesEjercicio1 objeto8 = new FuncionesEjercicio1();
+    	boolean hibrido = true;
+    	System.out.print(objeto8.marcaModeloHibrido(array, hibrido));
+    	
+    	System.out.println(" -------------- ");
+    	
+    	FuncionesEjercicio1 objeto9 = new FuncionesEjercicio1();
+    	System.out.println(objeto9.velocidades(array, 6));
+    	
+    	System.out.println(" -------------- ");
+    	
+    	FuncionesEjercicio1 objeto10 = new FuncionesEjercicio1();
+    	boolean desc = true;
+    	System.out.print(objeto10.marcaCochesConsumo(array, 18, desc));
+    	
     	
     	
     	
