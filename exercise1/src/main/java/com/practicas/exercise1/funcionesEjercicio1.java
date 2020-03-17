@@ -194,7 +194,7 @@ public class FuncionesEjercicio1 {
 
 		// busca en todo el array
 		while (marcaModeloComienzo < coches) {
-			// búsqueda de los automaticos
+			// búsqueda de los creados en el año 2011
 			int tipo2011Potencia = ((JSONObject) array.get(marcaModeloComienzo)).getJSONObject("Identification")
 					.getInt("Year");
 			// si el int es "2011" muestra la marca el modelo y el tipo
@@ -260,8 +260,8 @@ public class FuncionesEjercicio1 {
 		int coches = array.length();
 		int marcaModeloComienzo = 0;
 		while (marcaModeloComienzo < coches) {
-			char tipoNumero = ((JSONObject) array.get(marcaModeloComienzo)).getJSONObject("Identification").getString("ID")
-					.charAt(nCharacter);
+			char tipoNumero = ((JSONObject) array.get(marcaModeloComienzo)).getJSONObject("Identification")
+					.getString("ID").charAt(nCharacter);
 
 			boolean comprobacion = Character.isDigit(tipoNumero);
 			if (comprobacion == true) {
@@ -363,7 +363,7 @@ public class FuncionesEjercicio1 {
 		return arrayReturn;
 
 	}
-	
+
 	public JSONArray marcaCochesConsumo(JSONArray array, int consumo, boolean asc) {
 		JSONArray arrayReturn = new JSONArray();
 		// todo el array
@@ -384,9 +384,8 @@ public class FuncionesEjercicio1 {
 				objReturn.put("model", jObj.getJSONObject("Identification").getString("ID"));
 				// búsqueda de los coches
 				objReturn.put("make", jObj.getJSONObject("Identification").getString("Make"));
-				
-				objReturn.put("consumo",
-						jObj.getJSONObject("Fuel Information").getInt("City mph"));
+
+				objReturn.put("consumo", jObj.getJSONObject("Fuel Information").getInt("City mph"));
 				arrayReturn.put(objReturn);
 				// transforma JSONArray en ArrayList
 
@@ -395,7 +394,7 @@ public class FuncionesEjercicio1 {
 				// ordena el ArrayList
 				Collections.sort(list, new Comparator<JSONObject>() {
 					// You can change "Name" with "ID" if you want to sort by ID
-					private static final String KEY_NAME = "horsepower";
+					private static final String KEY_NAME = "City mph";
 
 					@Override
 					public int compare(JSONObject a, JSONObject b) {
@@ -408,7 +407,7 @@ public class FuncionesEjercicio1 {
 							multiplicator = 1;
 						}
 
-						if (valB  < valA) {
+						if (valB < valA) {
 							return multiplicator * 1;
 						} else if (valB > valA) {
 							return multiplicator * -1;
@@ -430,42 +429,29 @@ public class FuncionesEjercicio1 {
 		return arrayReturn;
 
 	}
+
 	
-	/**public JSONArray hp(JSONArray array, int velocidades) {
+	public JSONArray sept (JSONArray array, int nCharacter) {
 		JSONArray arrayReturn = new JSONArray();
-		// todo el array
+
 		int coches = array.length();
-
 		int marcaModeloComienzo = 0;
-
-		// busca en todo el array
 		while (marcaModeloComienzo < coches) {
-			// búsqueda de las velocidades
-			int tipoVelocidades = ((JSONObject) array.get(marcaModeloComienzo)).getJSONObject("Engine Information")
-					.getInt("Number of Forward Gears");
-			// si el string es "Rear-wheel drive" muestra la marca el modelo y el tipo
-			if (tipoVelocidades == velocidades) {
-				// búsqueda de las marcas
-				JSONObject objReturn = new JSONObject();
-				JSONObject jObj = array.getJSONObject(marcaModeloComienzo);
-				objReturn.put("make", jObj.getJSONObject("Identification").getString("Make"));
-				objReturn.put("model", jObj.getJSONObject("Identification").getString("ID"));
-				// Añadimos una modificación para permitir automáticos
-				objReturn.put("transmission", jObj.getJSONObject("Engine Information").getString("Transmission"));
-				objReturn.put("year", jObj.getJSONObject("Identification").getInt("Year"));
-				objReturn.put("velocidades",
-						jObj.getJSONObject("Engine Information").getInt("Number of Forward Gears"));
-				objReturn.put("horsepower", jObj.getJSONObject("Engine Information").getJSONObject("Engine Statistics")
-						.getInt("Horsepower"));
-				arrayReturn.put(objReturn);
+			char tipoNumero = ((JSONObject) array.get(marcaModeloComienzo)).getJSONObject("Identification")
+					.getString("ID").charAt(nCharacter);
 
-			} else if (tipoVelocidades != velocidades) {
-				System.out.println("No tiene 6 velocidades");
+			boolean comprobacion = Character.isDigit(tipoNumero);
+			if (comprobacion == true) {
+				JSONObject objetoReturn = new JSONObject();
+				JSONObject jObjeto = array.getJSONObject(marcaModeloComienzo);
+				objetoReturn.put("model", jObjeto.getJSONObject("Identification").getString("ID"));
+				arrayReturn.put(objetoReturn);
 			}
 			marcaModeloComienzo++;
 		}
 		return arrayReturn;
 
-	}*/
+	}
+	 
 
 }

@@ -13,7 +13,7 @@ public class Exercise1 {
       
     	JSONArray array = DatabaseJson.loadDatabase().getData();
     	
-    	FuncionesEjercicio1 objeto1 = new FuncionesEjercicio1();
+    	/**FuncionesEjercicio1 objeto1 = new FuncionesEjercicio1();
     	objeto1.marcaModelo(array);
     	
     	System.out.println(" -------------- ");
@@ -58,7 +58,7 @@ public class Exercise1 {
     	FuncionesEjercicio1 objeto9 = new FuncionesEjercicio1();
     	System.out.println(objeto9.velocidades(array, 6));
     	
-    	System.out.println(" -------------- ");
+    	System.out.println(" -------------- ");*/
     	
     	FuncionesEjercicio1 objeto10 = new FuncionesEjercicio1();
     	boolean desc = true;
