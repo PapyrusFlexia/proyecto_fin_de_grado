@@ -1,15 +1,15 @@
 package com.practicas.model;
 
 public class Identification {
-	
+
 	private String make;
 	private String modelyear;
 	private String id;
 	private String classification;
 	private int year;
-	
+
 	public Identification() {
-		
+
 	}
 
 	public Identification(String make, String modelyear, String id, String classification, int year) {
@@ -61,5 +61,11 @@ public class Identification {
 		this.year = year;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Identification [make=" + make + ", modelyear=" + modelyear + ", id=" + id + ", classification="
+				+ classification + ", year=" + year + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
+	}
+
 }

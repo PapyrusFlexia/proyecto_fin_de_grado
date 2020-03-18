@@ -6,9 +6,9 @@ public class Car {
 	private Dimensions dimensions;
 	private Identification identification;
 	private FuelInformation fuelinformation;
-	
+
 	public Car() {
-		
+
 	}
 
 	public Car(EngineInformation engineinformation, Dimensions dimensions, Identification identification,
@@ -54,9 +54,7 @@ public class Car {
 
 	@Override
 	public String toString() {
-		return "{engineinformation: "+engineinformation+",dimensions: "+dimensions.toString()+"}";
+		return "{engineinformation: " + engineinformation + ",dimensions: " + dimensions.toString() + "}";
 	}
-	
-	
-	
+
 }

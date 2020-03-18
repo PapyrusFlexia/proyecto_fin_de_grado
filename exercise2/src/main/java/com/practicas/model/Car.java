@@ -1,13 +1,13 @@
 package com.practicas.model;
 
 public class Car {
-	
+
 	private EngineInformation engineinformation;
 	private Dimensions dimensions;
 	private Identification identification;
-	
+
 	public Car() {
-		
+
 	}
 
 	public Car(EngineInformation engineinformation, Dimensions dimensions, Identification identification) {
@@ -40,9 +40,12 @@ public class Car {
 	public void setIdentification(Identification identification) {
 		this.identification = identification;
 	}
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Car [engineinformation=" + engineinformation + ", dimensions=" + dimensions + ", identification="
+				+ identification + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
 
 }

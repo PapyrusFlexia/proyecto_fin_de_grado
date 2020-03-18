@@ -12,7 +12,7 @@ public class EngineStatistics {
 	private int torque;
 	
 	public EngineStatistics() {
-		
+
 	}
 
 	public int getHorsepower() {
@@ -29,6 +29,12 @@ public class EngineStatistics {
 
 	public void setTorque(int torque) {
 		this.torque = torque;
+	}
+
+	@Override
+	public String toString() {
+		return "EngineStatistics [horsepower=" + horsepower + ", torque=" + torque + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 	
 

@@ -1,15 +1,15 @@
 package com.practicas.model;
 
 public class Dimensions {
-	
+
 	private int width;
 	private int length;
 	private int height;
-    
+
 	public Dimensions() {
-		
+
 	}
-	
+
 	public Dimensions(int width, int length, int height) {
 		this.width = width;
 		this.length = length;
@@ -42,7 +42,8 @@ public class Dimensions {
 
 	@Override
 	public String toString() {
-		return "{width: "+width+",length: "+length+",height: "+height+"}";
+		return "Dimensions [width=" + width + ", length=" + length + ", height=" + height + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
-	
+
 }
