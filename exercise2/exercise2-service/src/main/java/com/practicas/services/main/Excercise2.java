@@ -27,9 +27,9 @@ public class Excercise2 {
 		System.out.println(" -------------- ");
 		System.out.println(CarService.getMarcaModeloDiesel("Diesel fuel"));
 		
-		System.out.println(" -------------- ");
-		boolean asc = true;
-		System.out.println(CarService.getMarcaModelo2011Potencia(30, 2011, asc));
+		//System.out.println(" -------------- ");
+		//boolean asc = true;
+		//System.out.println(CarService.getMarcaModelo2011Potencia(30, 2011, asc));
 
 	}
 

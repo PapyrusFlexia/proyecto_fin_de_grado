@@ -1,9 +1,13 @@
 package com.practicas.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import org.json.JSONObject;
 
 import com.practicas.model.Car;
 import com.practicas.services.data.DatabaseJson;
@@ -53,7 +57,7 @@ public class CarService {
 		int counter = 0;
 		List<Car> listCarReturn1 = listCar.stream().filter(p).limit(numberMax).collect(Collectors.toList());
 
-		for (Car car : listCar) {
+		/*for (Car car : listCar) {
 			if (car.getEngineinformation().getEnginestatistics().getHorsepower() > horsepower) {
 				listCarReturn.add(car);
 				counter++;
@@ -61,9 +65,9 @@ public class CarService {
 					break;
 				}
 			}
-		}
+		}*/
 		System.out.println(listCarReturn1.size());
-		return listCarReturn;
+		return listCarReturn1;
 
 	}
 
@@ -85,7 +89,7 @@ public class CarService {
 		int counter = 0;
 		List<Car> listCarReturn1 = listCar.stream().filter(p).collect(Collectors.toList());
 
-		for (Car car : listCar) {
+		/*for (Car car : listCar) {
 			if (car.getIdentification().getClassification().equals("Automatic transmission")) {
 				listCarReturn.add(car);
 				counter++;
@@ -93,9 +97,9 @@ public class CarService {
 					break;
 				}
 			}
-		}
+		}*/
 		System.out.println(listCarReturn1.size());
-		return listCarReturn;
+		return listCarReturn1;
 
 	}
 
@@ -117,7 +121,7 @@ public class CarService {
 		int counter = 0;
 		List<Car> listCarReturn1 = listCar.stream().filter(p).collect(Collectors.toList());
 
-		for (Car car : listCar) {
+		/*for (Car car : listCar) {
 			if (car.getEngineinformation().getDriveline().equals("Rear-wheel drive")) {
 				listCarReturn.add(car);
 				counter++;
@@ -125,9 +129,9 @@ public class CarService {
 					break;
 				}
 			}
-		}
+		}*/
 		System.out.println(listCarReturn1.size());
-		return listCarReturn;
+		return listCarReturn1;
 
 	}
 
@@ -149,7 +153,7 @@ public class CarService {
 		int counter = 0;
 		List<Car> listCarReturn1 = listCar.stream().filter(p).collect(Collectors.toList());
 
-		for (Car car : listCar) {
+		/*for (Car car : listCar) {
 			if (car.getFuelinformation().getFueltype().equals("Diesel fuel")) {
 				listCarReturn.add(car);
 				counter++;
@@ -157,13 +161,13 @@ public class CarService {
 					break;
 				}
 			}
-		}
+		}*/
 		System.out.println(listCarReturn1.size());
-		return listCarReturn;
+		return listCarReturn1;
 
 	}
 
-	public static List<Car> getMarcaModelo2011Potencia(int numberMax, int anno, boolean asc) {
+	/*public static List<Car> getMarcaModelo2011Potencia(int numberMax, int anno, boolean asc) {
 		if (anno < 0) {
 			return null;
 		}
@@ -178,13 +182,37 @@ public class CarService {
 
 		List<Car> listCar = getMarcaModelo(-1, -1);
 		List<Car> listCarReturn = new ArrayList<>();
-		List<Car> sortedList = listCarReturn.stream().sorted().collect(Collectors.toList());  
+		Collections.sort(list, new Comparator<JSONObject>() {
+			// You can change "Name" with "ID" if you want to sort by ID
+			private static final String KEY_NAME = "horsepower";
+
+			@Override
+			public int compare(JSONObject a, JSONObject b) {
+
+				int valA = a.getInt(KEY_NAME);
+				int valB = b.getInt(KEY_NAME);
+
+				int multiplicator = 1;
+				if (!asc) {
+					multiplicator = -1;
+				}
+
+				if (valA < valB) {
+					return multiplicator * -1;
+				} else if (valA > valB) {
+					return multiplicator * 1;
+				} else {
+					return multiplicator * (a.getString("model").compareTo(b.getString("model")));
+				}
+			}
+		});
+		
 		int counter = 0;
 		List<Car> listCarReturn1 = listCar.stream().filter(p).limit(numberMax).collect(Collectors.toList());
 
 		for (Car car : listCar) {
 			if (car.getIdentification().getYear() == anno) {
-				sortedList.add(car);
+				listCarReturn.add(car);
 				counter++;
 				
 				
@@ -194,8 +222,8 @@ public class CarService {
 			}
 		}
 		System.out.println(listCarReturn1.size());
-		return sortedList;
+		return listCarReturn;
 
-	}
+	}*/
 
 }
