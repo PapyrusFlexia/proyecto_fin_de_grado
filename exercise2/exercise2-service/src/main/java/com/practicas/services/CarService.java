@@ -54,7 +54,7 @@ public class CarService {
 		List<Car> listCarReturn1 = listCar.stream().filter(p).limit(numberMax).collect(Collectors.toList());
 
 		for (Car car : listCar) {
-			if (car.getEngineinformation().getEnginestatistics().getHorsepower() > 150) {
+			if (car.getEngineinformation().getEnginestatistics().getHorsepower() > horsepower) {
 				listCarReturn.add(car);
 				counter++;
 				if (counter >= numberMax) {
@@ -68,7 +68,7 @@ public class CarService {
 	}
 
 	public static List<Car> getMarcaModeloAutomaticos(String automatico) {
-		if (automatico.equals("Manual transmission")) {
+		if (!automatico.equals("Automatic transmission")) {
 			return null;
 		}
 
@@ -77,6 +77,38 @@ public class CarService {
 			@Override
 			public boolean test(Car t) {
 				return t.getIdentification().getClassification() == "Automatic transmission";
+			}
+		};
+
+		List<Car> listCar = getMarcaModelo(-1, -1);
+		List<Car> listCarReturn = new ArrayList<>();
+		int counter = 0;
+		List<Car> listCarReturn1 = listCar.stream().filter(p).collect(Collectors.toList());
+
+		for (Car car : listCar) {
+			if (car.getIdentification().getClassification() == "Automatic transmission") {
+				listCarReturn.add(car);
+				counter++;
+				if (counter >= listCar.size()) {
+					break;
+				}
+			}
+		}
+		System.out.println(listCarReturn1.size());
+		return listCarReturn;
+
+	}
+
+	public static List<Car> getMarcaTraccionTrasera(String trasera) {
+		if (!trasera.equals("Rear-wheel drive")) {
+			return null;
+		}
+
+		Predicate<Car> p = new Predicate<Car>() {
+
+			@Override
+			public boolean test(Car t) {
+				return t.getEngineinformation().getDriveline() == "Rear-wheel drive";
 			}
 		};
 
