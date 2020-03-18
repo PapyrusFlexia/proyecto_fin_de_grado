@@ -76,7 +76,7 @@ public class CarService {
 
 			@Override
 			public boolean test(Car t) {
-				return t.getIdentification().getClassification() == "Automatic transmission";
+				return t.getIdentification().getClassification().equals("Automatic transmission");
 			}
 		};
 
@@ -86,7 +86,7 @@ public class CarService {
 		List<Car> listCarReturn1 = listCar.stream().filter(p).collect(Collectors.toList());
 
 		for (Car car : listCar) {
-			if (car.getIdentification().getClassification() == "Automatic transmission") {
+			if (car.getIdentification().getClassification().equals("Automatic transmission")) {
 				listCarReturn.add(car);
 				counter++;
 				if (counter >= listCar.size()) {
@@ -99,7 +99,7 @@ public class CarService {
 
 	}
 
-	public static List<Car> getMarcaTraccionTrasera(String trasera) {
+	public static List<Car> getMarcaModeloTraccionTrasera(String trasera) {
 		if (!trasera.equals("Rear-wheel drive")) {
 			return null;
 		}
@@ -108,7 +108,7 @@ public class CarService {
 
 			@Override
 			public boolean test(Car t) {
-				return t.getEngineinformation().getDriveline() == "Rear-wheel drive";
+				return t.getEngineinformation().getDriveline().equals("Rear-wheel drive");
 			}
 		};
 
@@ -118,7 +118,7 @@ public class CarService {
 		List<Car> listCarReturn1 = listCar.stream().filter(p).collect(Collectors.toList());
 
 		for (Car car : listCar) {
-			if (car.getEngineinformation().getEnginestatistics().getHorsepower() > 150) {
+			if (car.getEngineinformation().getDriveline().equals("Rear-wheel drive")) {
 				listCarReturn.add(car);
 				counter++;
 				if (counter >= listCar.size()) {
@@ -128,6 +128,73 @@ public class CarService {
 		}
 		System.out.println(listCarReturn1.size());
 		return listCarReturn;
+
+	}
+
+	public static List<Car> getMarcaModeloDiesel(String diesel) {
+		if (!diesel.equals("Diesel fuel")) {
+			return null;
+		}
+
+		Predicate<Car> p = new Predicate<Car>() {
+
+			@Override
+			public boolean test(Car t) {
+				return t.getFuelinformation().getFueltype().equals("Diesel fuel");
+			}
+		};
+
+		List<Car> listCar = getMarcaModelo(-1, -1);
+		List<Car> listCarReturn = new ArrayList<>();
+		int counter = 0;
+		List<Car> listCarReturn1 = listCar.stream().filter(p).collect(Collectors.toList());
+
+		for (Car car : listCar) {
+			if (car.getFuelinformation().getFueltype().equals("Diesel fuel")) {
+				listCarReturn.add(car);
+				counter++;
+				if (counter >= listCar.size()) {
+					break;
+				}
+			}
+		}
+		System.out.println(listCarReturn1.size());
+		return listCarReturn;
+
+	}
+
+	public static List<Car> getMarcaModelo2011Potencia(int numberMax, int anno, boolean asc) {
+		if (anno < 0) {
+			return null;
+		}
+
+		Predicate<Car> p = new Predicate<Car>() {
+
+			@Override
+			public boolean test(Car t) {
+				return t.getIdentification().getYear() == anno;
+			}
+		};
+
+		List<Car> listCar = getMarcaModelo(-1, -1);
+		List<Car> listCarReturn = new ArrayList<>();
+		List<Car> sortedList = listCarReturn.stream().sorted().collect(Collectors.toList());  
+		int counter = 0;
+		List<Car> listCarReturn1 = listCar.stream().filter(p).limit(numberMax).collect(Collectors.toList());
+
+		for (Car car : listCar) {
+			if (car.getIdentification().getYear() == anno) {
+				sortedList.add(car);
+				counter++;
+				
+				
+				if (counter >= numberMax) {
+					break;
+				}
+			}
+		}
+		System.out.println(listCarReturn1.size());
+		return sortedList;
 
 	}
 

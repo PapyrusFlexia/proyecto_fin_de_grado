@@ -20,6 +20,16 @@ public class Excercise2 {
 		
 		System.out.println(" -------------- ");
 		System.out.println(CarService.getMarcaModeloAutomaticos("Automatic transmission"));
+		
+		System.out.println(" -------------- ");
+		System.out.println(CarService.getMarcaModeloTraccionTrasera("Rear-wheel drive"));
+		
+		System.out.println(" -------------- ");
+		System.out.println(CarService.getMarcaModeloDiesel("Diesel fuel"));
+		
+		System.out.println(" -------------- ");
+		boolean asc = true;
+		System.out.println(CarService.getMarcaModelo2011Potencia(30, 2011, asc));
 
 	}
 
