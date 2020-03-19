@@ -155,31 +155,7 @@ public class CarService {
 
 	}
 
-	private boolean desc = true;
-
-	public Comparator<? super Car> CarHorsePowerComparator(boolean desc) {
-		this.desc = desc;
-	}
-
-	public int compare(Car a, Car b) {
-		Integer valA = a.getEngineinformation().getEnginestatistics().getHorsepower();
-		Integer valB = b.getEngineinformation().getEnginestatistics().getHorsepower();
-
-		int mult = -1;
-		if (!desc) {
-			mult = 1;
-		}
-
-		if (valA < valB) {
-			return mult * -1;
-		} else if (valA > valB) {
-			return mult * 1;
-		} else {
-			return mult * (a.getIdentification().getMake().compareTo(b.getIdentification().getMake()));
-		}
-	}
-
-	public static List<Car> getMarcaModelo2011Potencia(int numberMax, int anno, boolean asc) {
+	public static List<Car> getMarcaModelo2011Potencia(int numberMax, int anno) {
 		if (anno < 0) {
 			return null;
 		}
@@ -193,9 +169,27 @@ public class CarService {
 		};
 
 		List<Car> listCar = getMarcaModelo(-1, -1);
-
+		boolean desc = false;
 		List<Car> listCarReturn1 = listCar.stream().filter(car -> car.getIdentification().getYear() == anno)
-				.limit(numberMax).sorted(CarHorsePowerComparator(asc)).collect(Collectors.toList());
+				.sorted(new Comparator<Car>() {
+					public int compare(Car a, Car b) {
+						Integer valA = a.getEngineinformation().getEnginestatistics().getHorsepower();
+						Integer valB = b.getEngineinformation().getEnginestatistics().getHorsepower();
+
+						int mult = -1;
+						if (!desc) {
+							mult = 1;
+						}
+
+						if (valA < valB) {
+							return mult * -1;
+						} else if (valA > valB) {
+							return mult * 1;
+						} else {
+							return mult * (a.getIdentification().getMake().compareTo(b.getIdentification().getMake()));
+						}
+					}
+				}).limit(numberMax).collect(Collectors.toList());
 
 		System.out.println(listCarReturn1.size());
 		return listCarReturn1;
@@ -203,13 +197,14 @@ public class CarService {
 	}
 
 	public static List<Car> septimaPosicion(int nCharacter) {
-		if (nCharacter != 6) {
+		if (nCharacter < 0) {
 			return null;
 		}
 
 		List<Car> listCar = getMarcaModelo(-1, -1);
-		List<Car> listCarReturn1 = listCar.stream()
-				.filter(car -> (int) car.getIdentification().getId().charAt(nCharacter)).collect(Collectors.toList());
+		List<Car> listCarReturn1 = listCar.stream().filter(car -> {
+			return Character.isDigit(car.getIdentification().getId().charAt(nCharacter));
+		}).collect(Collectors.toList());
 
 		System.out.println(listCarReturn1.size());
 		return listCarReturn1;
@@ -270,7 +265,27 @@ public class CarService {
 		};
 
 		List<Car> listCar = getMarcaModelo(-1, -1);
-		List<Car> listCarReturn1 = listCar.stream().filter(p).collect(Collectors.toList());
+		boolean desc = true;
+		List<Car> listCarReturn1 = listCar.stream().filter(car -> car.getFuelinformation().getCitymph() < consumo)
+				.sorted(new Comparator<Car>() {
+					public int compare(Car a, Car b) {
+						Integer valA = a.getFuelinformation().getCitymph();
+						Integer valB = b.getFuelinformation().getCitymph();
+
+						int mult = -1;
+						if (desc) {
+							mult = 1;
+						}
+
+						if (valA < valB) {
+							return mult * -1;
+						} else if (valA > valB) {
+							return mult * 1;
+						} else {
+							return mult * (a.getIdentification().getMake().compareTo(b.getIdentification().getMake()));
+						}
+					}
+				}).collect(Collectors.toList());
 
 		System.out.println(listCarReturn1.size());
 		return listCarReturn1;

@@ -12,42 +12,39 @@ public class Excercise2 {
 
 		List<Car> listCar = DatabaseJson.loadDatabase().getDataParsed();
 
-		System.out.println(" -------------- ");
+		System.out.println(" \ngetMarcaModelo -------------- ");
 		System.out.println(CarService.getMarcaModelo(23, 31));
-		
-		System.out.println(" -------------- ");
+
+		System.out.println(" \ngetMarcaModeloHorsePower -------------- ");
 		System.out.println(CarService.getMarcaModeloHorsePower(10, 150));
-		
-		System.out.println(" -------------- ");
+
+		System.out.println(" \ngetMarcaModeloAutomaticos -------------- ");
 		System.out.println(CarService.getMarcaModeloAutomaticos("Automatic transmission"));
-		
-		System.out.println(" -------------- ");
+
+		System.out.println(" \ngetMarcaModeloTraccionTrasera -------------- ");
 		System.out.println(CarService.getMarcaModeloTraccionTrasera("Rear-wheel drive"));
-		
-		System.out.println(" -------------- ");
+
+		System.out.println(" \ngetMarcaModeloDiesel -------------- ");
 		System.out.println(CarService.getMarcaModeloDiesel("Diesel fuel"));
-		
-		//System.out.println(" -------------- ");
-		//boolean asc = true;
-		//System.out.println(CarService.getMarcaModelo2011Potencia(30, 2011, asc));
-		
-		System.out.println(" -------------- ");
+
+		System.out.println(" \ngetMarcaModelo2011Potencias -------------- ");
+		System.out.println(CarService.getMarcaModelo2011Potencia(30, 2011));
+
+		System.out.println(" \nseptimaPosicion -------------- ");
 		System.out.println(CarService.septimaPosicion(6));
-		
-		System.out.println(" -------------- ");
+
+		System.out.println(" \ngetMarcaModeloHibrido -------------- ");
 		boolean hibrido = true;
 		System.out.println(CarService.getMarcaModeloHibrido(hibrido));
-		
-		System.out.println(" -------------- ");
+
+		System.out.println(" \nvelocidades -------------- ");
 		System.out.println(CarService.velocidades(6));
-		
-		System.out.println(" -------------- ");
+
+		System.out.println(" \ngetCochesConsumo -------------- ");
 		System.out.println(CarService.getCochesConsumo(18));
-		
-		System.out.println(" -------------- ");
+
+		System.out.println(" \nhp -------------- ");
 		System.out.println(CarService.hp("hp"));
-		
-		
 
 	}
 
