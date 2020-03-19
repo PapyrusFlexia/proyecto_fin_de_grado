@@ -30,6 +30,24 @@ public class Excercise2 {
 		//System.out.println(" -------------- ");
 		//boolean asc = true;
 		//System.out.println(CarService.getMarcaModelo2011Potencia(30, 2011, asc));
+		
+		System.out.println(" -------------- ");
+		System.out.println(CarService.septimaPosicion(6));
+		
+		System.out.println(" -------------- ");
+		boolean hibrido = true;
+		System.out.println(CarService.getMarcaModeloHibrido(hibrido));
+		
+		System.out.println(" -------------- ");
+		System.out.println(CarService.velocidades(6));
+		
+		System.out.println(" -------------- ");
+		System.out.println(CarService.getCochesConsumo(18));
+		
+		System.out.println(" -------------- ");
+		System.out.println(CarService.hp("hp"));
+		
+		
 
 	}
 
