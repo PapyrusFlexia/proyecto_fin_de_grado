@@ -1,12 +1,8 @@
 package com.practicas.services.data;
 
-import org.json.JSONArray;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.practicas.model.Car;
-
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,48 +13,78 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import org.json.JSONArray;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.practicas.model.Car;
+
 public class DatabaseJson {
 
-    private static JSONArray _jsonArray = new JSONArray();
+	private static JSONArray _jsonArray = new JSONArray();
 
-    private static final Logger _log = Logger.getLogger(DatabaseJson.class.getName());
+	private static final Logger _log = Logger.getLogger(DatabaseJson.class.getName());
 
-    private DatabaseJson() {
-        try{
-            loadJSONDB();
-        }catch (IOException e){
-            _log.log(Level.SEVERE, "Error loading database" , e);
-        }
-    }
+	private static DatabaseJson db;
 
-    public static DatabaseJson loadDatabase() {
+	private DatabaseJson() {
+		try {
+			loadJSONDB();
+		} catch (IOException e) {
+			_log.log(Level.SEVERE, "Error loading database", e);
+		}
+	}
 
-        return new DatabaseJson();
-    }
+	public static DatabaseJson loadDatabase() {
 
-    private void loadJSONDB() throws IOException {
+		if (db == null) {
+			db = new DatabaseJson();
+		}
+		return db;
+	}
 
-        InputStream inputStream = this.getClass()
-                .getClassLoader().getResourceAsStream("cars.json");
+	private void loadJSONDB() throws IOException {
 
-        if (inputStream == null) return;
+		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("cars-id.json");
 
-        StringBuilder jsonText = new StringBuilder();
-        try (BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream))) {
-            jsonText.append(buffer.lines().collect(Collectors.joining("\n")));
-        }
+		if (inputStream == null)
+			return;
 
-        _jsonArray = new JSONArray(jsonText.toString());
-    }
+		StringBuilder jsonText = new StringBuilder();
+		try (BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream))) {
+			jsonText.append(buffer.lines().collect(Collectors.joining("\n")));
+		}
 
-    public JSONArray getData(){
-        return _jsonArray;
-    }
-    
-    public List<Car> getDataParsed(){
-    	Gson gson = new Gson();
-    	Type userListType = new TypeToken<ArrayList<Car>>(){}.getType();
-    	
-        return gson.fromJson(_jsonArray.toString(), userListType);
-    }
+		_jsonArray = new JSONArray(jsonText.toString());
+	}
+
+	public static void saveFile(String newJsonFile) {
+
+		BufferedWriter bufferWriter = null;
+		try {
+			FileWriter crunchifyWriter = new FileWriter(
+					"/Users/stejeros/Developer/source/practicas/exercise2/exercise2-service/src/main/resources/cars-id.json",
+					true);
+
+			// Writes text to a character-output stream
+			bufferWriter = new BufferedWriter(crunchifyWriter);
+			bufferWriter.write(newJsonFile.toString());
+			bufferWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+		}
+	}
+
+	public JSONArray getData() {
+		return _jsonArray;
+	}
+
+	public List<Car> getDataParsed() {
+		Gson gson = new Gson();
+		Type userListType = new TypeToken<ArrayList<Car>>() {
+		}.getType();
+
+		return gson.fromJson(_jsonArray.toString(), userListType);
+	}
 }

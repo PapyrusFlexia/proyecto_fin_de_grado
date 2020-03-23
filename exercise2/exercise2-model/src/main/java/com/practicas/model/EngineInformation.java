@@ -5,13 +5,14 @@ public class EngineInformation {
 	private String transmission;
 	private String enginetype;
 	private EngineStatistics enginestatistics;
-	private boolean hybrid;
-	private int numberofforwardgears;
-	private String driveline;
-
-	public EngineInformation() {
-
-	}
+    private boolean hybrid; 
+    private int numberofforwardgears;
+    private String driveline;
+    
+    
+    public EngineInformation() {
+    	
+    }
 
 	public EngineInformation(String transmission, String enginetype, EngineStatistics enginestatistics, boolean hybrid,
 			int numberofforwardgears, String driveline) {
@@ -71,13 +72,6 @@ public class EngineInformation {
 	public void setDriveline(String driveline) {
 		this.driveline = driveline;
 	}
-
-	@Override
-	public String toString() {
-		return "EngineInformation [transmission=" + transmission + ", enginetype=" + enginetype + ", enginestatistics="
-				+ enginestatistics + ", hybrid=" + hybrid + ", numberofforwardgears=" + numberofforwardgears
-				+ ", driveline=" + driveline + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
-	}
-
+    
+    
 }

@@ -4,16 +4,88 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.json.JSONObject;
 
 import com.practicas.model.Car;
+import com.practicas.model.comparators.CarComparator;
 import com.practicas.services.data.DatabaseJson;
 
 public class CarService {
 
+	
+	public static List<Car> getCars(int start, int stop) {
+		
+		// comprobamos los parámetros de entrada
+		
+		assert start < stop;
+
+		List<Car> listCar = DatabaseJson.loadDatabase().getDataParsed();
+		
+		int begin = start;
+		if(begin < 0) {
+			begin = 0;
+		}
+		int end = stop;
+		// si end es mayor que la longitud, end lo asignamos a la longitud
+		if(end <= 0 || end > listCar.size()) {
+			end = listCar.size();
+		}
+		
+		return listCar.subList(begin, end);
+	}
+	
+	public static List<Car> getCars(int start, int end, Predicate<Car> p) {
+		
+		assert p != null;
+		Stream<Car> stream = getCars(-1, -1).stream().filter(p);
+		List<Car> cars = getCars(start, end).stream().filter(p).collect(Collectors.toList());
+		return cars;
+	}
+	
+public static long getCarsCount(List<Predicate<Car>> ps) {
+		
+		assert ps != null;
+		Stream<Car> stream = getCars(-1, -1).stream();
+		for(Predicate<Car> p: ps) {
+			stream.filter(p);
+		}
+		return stream.count();
+	}
+	
+	
+	public static List<Car> getCars(int start, int end, Predicate<Car> p, CarComparator comparator){
+		
+		List<Car> cars = getCars( start,  end,  p);
+		if(comparator != null) {
+			return cars.stream().sorted(comparator).collect(Collectors.toList());
+		}
+		
+		return cars.stream().sorted().collect(Collectors.toList());
+	}
+	
+	
+	public static List<Car> getCars(int start, int end, Predicate<Car> p, CarComparator comparator, int limit){
+		
+		assert limit > 0;
+		
+		List<Car> cars = getCars( start,  end,  p, comparator);
+		return cars.stream().limit(limit).collect(Collectors.toList());
+	}
+	
+	
+	public static Optional<Car> getCarByPk(int pk) {
+		
+		assert pk >=0;
+		List<Car> cars = getCars(-1, -1);
+		return cars.stream().filter(c -> c.getPk() == pk).findFirst();
+	}
+	
+	
 	public static List<Car> getMarcaModelo(int start, int stop) {
 
 		// comprobamos los parametros de entrada
@@ -305,6 +377,30 @@ public class CarService {
 		System.out.println(listCarReturn1.size());
 		return listCarReturn1;
 
+	}
+	
+	public static List<String> getCarsMakes() {
+		List<Car> cars = getCars(-1, -1);
+		List<String> carsMakes = new ArrayList<>();
+		for(int i = 0; i< cars.size();i++) {
+			carsMakes.add(cars.get(i).getIdentification().getMake());
+		}
+		return carsMakes;
+	}
+
+
+	public static List<Integer> getCarsYears() {
+		List<Car> cars = getCars(-1, -1);
+		List<Integer> carsYears= new ArrayList<>();
+		for(int i = 0; i<cars.size(); i++) {
+			carsYears.add(cars.get(i).getIdentification().getYear());
+		}
+		return carsYears;
+	}
+
+	
+	public long getCarsCount(Predicate<Car> p) {
+		return (long) getCars(-1, -1).stream().filter(p).count();
 	}
 
 }

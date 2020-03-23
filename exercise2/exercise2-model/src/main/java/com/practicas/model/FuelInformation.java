@@ -7,7 +7,7 @@ public class FuelInformation {
 	private String fueltype;
 
 	public FuelInformation() {
-
+		
 	}
 
 	public FuelInformation(int highwaympg, int citymph, String fueltype) {
@@ -40,12 +40,5 @@ public class FuelInformation {
 	public void setFueltype(String fueltype) {
 		this.fueltype = fueltype;
 	}
-
-	@Override
-	public String toString() {
-		return "FuelInformation [highwaympg=" + highwaympg + ", citymph=" + citymph + ", fueltype=" + fueltype
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
-	}
-
+	
 }
