@@ -22,7 +22,7 @@ public class MainServlet extends HttpServlet {
 
 		String action = request.getParameter("action");
 		MainController controller = new MainController();
-		if (action == null && !"".equals(action)) {
+		if (action == null || "".equals(action)) {
 			controller.MainAction(request, response);
 		} else if ("paginacion".equals(action)) {
 			controller.paginacion(request, response);

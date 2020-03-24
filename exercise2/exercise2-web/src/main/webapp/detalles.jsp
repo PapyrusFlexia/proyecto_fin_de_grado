@@ -98,7 +98,6 @@
 					<th scope="col">Modelo</th>
 					<th scope="col">Marca</th>
 					<th scope="col">Año</th>
-					<th scope="col">Detalles</th>
 
 				</tr>
 			</thead>
@@ -113,7 +112,7 @@
 					<td><%=c.getIdentification().getMake()%></td>
 					<td><%=c.getIdentification().getYear()%></td>
 					<td>
-						<button type="button" class="btn btn-default" onclick="location.href = 'detalles.jsp';">
+						<button type="button" class="btn btn-default">
 							<span class="glyphicon glyphicon-eye-open"></span>
 						</button>
 					</td>
