@@ -1,5 +1,7 @@
 package com.practicas.model;
 
+import java.util.Collection;
+
 public class EngineInformation {
 
 	private String transmission;

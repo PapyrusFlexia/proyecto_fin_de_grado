@@ -1,7 +1,13 @@
+<%@page import="java.io.UnsupportedEncodingException"%>
+<%@page import="java.nio.charset.StandardCharsets"%>
+<%@page import="com.practicas.model.Identification"%>
 <%@page import="com.practicas.model.Car"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="com.practicas.model.Car"%>
+<%@page import="java.util.List"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,188 +26,278 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
-<style>
-.table .thead-light th {
-	margin: auto;
-	width: 50% !important;
-	color: #401500;
-	background-color: #FFDDCC;
-	border-color: #792700;
-}
-</style>
 </head>
 <body>
-	<%
+	<div class="bs-example">
+
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
+
+
+			<button type="button" class="navbar-toggler" data-toggle="collapse"
+				data-target="#navbarCollapse">
+
+				<span class="navbar-toggler-icon"></span>
+
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+
+				<div class="navbar-nav">
+
+					<a href="#"
+						class="nav-item nav-link active font-weight-bold text-uppercase"
+						data-toggle="tooltip" data-placement="bottom" title="">Coches</a>
+				</div>
+			</div>
+
+
+		</nav>
+
+
+		<%
+			Car car = (Car) request.getAttribute("car");
+
 		String paginaActual = (String) request.getAttribute("page");
-	int siguiente = -1;
-	int anterior = -1;
-	if (paginaActual == null) {
-		paginaActual = "1";
-	}
-	String modelo = (String) request.getAttribute("page");
+		String modeloFiltro = (String) request.getAttribute("make");
+		String annoFiltro = (String) request.getAttribute("year");
 
-	int paginaComienzo = Integer.valueOf(paginaActual);
-	if (paginaComienzo > 1) {
-		anterior = paginaComienzo - 1;
-	}
-	siguiente = paginaComienzo + 1;
+		List<String> idTabla = (List<String>) request.getAttribute("id");
+		List<String> modeloTabla = (List<String>) request.getAttribute("makes");
+		List<Integer> anno = (List<Integer>) request.getAttribute("years");
+		List<Car> cochesTabla = (List<Car>) request.getAttribute("cars");
+		%>
+	</div>
+	<br>
+	<h2>Engine Information</h2>
+	<form action="./update" method="post">
+		<input type="hidden" name="action" value="updateCar" /> <input
+			type="hidden" name="pk" value="<%=car.getPk()%>" /> <input
+			type="hidden" name="redirect"
+			value="<%=encodeValue(request.getAttribute("redirect").toString())%>" />
+		<fieldset class="form-row">
+			<div class="col-md-4 mb-3">
+				<label for="validationServer01">Transmission</label> <input
+					type="text" class="form-control is-valid" id="validationServer01"
+					placeholder="First name"
+					value="<%=car.getEngineinformation().getTransmission()%>" required>
+				<div class="valid-feedback">Looks good!</div>
+			</div>
+			<div class="col-md-4 mb-3">
+				<label for="validationServer02">Engine Type</label> <input
+					type="text" class="form-control is-valid" id="validationServer02"
+					placeholder="Last name"
+					value="<%=car.getEngineinformation().getEnginetype()%>" required>
+				<div class="valid-feedback">Looks good!</div>
+			</div>
 
-	List<String> idTabla = (List<String>) request.getAttribute("id");
-	List<String> modeloTabla = (List<String>) request.getAttribute("makes");
-	List<Integer> anno = (List<Integer>) request.getAttribute("years");
-	List<Car> cochesTabla = (List<Car>) request.getAttribute("cars");
+
+			<fieldset class="col-md-4 mb-3">
+				<h3>Engine Statistics</h3>
+				<div class="col-md-4 mb-3">
+					<label for="validationServer03">Horsepower</label> <input
+						type="text" class="form-control is-valid" id="validationServer03"
+						placeholder="First name"
+						value="<%=car.getEngineinformation().getEnginestatistics().getHorsepower()%>"
+						required>
+					<div class="valid-feedback">Looks good!</div>
+				</div>
+				<div class="col-md-4 mb-3">
+					<label for="validationServer04">Torque</label> <input type="text"
+						class="form-control is-valid" id="validationServer04"
+						placeholder="Last name"
+						value="<%=car.getEngineinformation().getEnginestatistics().getTorque()%>"
+						required>
+					<div class="valid-feedback">Looks good!</div>
+				</div>
+
+			</fieldset>
+			<div class="form-group">
+				<div class="form-row">
+					<label class="mt-2 col-form-label" for="hybrid">Hybrid:</label>
+					<div class="form-check ml-1 mt-3">
+					<% String hybridSelected = car.getEngineinformation().isHybrid()?" checked=''checked'":""; %>
+						<input class="form-check-input valid" type="checkbox"
+							name="hybrid" id="hybrid" <%=hybridSelected%>>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 mb-3">
+				<label for="validationServer05">Number of Forward Gears</label> <input
+					type="text" class="form-control is-valid" id="validationServer05"
+					value="<%=car.getEngineinformation().getNumberofforwardgears()%>"
+					required>
+				<div class="invalid-feedback">Please provide a valid number.</div>
+			</div>
+			<div class="form-group">
+				<label>Driveline</label> <select class="custom-select"
+					id="driveline" required>
+					<%
+						List<String> drivelines = (List<String>) request.getAttribute("drivelines");
+					if (drivelines != null) {
+						for (String dr : drivelines) {
+					%>
+					<option value="<%=dr%>"><%=dr%></option>
+					<%
+						}
+					}
+					%>
+				</select>
+				<div class="invalid-feedback">Example invalid custom select
+					feedback</div>
+			</div>
+		</fieldset>
+		<h2>Identification</h2>
+		<fieldset class="form-row">
+			<div class="col-md-4 mb-3">
+				<label for="validationServer07">Make</label> <input type="text"
+					class="form-control is-valid" id="validationServer07"
+					placeholder="First name"
+					value="<%=car.getIdentification().getMake()%>" required>
+				<div class="valid-feedback">Looks good!</div>
+			</div>
+			<div class="col-md-4 mb-3">
+				<label for="validationServer08">Model Year</label> <input
+					type="text" class="form-control is-valid" id="validationServer08"
+					placeholder="Last name"
+					value="<%=car.getIdentification().getModelyear()%>" required>
+				<div class="valid-feedback">Looks good!</div>
+			</div>
+			<div class="col-md-4 mb-3">
+				<label for="validationServer09">Id</label> <input type="text"
+					class="form-control is-valid" id="validationServer09"
+					placeholder="Last name"
+					value="<%=car.getIdentification().getId()%>" required>
+				<div class="valid-feedback">Looks good!</div>
+			</div>
+			<div class="form-group">
+				<label>Classification</label> <select class="custom-select"
+					id="classification" required>
+					<%
+						List<String> classifications = (List<String>) request.getAttribute("classifications");
+					if (classifications != null) {
+						for (String cl : classifications) {
+					%>
+					<option value="<%=cl%>"><%=cl%></option>
+					<%
+						}
+					}
+					%>
+				</select>
+				<div class="invalid-feedback">Example invalid custom select
+					feedback</div>
+			</div>
+			<div class="form-group">
+				<label>Year</label> <select class="custom-select" id="year" required>
+					<%
+						List<Integer> years = (List<Integer>) request.getAttribute("years");
+					if (years != null) {
+						for (Integer ye : years) {
+					%>
+					<option value="<%=ye%>"><%=ye%></option>
+					<%
+						}
+					}
+					%>
+				</select>
+				<div class="invalid-feedback">Example invalid custom select
+					feedback</div>
+			</div>
+		</fieldset>
+
+		<h2>Dimensions</h2>
+		<fieldset class="form-row">
+			<div class="col-md-4 mb-3">
+				<label for="validationServer12">Width</label> <input type="text"
+					class="form-control is-valid" id="validationServer12"
+					placeholder="First name"
+					value="<%=car.getDimensions().getWidth()%>" required>
+				<div class="valid-feedback">Looks good!</div>
+			</div>
+			<div class="col-md-4 mb-3">
+				<label for="validationServer13">Length</label> <input type="text"
+					class="form-control is-valid" id="validationServer13"
+					placeholder="Last name"
+					value="<%=car.getDimensions().getLength()%>" required>
+				<div class="valid-feedback">Looks good!</div>
+			</div>
+			<div class="col-md-4 mb-3">
+				<label for="validationServer14">Height</label> <input type="text"
+					class="form-control is-valid" id="validationServer14"
+					placeholder="Last name"
+					value="<%=car.getDimensions().getHeight()%>" required>
+				<div class="valid-feedback">Looks good!</div>
+			</div>
+
+		</fieldset>
+
+		<h2>Fuel Information</h2>
+		<fieldset class="form-row">
+			<div class="col-md-4 mb-3">
+				<label for="validationServer15">Highway mpg</label> <input
+					type="text" class="form-control is-valid" id="validationServer15"
+					placeholder="First name"
+					value="<%=car.getFuelinformation().getHighwaympg()%>" required>
+				<div class="valid-feedback">Looks good!</div>
+			</div>
+			<div class="col-md-4 mb-3">
+				<label for="validationServer16">City mph</label> <input type="text"
+					class="form-control is-valid" id="validationServer16"
+					placeholder="Last name"
+					value="<%=car.getFuelinformation().getCitymph()%>" required>
+				<div class="valid-feedback">Looks good!</div>
+			</div>
+			<div class="form-group">
+				<label>Fuel Type</label> <select class="custom-select" id="fuelType"
+					required>
+					<%
+						List<String> fueltypes = (List<String>) request.getAttribute("fueltypes");
+					if (fueltypes != null) {
+						for (String fu : fueltypes) {
+					%>
+					<option value="<%=fu%>"><%=fu%></option>
+					<%
+						}
+					}
+					%>
+				</select>
+				<div class="invalid-feedback">Example invalid custom select
+					feedback</div>
+			</div>
+
+		</fieldset>
+		<button class="btn btn-primary btn-lg" type="submit">Actualizar</button>
+	</form>
+
+	<%
+		String id = (String) request.getAttribute("id");
+	String pagei = (String) request.getAttribute("page");
+	String filterMake = (String) request.getAttribute("filterMake");
+	String filterYear = (String) request.getAttribute("filterYear");
+
+	String carDriveline = (String) car.getEngineinformation().getDriveline();
+	String carClassification = (String) car.getIdentification().getClassification();
+	String carYear = String.valueOf(car.getIdentification().getYear());
+	String carFuelType = (String) car.getFuelinformation().getFueltype();
 	%>
 
-	<div class="row ml-2 mt-3 mb-2 d-flex justify-content-between">
-		<h2>Filtros:</h2>
-		<div class="form-group col-2">
-			<select class="form-control" id="sel1">
-				<option value="">Por Modelo</option>
-				<%
-					if (modeloTabla != null) {
+	<button class="btn btn-primary hBack" type="button">REGRESAR A
+		LOS COCHES</button>
+	<%!public static String encodeValue(String value) {
+		String result = "";
+		try {
+			result = java.net.URLDecoder.decode(value, StandardCharsets.UTF_8.name());
+		} catch (UnsupportedEncodingException e) {
+			// not going to happen - value came from JDK's own StandardCharsets
+		}
+		return result;
+	}%>
+	<script>
+		$(".hBack").on("click", function(e) {
+			e.preventDefault();
+			window.history.back();
+		});
 
-					for (String m : modeloTabla) {
-				%>
-				<option value="<%=m%>"><%=m%></option>
-				<%
-					}
-
-				}
-				%>
-			</select>
-		</div>
-		<div class="form-group col-2 ">
-			<select class="form-control">
-				<option value="">Por año</option>
-				<%
-					if (anno != null) {
-
-					for (Integer a : anno) {
-				%>
-				<option value="<%=a%>"><%=a%></option>
-				<%
-					}
-
-				}
-				%>
-			</select>
-		</div>
-	</div>
-
-	<div class="table-responsive tablaCoches">
-		<h3>Coches</h3>
-		<table class="table table-hover table-responsive ">
-			<thead class="thead-light">
-				<tr>
-					<th scope="col">ID</th>
-					<th scope="col">Modelo</th>
-					<th scope="col">Marca</th>
-					<th scope="col">Año</th>
-
-				</tr>
-			</thead>
-			<tbody>
-				<%
-					if (cochesTabla != null) {
-					for (Car c : cochesTabla) {
-				%>
-				<tr>
-					<th><%=c.getPk()%></th>
-					<td><%=c.getIdentification().getId()%></td>
-					<td><%=c.getIdentification().getMake()%></td>
-					<td><%=c.getIdentification().getYear()%></td>
-					<td>
-						<button type="button" class="btn btn-default">
-							<span class="glyphicon glyphicon-eye-open"></span>
-						</button>
-					</td>
-				</tr>
-				<%
-					}
-				} else {
-				%>
-				<%
-					}
-				%>
-			</tbody>
-		</table>
-		<input type="hidden" name="page" id="page" value="<%=paginaActual%>" />
-		<input type="hidden" name="makeFilterValue" id="makeFilterValue"
-			value="<%=modeloTabla%>" /> <input type="hidden"
-			name="yearFilterValue" id="yearFilterValue" value="<%=anno%>" /> <span
-			class="navbar">Acciones</span>
-		<div class="navbar-collapse"></div>
-		<%
-			
-		%>
-
-		<ul class="pagination">
-			<li class="page-item" <%if (anterior < 0) {%> disabled="disabled"
-				<%}%>><a class="page-link" <%if (anterior > 0) {%>
-				href="./?action=paginacion&page=<%=anterior%>" <%}%>
-				<%if (anterior < 0) {%> tabindex="-1" aria-disabled="true" <%}%>>Anterior</a>
-			</li>
-			<%
-				if (anterior > 0) {
-			%>
-			<li class="page-item"><a class="page-link"
-				href="./?action=paginacion&page=<%=anterior%>"><%=anterior%></a></li>
-			<%
-				}
-			%>
-			<li class="page-item active" aria-current="page"><a
-				class="page-link" href="#"><%=paginaActual%> <span
-					class="sr-only"><%=paginaActual%></span></a></li>
-			<%
-				if (siguiente > 0) {
-			%>
-			<li class="page-item"><a class="page-link"
-				href="./?action=paginacion&page=<%=siguiente%>"><%=siguiente%></a></li>
-			<%
-				}
-			%>
-			<li class="page-item"><a class="page-link"
-				href="./?action=paginacion&page=<%=siguiente%>">Siguiente</a></li>
-		</ul>
-
-
-
-	</div>
-	<script type="text/javascript">
-		$(document)
-				.ready(
-						function() {
-							$('.filterYear')
-									.change(
-											function() {
-												var valor = $(this).children(
-														"option:selected")
-														.val();
-												location.href = './?action=paginacion&filterYear='
-														+ valor
-														+ '&filterMake='
-														+ $('#makeFilterValue')
-																.val()
-														+ '&page='
-														+ $('#page').val();
-											});
-							$('.filterMake')
-									.change(
-											function() {
-												var valor = $(this).children(
-														"option:selected")
-														.val();
-												location.href = './?action=paginacion&filterMake='
-														+ valor
-														+ '&filterYear='
-														+ $('#yearFilterValue')
-																.val()
-														+ '&page='
-														+ $('#page').val();
-											});
-						});
 	</script>
-
 </body>
 </html>

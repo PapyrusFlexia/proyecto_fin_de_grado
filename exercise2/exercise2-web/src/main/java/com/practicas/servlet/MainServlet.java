@@ -21,17 +21,32 @@ public class MainServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String action = request.getParameter("action");
+		String dispatcher = "./index.jsp";
+		String filterMake = request.getParameter("make");
+		String filterYear = request.getParameter("year");
 		MainController controller = new MainController();
-		if (action == null || "".equals(action)) {
+		if (action == null || action.equals("") && (filterMake == null && filterYear == null)) {
 			controller.MainAction(request, response);
-		} else if ("paginacion".equals(action)) {
+		} else if ("paginacion".contentEquals(action) && (filterMake == null && filterYear == null)) {
 			controller.paginacion(request, response);
+		}
+		if (filterMake != null || filterYear != null) {
+			controller.filtrar(request, response);
+		} else if ("detalles".equals(action)) {
+			try {
+				controller.detalles(request, response);
+				dispatcher = "./detalles.jsp";
+			} catch (Exception e) {
+				request.setAttribute("message", e.getMessage());
+				dispatcher = "./error.jsp";
+			}
+
 		}
 
 		request.setAttribute("years", CarService.getCarsYears());
 		request.setAttribute("makes", CarService.getCarsMakes());
-		request.getRequestDispatcher("./index.jsp").forward(request, response);
-		;
+		request.getRequestDispatcher(dispatcher).forward(request, response);;
+		
 
 	}
 

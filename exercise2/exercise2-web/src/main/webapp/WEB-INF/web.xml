@@ -22,8 +22,3 @@
 	</welcome-file-list>
 
 </web-app> 
-
-<!--  <ul class="paginacion">
-			<li class="page-item" <%if(anterior<0) { %> disabled="disabled" <%} %>>
-				<a class="page-link" <%if (anterior>0) %> href="./?action=paginacion&page=<%=anterior %>" <%} %> <%if(anterior<0){ %> tabindex="-1">
-				</a> -->
