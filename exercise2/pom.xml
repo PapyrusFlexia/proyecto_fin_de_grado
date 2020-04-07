@@ -9,6 +9,10 @@
     <version>1.0</version>
     <packaging>pom</packaging>
     
+    <properties>
+		<spring.version>4.3.26.RELEASE</spring.version>
+	</properties>
+    
     <dependencies>
 
         <dependency>

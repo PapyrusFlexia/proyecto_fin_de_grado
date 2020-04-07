@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 import com.practicas.model.Car;
 
 public class CarFiltro {
-	public Predicate<Car> esHibrido(boolean hibrido) {
+	public Predicate<Car> hibrido(boolean hibrido) {
 		return car -> car.getEngineinformation().isHybrid() == hibrido;
 	}
 
@@ -46,7 +46,7 @@ public class CarFiltro {
 		return car -> car.getEngineinformation().getDriveline().equals(traccion);
 	}
 
-	public Predicate<Car> tipoClasificacion(String clasificacion) {
+	public Predicate<Car> clasificacion(String clasificacion) {
 		return car -> car.getIdentification().getClassification().equals(clasificacion);
 	}
 

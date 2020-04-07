@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import com.practicas.model.Car;
 import com.practicas.services.CarService;
 import com.practicas.services.data.DatabaseJson;
 
+@WebServlet(name = "UpdateCarServlet", urlPatterns = { "/update" })
 public class UpdateCarServlet extends HttpServlet {
 
 	/**
@@ -39,7 +41,7 @@ public class UpdateCarServlet extends HttpServlet {
 		// Validar 
 		
 		
-		Optional<Car> carOp = CarService.getCarByPk(Integer.valueOf(pk));
+		/*Optional<Car> carOp = CarService.getCarByPk(Integer.valueOf(pk));
 		
 		if(carOp.isPresent()) {
 			
@@ -55,9 +57,9 @@ public class UpdateCarServlet extends HttpServlet {
 				}
 				contador ++;
 			}
-		}
+		}*/
 		
-		request.getRequestDispatcher("./?"+decodeValue(redirect)).forward(request, response);;
+		request.getRequestDispatcher("../?"+decodeValue(redirect)).forward(request, response);;
 	
 	}
 	

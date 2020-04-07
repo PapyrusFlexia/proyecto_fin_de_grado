@@ -15,13 +15,15 @@ public class Excercise2 {
 
 	public static void main(String[] args) {
 
-		CarService.getCars(-1, -1, null);
-
+		arService.getCars(-1, -1, null);
+		
+		
+		restoreloadData();
 	}
 
 	
 	@SuppressWarnings("unused")
-	private static void loadData() {
+	private static void restoreloadData() {
 		JSONArray array = DatabaseJson.loadDatabase().getData();
 
 		int length = array.length();
@@ -31,6 +33,7 @@ public class Excercise2 {
 			while(listCheck.contains(""+random)) {
 				random = new SecureRandom().nextInt(length);
 			}
+			listCheck.add(""+random);
 			((JSONObject)array.get(i)).put("pk", random);
 		}
 		

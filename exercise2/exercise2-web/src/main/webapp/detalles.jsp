@@ -61,10 +61,12 @@
 		String paginaActual = (String) request.getAttribute("page");
 		String modeloFiltro = (String) request.getAttribute("make");
 		String annoFiltro = (String) request.getAttribute("year");
+		String hybridFiltro = (String) request.getAttribute("hybrid");
 
 		List<String> idTabla = (List<String>) request.getAttribute("id");
 		List<String> modeloTabla = (List<String>) request.getAttribute("makes");
 		List<Integer> anno = (List<Integer>) request.getAttribute("years");
+		List<Boolean> hybridTabla = (List<Boolean>) request.getAttribute("hybrids");
 		List<Car> cochesTabla = (List<Car>) request.getAttribute("cars");
 		%>
 	</div>
@@ -274,6 +276,7 @@
 	String pagei = (String) request.getAttribute("page");
 	String filterMake = (String) request.getAttribute("filterMake");
 	String filterYear = (String) request.getAttribute("filterYear");
+	String filterHybrid = (String) request.getAttribute("filterHybrid");
 
 	String carDriveline = (String) car.getEngineinformation().getDriveline();
 	String carClassification = (String) car.getIdentification().getClassification();

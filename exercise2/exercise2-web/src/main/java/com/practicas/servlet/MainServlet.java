@@ -1,18 +1,22 @@
 package com.practicas.servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.practicas.controller.MainController;
-import com.practicas.model.Car;
-import com.practicas.services.CarService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
-public class MainServlet extends HttpServlet {
+import com.practicas.services.UtilsService;
+import com.practicas.servlet.controller.MainController;
+
+@WebServlet(name = "MainServlet", urlPatterns = { "" }, initParams = @WebInitParam(name = "location", value = "Hola"), loadOnStartup = 1)
+public class MainServlet extends AbstractServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,17 +28,18 @@ public class MainServlet extends HttpServlet {
 		String dispatcher = "./index.jsp";
 		String filterMake = request.getParameter("make");
 		String filterYear = request.getParameter("year");
-		MainController controller = new MainController();
-		if (action == null || action.equals("") && (filterMake == null && filterYear == null)) {
-			controller.MainAction(request, response);
-		} else if ("paginacion".contentEquals(action) && (filterMake == null && filterYear == null)) {
-			controller.paginacion(request, response);
+		String filterHybrid = request.getParameter("hybrid");
+		String filterClassification = request.getParameter("classification");
+		if (action == null || action.equals("") && (filterMake == null && filterYear == null && filterHybrid == null && filterClassification == null)) {
+			mainController.MainAction(request, response);
+		} else if ("paginacion".contentEquals(action) && (filterMake == null && filterYear == null && filterHybrid == null && filterClassification == null)) {
+			mainController.paginacion(request, response);
 		}
-		if (filterMake != null || filterYear != null) {
-			controller.filtrar(request, response);
+		if (filterMake != null || filterYear != null || filterHybrid != null || filterClassification != null) {
+			mainController.filtrar(request, response);
 		} else if ("detalles".equals(action)) {
 			try {
-				controller.detalles(request, response);
+				mainController.detalles(request, response);
 				dispatcher = "./detalles.jsp";
 			} catch (Exception e) {
 				request.setAttribute("message", e.getMessage());
@@ -43,10 +48,12 @@ public class MainServlet extends HttpServlet {
 
 		}
 
-		request.setAttribute("years", CarService.getCarsYears());
-		request.setAttribute("makes", CarService.getCarsMakes());
-		request.getRequestDispatcher(dispatcher).forward(request, response);;
-		
+		request.setAttribute("years", utilsService.getCarsYears());
+		request.setAttribute("makes", utilsService.getCarsMakes());
+		request.setAttribute("hybrids", utilsService.getCarsHybrids());
+		request.setAttribute("classifications",  utilsService.getCarsClassificationsTabla());
+		request.getRequestDispatcher(dispatcher).forward(request, response);
+		;
 
 	}
 

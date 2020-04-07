@@ -53,6 +53,22 @@
 						class="nav-item nav-link active font-weight-bold text-uppercase"
 						data-toggle="tooltip" data-placement="bottom" title="">Coches</a>
 				</div>
+
+				<div class="navbar-nav ml-auto">
+
+					<div class="input-group">
+
+						<div class="btn-group" role="group">
+
+							<button type="button" class="btn btn-light mr-2"
+								data-toggle="tooltip" data-placement="bottom" title="Loguearte"
+								onclick="location.href = 'login.jsp';">Login</button>
+
+						</div>
+
+					</div>
+
+				</div>
 			</div>
 
 
@@ -68,6 +84,8 @@
 		}
 		String modeloFiltro = (String) request.getAttribute("make");
 		String annoFiltro = (String) request.getAttribute("year");
+		String hybridFiltro = (String) request.getAttribute("hybrid");
+		String classificationFiltro = (String) request.getAttribute("classification");
 		if (annoFiltro == null) {
 			annoFiltro = "0";
 		}
@@ -79,6 +97,8 @@
 
 		List<String> idTabla = (List<String>) request.getAttribute("id");
 		List<String> modeloTabla = (List<String>) request.getAttribute("makes");
+		List<Boolean> hybridTabla = (List<Boolean>) request.getAttribute("hybrids");
+		List<String> classificationTabla = (List<String>) request.getAttribute("classifications");
 		List<Integer> anno = (List<Integer>) request.getAttribute("years");
 		List<Car> cochesTabla = (List<Car>) request.getAttribute("cars");
 		%>
@@ -92,6 +112,18 @@
 
 	<div class="form-group col-2 align-self-center">
 		<ul class="navbar-nav">
+			<li class="nav-item"><select class="form-control"
+				data-live-search="true" title="Filter by year" id="year">
+					<option value="-1">FILTRAR POR AÑO</option>
+					<%
+						for (Integer year : anno) {
+					%>
+					<option <%if (year.equals(annoFiltro)) {%> selected <%}%>
+						value="<%=year%>"><%=year%></option>
+					<%
+						}
+					%>
+			</select></li>
 			<li class="nav-item active"><select class="form-control"
 				data-live-search="true" title="Filter by makes" id="make">
 					<option value="-1">FILTRAR POR MARCA</option>
@@ -105,13 +137,26 @@
 					%>
 			</select></li>
 			<li class="nav-item"><select class="form-control"
-				data-live-search="true" title="Filter by year" id="year">
-					<option value="-1">FILTRAR POR AÑO</option>
+				data-live-search="true" title="Filter by hybrid" id="hybrid">
+					<option value="-1">FILTRAR POR HÍBRIDOS</option>
 					<%
-						for (Integer year : anno) {
+						for (Boolean hybrid : hybridTabla) {
 					%>
-					<option <%if (year.equals(annoFiltro)) {%> selected <%}%>
-						value="<%=year%>"><%=year%></option>
+					<option <%if (hybrid.equals(hybridFiltro)) {%> selected <%}%>
+						value="<%=hybrid%>"><%=hybrid%></option>
+					<%
+						}
+					%>
+			</select></li>
+			<li class="nav-item"><select class="form-control"
+				data-live-search="true" title="Filter by classification"
+				id="classification">
+					<option value="-1">FILTRAR POR CLASIFICACIÓN</option>
+					<%
+						for (String classification : classificationTabla) {
+					%>
+					<option <%if (classification.equals(classificationFiltro)) {%>
+						selected <%}%> value="<%=classification%>"><%=classification%></option>
 					<%
 						}
 					%>
@@ -122,10 +167,12 @@
 	<table class="table table-hover table-responsive ">
 		<thead class="thead-light">
 			<tr>
-				<th scope="col">ID</th>
-				<th scope="col">Modelo</th>
-				<th scope="col">Marca</th>
-				<th scope="col">Año</th>
+				<th scope="col">ID<br><a><span class="glyphicon glyphicon-chevron-up"></span><span class="glyphicon glyphicon-chevron-down"></span></a></th>
+				<th scope="col">Modelo<br><a><span class="glyphicon glyphicon-chevron-up"></span><span class="glyphicon glyphicon-chevron-down"></span></a></th>
+				<th scope="col">Marca<br><a><span class="glyphicon glyphicon-chevron-up"></span><span class="glyphicon glyphicon-chevron-down"></span></a></th>
+				<th scope="col">Año<br><a><span class="glyphicon glyphicon-chevron-up"></span><span class="glyphicon glyphicon-chevron-down"></span></a></th>
+				<th scope="col">Híbrido<br><a><span class="glyphicon glyphicon-chevron-up"></span><span class="glyphicon glyphicon-chevron-down"></span></a></th>
+				<th scope="col">Clasificación<br><a><span class="glyphicon glyphicon-chevron-up"></span><span class="glyphicon glyphicon-chevron-down"></span></a></th>
 				<th scope="col">Acciones</th>
 
 			</tr>
@@ -140,15 +187,21 @@
 				<td><%=c.getIdentification().getId()%></td>
 				<td><%=c.getIdentification().getMake()%></td>
 				<td><%=c.getIdentification().getYear()%></td>
+				<td><%=c.getEngineinformation().isHybrid()%></td>
+				<td><%=c.getIdentification().getClassification()%></td>
 				<td>
 					<div class="dropdown">
-									  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Acciones
-									  <span class="caret"></span></button>
-									  <ul class="dropdown-menu">
-									    <li><a href="./?action=detalles&pk=<%=c.getPk() %>&redirect=<%=encodeValue(request.getQueryString())%>"><span class="glyphicon glyphicon-eye-open"></span></a></li>
-									    <li><a href="#"><span class="glyphicon glyphicon-trash"></span></a></li>
-									  </ul>
-									</div>
+						<button class="btn btn-primary dropdown-toggle" type="button"
+							data-toggle="dropdown">
+							Acciones <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a
+								href="./?action=detalles&pk=<%=c.getPk()%>&redirect=<%=encodeValue(request.getQueryString())%>"><span
+									class="glyphicon glyphicon-eye-open"></span></a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-trash"></span></a></li>
+						</ul>
+					</div>
 				</td>
 			</tr>
 			<%
@@ -165,6 +218,10 @@
 		value="<%=modeloFiltro%>" />
 	<input type="hidden" name="yearFilterValue" id="yearFilterValue"
 		value="<%=annoFiltro%>" />
+	<input type="hidden" name="hybridFilterValue" id="hybridFilterValue"
+		value="<%=hybridFiltro%>" />
+	<input type="hidden" name="classificationFilterValue"
+		id="classificationFilterValue" value="<%=classificationFiltro%>" />
 	<div class="row ml-2 mt-3 mb-2 d-flex justify-content-between">
 		<h2 class="float-left align-self-center">Paginación:</h2>
 		<div class="form-group col-2"></div>
@@ -176,11 +233,12 @@
 		%>
 
 		<ul class="pagination">
-
+		
 			<li class="page-item" <%if (anterior < 0) {%> disabled="disabled"
 				<%}%>><a class="page-link" <%if (anterior > 0) {%>
 				href="./?action=paginacion&page=<%=anterior%>" <%}%>
-				<%if (anterior < 0 && annoFiltro != null && modeloFiltro != null) {%>
+				<%if (anterior < 0 && annoFiltro != null && modeloFiltro != null && hybridFiltro != null
+		&& classificationFiltro != null) {%>
 				tabindex="-1" aria-disabled="true" <%}%>>Anterior</a></li>
 			<%
 				if (anterior > 0) {
@@ -190,7 +248,7 @@
 			<%
 				}
 			%>
-			
+
 			<li class="page-item active" aria-current="page"><a
 				class="page-link" href="#"><%=paginaActual%> <span
 					class="sr-only"><%=paginaActual%></span></a></li>
@@ -200,23 +258,23 @@
 			<li class="page-item"><a class="page-link"
 				href="./?action=paginacion&page=<%=siguiente%>"><%=siguiente%></a></li>
 			<%
-				} else if (annoFiltro != null && modeloFiltro != null) {
+				} else if (annoFiltro != null && modeloFiltro != null && hybridFiltro != null && classificationFiltro != null) {
 			%>
 			<li class="page-item"><a class="page-link"
-				href="./?action=paginacion&year=<%=annoFiltro%>&make=<%=modeloFiltro%>&page=<%=siguiente%>"><%=siguiente%></a></li>
+				href="./?action=paginacion&year=<%=annoFiltro%>&make=<%=modeloFiltro%>&hybrid=<%=hybridFiltro%>&classification=<%=classificationFiltro%>&page=<%=siguiente%>"><%=siguiente%></a></li>
 			<%
 				}
 			%>
 			<%
-				if (annoFiltro == null && modeloFiltro == null) {
+				if (annoFiltro == null && modeloFiltro == null && hybridFiltro == null && classificationFiltro == null) {
 			%>
 			<li class="page-item"><a class="page-link"
 				href="./?action=paginacion&page=<%=siguiente%>">Siguiente</a></li>
 			<%
-				} else if (annoFiltro != null && modeloFiltro != null) {
+				} else if (annoFiltro != null && modeloFiltro != null && hybridFiltro != null && classificationFiltro != null) {
 			%>
 			<li class="page-item"><a class="page-link"
-				href="./?action=paginacion&year=<%=annoFiltro%>&make=<%=modeloFiltro%>&page=<%=siguiente%>">Siguiente</a></li>
+				href="./?action=paginacion&year=<%=annoFiltro%>&make=<%=modeloFiltro%>&hybrid=<%=hybridFiltro%>&classification=<%=classificationFiltro%>&page=<%=siguiente%>">Siguiente</a></li>
 			<%
 				}
 			%>
@@ -229,15 +287,15 @@
 
 	</div>
 
-	<%!  private static String encodeValue(String value) {
-        String url = "";
+	<%!private static String encodeValue(String value) {
+		String url = "";
 		try {
 			url = URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
-        } catch (Exception ex) {
-            
-        }
+		} catch (Exception ex) {
+
+		}
 		return url;
-    } %>
+	}%>
 	<script type="text/javascript">
 		$(document)
 				.ready(
@@ -253,6 +311,12 @@
 														+ '&make='
 														+ $('#makeFilterValue')
 																.val()
+														+ '&hybrid='
+														+ $('#hybridFilterValue')
+														.val()
+														+ '&classification='
+														+ $('#classificationFilterValue')
+														.val()
 														+ '&page=0';
 											});
 							$('#make')
@@ -266,16 +330,62 @@
 																.val()
 														+ '&make='
 														+ valor
+														+ '&hybrid='
+														+ $('#hybridFilterValue')
+														.val()
+														+ '&classification='
+														+ $('#classificationFilterValue')
+														.val()
 														+ '&page=0';
 											});
+							$('#hybrid')
+							.change(
+									function() {
+										var valor = $(this).children(
+												"option:selected")
+												.val();
+										location.href = './?action=paginacion&year='
+												+ $('#yearFilterValue')
+														.val()
+												+ '&make='
+												+ $('#makeFilterValue')
+														.val()
+												+ '&hybrid='
+												+ valor
+												+ '&classification='
+												+ $('#classificationFilterValue')
+												.val()
+												+ '&page=0';
+									});
+							
+							$('#classification')
+							.change(
+									function() {
+										var valor = $(this).children(
+												"option:selected")
+												.val();
+										location.href = './?action=paginacion&year='
+												+ $('#yearFilterValue')
+														.val()
+												+ '&make='
+												+ $('#makeFilterValue')
+														.val()
+												+ '&hybrid='
+														+ $('#hybridFilterValue')
+														.val()
+												+ '&classification='
+												+ valor
+												+ '&page=0';
+									});
 							
 							<%if (anno != null) {%>
-							$("#year option[value=<%=anno%>]").attr('selected', 'selected');
-							<%}%>
+							$("#year option[value=<%=anno%>]").attr('selected', 'selected');<%}%>
 							<%if (modeloTabla != null) {%>
-							$("#make option[value=<%=modeloTabla%>']").attr('selected',
-							'selected');
-	<%}%>
+							$("#make option[value=<%=modeloTabla%>']").attr('selected','selected');<%}%>
+							<%if (hybridTabla != null) {%>
+							$("#hybrid option[value=<%=hybridTabla%>]").attr('selected','selected');<%}%>
+							<%if (classificationTabla != null) {%>
+							$("#classification option[value=<%=classificationTabla%>']").attr('selected', 'selected');<%}%>
 		});
 	</script>
 
