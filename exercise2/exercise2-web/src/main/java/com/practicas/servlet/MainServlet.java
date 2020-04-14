@@ -46,6 +46,12 @@ public class MainServlet extends AbstractServlet {
 				dispatcher = "./error.jsp";
 			}
 
+		}else if("datatable".equals(action)) {
+			dispatcher = "./datatable.jsp";
+		}
+		
+		if(request.getParameter("parse") != null && !request.getParameter("parse").equals("")) {
+			dispatcher = "./json.jsp";
 		}
 
 		request.setAttribute("years", utilsService.getCarsYears());

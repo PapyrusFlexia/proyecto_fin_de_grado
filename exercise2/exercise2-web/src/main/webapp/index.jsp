@@ -59,6 +59,10 @@
 					<div class="input-group">
 
 						<div class="btn-group" role="group">
+						
+						<button type="button" class="btn btn-light mr-2"
+								data-toggle="tooltip" data-placement="bottom" title="Ir al modo datatable"
+								onclick="location.href = './?action=datatable';">Datatable</button>
 
 							<button type="button" class="btn btn-light mr-2"
 								data-toggle="tooltip" data-placement="bottom" title="Loguearte"
@@ -279,7 +283,7 @@
 				}
 			%>
 			<li class="page-item"><a class="page-link"
-				href="http://localhost:8080/exercise2-web/">VOLVER A VALORES POR
+				href="./">VOLVER A VALORES POR
 					DEFECTO</a></li>
 		</ul>
 

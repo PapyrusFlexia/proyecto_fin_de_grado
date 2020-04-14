@@ -1,4 +1,3 @@
-  
 package com.practicas.filters;
 
 import java.io.IOException;
@@ -30,14 +29,15 @@ public class CarsFilter implements Filter {
 		
 		System.out.println(hRequest.getRequestURI());
 		
-		if(hRequest.getRequestURI().equals("/exercise2-web/login") || (hRequest.getSession(false) != null && hRequest.getSession(false).getAttribute("username") != null)) {
-			chain.doFilter(request, response);
-		}else {
+		/*if(hRequest.getRequestURI().indexOf("login") > 0 || (hRequest.getSession(false) != null && hRequest.getSession(false).getAttribute("username") != null)) {
+			*/
+		chain.doFilter(request, response);
+		/*}else {
 			hRequest.setAttribute("message", "Unauthorized");
 			hRequest.getRequestDispatcher("/error.jsp").forward(request, response);;
 			//hResponse.sendRedirect("./error.jsp");
 			//hResponse.sendError(403, "no autorizado");
-		}
+		}*/
 		
 		
 		
