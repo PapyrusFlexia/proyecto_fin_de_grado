@@ -18,7 +18,7 @@ import com.practicas.model.Car;
 import com.practicas.model.comparators.CarComparator;
 import com.practicas.services.data.DatabaseJson;
 
-public interface CarService {
+public interface CarService  {
 
 	public List<Car> getCars();
 
@@ -80,6 +80,6 @@ public interface CarService {
 
 	public List<Boolean> getHybrid();
 	
-	public long totalCar();
+	public long  totalCar();
 
 }

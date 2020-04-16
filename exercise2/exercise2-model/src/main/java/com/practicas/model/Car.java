@@ -78,6 +78,5 @@ public class Car implements Comparable<Car>{
 	public String toString() {
 		return "{engineinformation: "+engineinformation+",dimensions: "+dimensions.toString()+"}";
 	}
-		
 	
 }
