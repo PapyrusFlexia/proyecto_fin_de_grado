@@ -21,9 +21,11 @@ import com.practicas.model.EngineInformation;
 import com.practicas.model.Identification;
 import com.practicas.model.PaginaCompleta;
 import com.practicas.model.comparators.CarComparator;
+import com.practicas.services.CarMakeComparator;
 import com.practicas.services.CarPkComparator;
 import com.practicas.services.CarPredicate;
 import com.practicas.services.CarService;
+import com.practicas.services.CarYearComparator;
 
 @WebServlet(name = "MainJSONServlet", 
 	urlPatterns = { "/carsJSON" }, 
@@ -46,6 +48,7 @@ public class MainJSONServlet extends AbstractServlet {
         
         long total = carService.totalCar();
         int draw = Integer.parseInt(request.getParameter("draw"));
+        
         pagina.setiTotalRecords(carService.totalCar());          /////////////////////
         pagina.setiTotalDisplayRecords(carService.totalCar());
         pagina.setAaData(carService.getCars());
@@ -96,10 +99,14 @@ public class MainJSONServlet extends AbstractServlet {
         
         String ordercol = request.getParameter("order[0][column]");
         String orderdir = request.getParameter("order[0][dir]");
+        boolean orderUsage = orderdir.equals("asc")?true:false;
+
         
-        boolean order = false; ///////////// CAMBIAR?¿?¿? /////////////
+        CarComparator carComparator = null;
+        CarMakeComparator carMakeComparator = null;
+        CarPkComparator carPkComparator = null;
+        CarYearComparator carYearComparator = null;
         
-        CarComparator carcomparator = null;
         
     /** COMPARATORS    if(ordercol != null && !ordercol.equals("")) {
         	order = true;
@@ -119,35 +126,26 @@ public class MainJSONServlet extends AbstractServlet {
         		
         	}
         	
-        	if(order == false) {
-        		pagina.setCars(carService.getCars(start, end, plist));
-        	} else {
-        		pagina.setCars(carService.getCars(start, end, plist));
-        		if(ordercol != null && !ordercol.equals("")) {
-        			order = true;
-        			//COMPARATORS
-        		} else {
-        			r = (int) total % 10;
-        			
-        			if (Long.valueOf(request.getParameter("start")) > total - length) {
-        				end = start + r;
-        			}
-        			
-        			if(order == false) {
-        				pagina.setCars(carService.getCars(start, end));
-        			} else {
-        				pagina.setCars(carService.getCars(start, end));
-        				
-        				if(ordercol != null && !ordercol.equals("")) {
-                			order = true;
-                			//COMPARATORS
-        				}
-        			}
-        		}
-        		
-        	
-        		
-        	}
+        	switch (ordercol==null?"":ordercol) {
+            case "0":
+                carPkComparator = new CarPkComparator(orderUsage);
+                break;
+                
+            case "1":
+                
+                break;
+            case "2":
+                carMakeComparator = new CarMakeComparator(orderUsage);
+                
+                break;
+            case "3":
+                carYearComparator = new CarYearComparator(orderUsage);
+                break;
+            default:
+                break;
+            }
+            
+            pagina.setCars(carService.getCarsCompare(start, end, plist, carComparator)); /// getCarsCompare no creado
         } 
         
         Map<String, List<?>> filters = new HashMap<String, List<?>>();

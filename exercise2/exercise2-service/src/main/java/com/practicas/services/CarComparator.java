@@ -9,3 +9,4 @@ public abstract class CarComparator implements Comparator<Car> {
 	protected boolean desc;
 
 }
+

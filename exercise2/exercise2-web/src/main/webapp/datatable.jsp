@@ -188,8 +188,8 @@
    
 	 $(document).ready(function() {
 	        var table = $('#carsTable').DataTable( {
-	        	//"processing": true,
-	            //"serverSide": true,
+	        	"processing": true,
+	            "serverSide": true,
 	        	language: {
 	    	          "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
 	    	        },
@@ -216,10 +216,14 @@
 	       	       { data: 'pk'}
 	      		],
 	      		 initComplete: function () {
-	      	            this.api().columns([1,2,3,4,5]).every( function () {
+	      			 var makes = json.filters.makes;
+	      			 var years = json.filters.years;
+	      			 var classifications = json.filters.classifications;
+	      			 var fueltypes = json.filters.fueltypes;
+	      	            this.api().columns(2).every( function () {
 	      	                var column = this;
 	      	                var select = $('<select><option value=""></option></select>')
-	      	                    .appendTo( $(column.header()).empty() )
+	      	                    .appendTo( $(column.footer()))
 	      	                    .on( 'change', function () {
 	      	                        var val = $.fn.dataTable.util.escapeRegex(
 	      	                            $(this).val()
@@ -230,12 +234,30 @@
 	      	                            .draw();
 	      	                    } );
 	      	 
-	      	                column.data().unique().sort().each( function ( d, j ) {
-	      	                    select.append( '<option value="'+d+'">'+d+'</option>' )
-	      	                } );
+	      	              for(i = 0; i < makes.length; i++){
+	      	            	  select.append( '<option value="'+makes[i]+'">'+makes[i]+'</option>')
+	      	              }
 	      	            } );
+	      	            this.api().columns(3).every( function() {
+	      	            	var column = this;
+	      	            	var select = $('<select><option value=""></option></select>')
+	      	            		.appendTo( $(column.footer()))
+	      	            		.on( 'change', function() {
+	      	            			var val = $.fn.dataTable.util.escapeRegex(
+		      	                            $(this).val()
+	      	            		);
+	      	            			 column
+	      	                            .search( val ? '^'+val+'$' : '', true, false )
+	      	                            .draw();
+	      	                    } );
+	      	 
+	      	              for(i = 0; i < makes.length; i++){
+	      	            	  select.append( '<option value="'+makes[i]+'">'+makes[i]+'</option>')
+	      	              }
+	      	            } );
+	      	            }
 	      	        }
-	        } );
+	         );
 	    } );
     </script>
 </body>

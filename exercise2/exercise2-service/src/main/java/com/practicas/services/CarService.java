@@ -1,24 +1,18 @@
+
 package com.practicas.services;
 
-import java.util.ArrayList;
-
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.json.JSONObject;
-import java.util.Set;
 
 import com.practicas.model.Car;
 import com.practicas.model.comparators.CarComparator;
-import com.practicas.services.data.DatabaseJson;
 
-public interface CarService  {
+public interface CarService {
+
+	public List<Car> getCars(int start, int end, List<Predicate<Car>> p, CarComparator comparator);
+
+	public Car save(Car c);
 
 	public List<Car> getCars();
 
@@ -35,6 +29,7 @@ public interface CarService  {
 	public List<Car> getCarsSortMake(int begin, int end, List<Predicate<Car>> ps, CarComparator makecomparator);
 
 	public List<Car> getCars(int start, int end, Predicate<Car> p, CarComparator comparator, int limit);
+	public List<Car> getCars(List<Predicate<Car>> ps);
 
 	public Optional<Car> getCarByPk(int pk);
 
@@ -81,5 +76,9 @@ public interface CarService  {
 	public List<Boolean> getHybrid();
 	
 	public long  totalCar();
+
+	public List<Car> getCarsCompare(int start, int end, List<Predicate<Car>> plist, CarComparator carComparator);
+
+	
 
 }
