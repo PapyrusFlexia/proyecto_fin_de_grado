@@ -10,19 +10,19 @@ public class CarPredicate {
 	}
 
 	public Predicate<Car> velocidades(int velocidades) {
-		return car -> car.getEngineinformation().getNumberofforwardgears() == velocidades;
+		return car -> car.getEngineinformation().getNumberOfForwardGears() == velocidades;
 	}
 
 	public Predicate<Car> consumoCiudadMenorA(int cantidad) {
-		return car -> car.getFuelinformation().getCitymph() < cantidad;
+		return car -> car.getFuelinformation().getCityMph() < cantidad;
 	}
 
 	public Predicate<Car> consumoCiudadMayorA(int cantidad) {
-		return car -> car.getFuelinformation().getCitymph() > cantidad;
+		return car -> car.getFuelinformation().getCityMph() > cantidad;
 	}
 
 	public Predicate<Car> incluyeEnMotor(String caracteres) {
-		return car -> car.getEngineinformation().getEnginetype().toLowerCase().contains(caracteres.toLowerCase());
+		return car -> car.getEngineinformation().getEngineType().toLowerCase().contains(caracteres.toLowerCase());
 	}
 	
 	public Predicate<Car> incluyeEnMarca(String caracteres) {
@@ -30,16 +30,16 @@ public class CarPredicate {
 	}
 
 	public Predicate<Car> caracterNumericoEnId(int indice) {
-		return car -> (int) car.getIdentification().getId().charAt(indice + 1) >= 48
-				&& (int) car.getIdentification().getId().charAt(indice) <= 57;
+		return car -> (int) car.getName().charAt(indice + 1) >= 48
+				&& (int) car.getName().charAt(indice) <= 57;
 	}
 
 	public Predicate<Car> cochesPorAnno(int anno) {
-		return car -> car.getIdentification().getYear() == anno;
+		return car -> car.getYear() == anno;
 	}
 
 	public Predicate<Car> tipoFuel(String fuel) {
-		return car -> car.getFuelinformation().getFueltype().equals(fuel);
+		return car -> car.getFuelinformation().getFuelType().equals(fuel);
 	}
 
 	public Predicate<Car> tipoTraccion(String traccion) {
@@ -47,22 +47,22 @@ public class CarPredicate {
 	}
 
 	public Predicate<Car> tipoClasificacion(String clasificacion) {
-		return car -> car.getIdentification().getClassification().equals(clasificacion);
+		return car -> car.getClassification().equals(clasificacion);
 	}
 
 	public Predicate<Car> porPotenciaMayor(int potencia) {
-		return car -> car.getEngineinformation().getEnginestatistics().getHorsepower() > potencia;
+		return car -> car.getHorsepower() > potencia;
 	}
 
 	public Predicate<Car> porPotenciaMenor(int potencia) {
-		return car -> car.getEngineinformation().getEnginestatistics().getHorsepower() < potencia;
+		return car -> car.getHorsepower() < potencia;
 	}
 	
 	public Predicate<Car> porMarca(String marca){
-		return car -> car.getIdentification().getMake().equals(marca);	
+		return car -> car.getMake().equals(marca);	
 	}
 	
 	public Predicate<Car> porAnno(int anno){
-		return car -> car.getIdentification().getYear() == anno;
+		return car -> car.getYear() == anno;
 	}
 }

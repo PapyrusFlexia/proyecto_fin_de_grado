@@ -20,6 +20,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name="CAR")
 public class Car implements Comparable<Car>, Serializable{
+	
+	private int pk;
+	private EngineInformation engineinformation;
+	private Dimensions dimensions;
+	private Identification identification;
+	private FuelInformation fuelinformation;
 
 	private static final long serialVersionUID = 3594839582111552527L;
 
@@ -280,17 +286,6 @@ public class Car implements Comparable<Car>, Serializable{
 		this.pk = pk;
 	}
 	
-	@Override
-	public int compareTo(Car o) {
-		
-		return this.getIdentification().getId().compareTo(o.getIdentification().getId());
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		Car c1 = (Car)obj;
-		return this.getPk() == c1.getPk();
-	}
 
 	@Override
 	public int compareTo(Car o) {

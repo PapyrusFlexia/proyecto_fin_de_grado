@@ -2,12 +2,15 @@ package com.practicas.services;
 
 import java.util.List;
 
+import com.practicas.model.Classification;
 import com.practicas.model.DriveLine;
 import com.practicas.model.FuelType;
 import com.practicas.model.Make;
 import com.practicas.model.Transmission;
 
 public interface UtilsService {
+	
+	static final DriveLine driveLineDao = new DriveLine();
 
 	public List<Make> getCarsMakes();
 	
@@ -23,7 +26,7 @@ public interface UtilsService {
 
 	public List<Boolean> getCarsHybrids();
 	
-	public List<String> getCarsClassificationsTabla();
+	public List<Classification> getCarsClassificationsTabla();
 
 	public List<String> getCarsClassifications();
 

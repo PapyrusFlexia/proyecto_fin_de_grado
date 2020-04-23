@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.practicas.model.Classification;
 import com.practicas.model.Make;
 import com.practicas.services.UtilsService;
 
@@ -34,7 +35,7 @@ public class MaestrosRest {
 	}
 	
 	@GetMapping(value="/classifications", produces = "application/json")
-	public @ResponseBody List<String> getClassifications() {
+	public @ResponseBody List<Classification> getClassifications() {
 		return utilsService.getCarsClassificationsTabla();
 	}
 	

@@ -1,13 +1,18 @@
 package com.practicas.model;
 
 import java.io.Serializable;
-
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -19,6 +24,10 @@ public class Make implements Serializable{
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	
+	@NotNull
+	@OneToMany( mappedBy="make", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	private List<Car> cars;
 	
 	@NotEmpty
 	@Column(name="MAKE", nullable=false)
@@ -51,6 +60,8 @@ public class Make implements Serializable{
 	public String toString() {
 		return "{id: "+id+",make: "+make+"}";
 	}
+
+	
 	
 	
 }

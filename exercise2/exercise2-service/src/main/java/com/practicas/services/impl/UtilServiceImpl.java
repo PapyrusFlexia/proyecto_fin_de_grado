@@ -11,6 +11,7 @@ import com.practicas.dao.DriveLineDao;
 import com.practicas.dao.FuelTypeDao;
 import com.practicas.dao.MakeDao;
 import com.practicas.dao.TransmissionDao;
+import com.practicas.model.Classification;
 import com.practicas.model.DriveLine;
 import com.practicas.model.FuelType;
 import com.practicas.model.Make;
@@ -83,8 +84,8 @@ public class UtilServiceImpl implements UtilsService {
 	}
 
 	@Override
-	public List<String> getCarsClassificationsTabla() {
-		return carService.getCars().stream().map(car -> car.getIdentification().getClassification()).distinct().sorted().collect(Collectors.toList());
+	public List<Classification> getCarsClassificationsTabla() {
+		return carService.getCars().stream().map(car -> car.getClassification()).distinct().sorted().collect(Collectors.toList());
 	}
 
 	@Override

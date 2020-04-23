@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.practicas.model.UserProfile;
 
-
-
 @Repository("userProfileDao")
 @Transactional
 public class UserProfileDaoImpl extends AbstractDao<Integer, UserProfile>implements UserProfileDao{
