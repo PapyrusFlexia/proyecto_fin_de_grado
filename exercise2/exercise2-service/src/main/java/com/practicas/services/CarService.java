@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import com.practicas.model.Car;
+import com.practicas.model.Make;
 import com.practicas.model.comparators.CarComparator;
 
 public interface CarService {
@@ -78,6 +79,8 @@ public interface CarService {
 	public long  totalCar();
 
 	public List<Car> getCarsCompare(int start, int end, List<Predicate<Car>> plist, CarComparator carComparator);
+
+	
 
 	
 

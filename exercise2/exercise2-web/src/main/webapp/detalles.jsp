@@ -89,7 +89,7 @@
 				<label for="validationServer02">Engine Type</label> <input
 					type="text" class="form-control is-valid" id="validationServer02"
 					placeholder="Last name"
-					value="<%=car.getEngineinformation().getEnginetype()%>" required>
+					value="<%=car.getEnginetype()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 
@@ -100,7 +100,7 @@
 					<label for="validationServer03">Horsepower</label> <input
 						type="text" class="form-control is-valid" id="validationServer03"
 						placeholder="First name"
-						value="<%=car.getEngineinformation().getEnginestatistics().getHorsepower()%>"
+						value="<%=car.getHorsepower()%>"
 						required>
 					<div class="valid-feedback">Looks good!</div>
 				</div>
@@ -108,7 +108,7 @@
 					<label for="validationServer04">Torque</label> <input type="text"
 						class="form-control is-valid" id="validationServer04"
 						placeholder="Last name"
-						value="<%=car.getEngineinformation().getEnginestatistics().getTorque()%>"
+						value="<%=car.getTorque()%>"
 						required>
 					<div class="valid-feedback">Looks good!</div>
 				</div>
@@ -127,7 +127,7 @@
 			<div class="col-md-4 mb-3">
 				<label for="validationServer05">Number of Forward Gears</label> <input
 					type="text" class="form-control is-valid" id="validationServer05"
-					value="<%=car.getEngineinformation().getNumberofforwardgears()%>"
+					value="<%=car.getEngineinformation().getNumberOfForwardGears()%>"
 					required>
 				<div class="invalid-feedback">Please provide a valid number.</div>
 			</div>
@@ -162,7 +162,7 @@
 				<label for="validationServer08">Model Year</label> <input
 					type="text" class="form-control is-valid" id="validationServer08"
 					placeholder="Last name"
-					value="<%=car.getIdentification().getModelyear()%>" required>
+					value="<%=car.getModelyear()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
@@ -239,14 +239,14 @@
 				<label for="validationServer15">Highway mpg</label> <input
 					type="text" class="form-control is-valid" id="validationServer15"
 					placeholder="First name"
-					value="<%=car.getFuelinformation().getHighwaympg()%>" required>
+					value="<%=car.getHighwaympg()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer16">City mph</label> <input type="text"
 					class="form-control is-valid" id="validationServer16"
 					placeholder="Last name"
-					value="<%=car.getFuelinformation().getCitymph()%>" required>
+					value="<%=car.getCitymph()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="form-group">
@@ -281,7 +281,7 @@
 	String carDriveline = (String) car.getEngineinformation().getDriveline();
 	String carClassification = (String) car.getIdentification().getClassification();
 	String carYear = String.valueOf(car.getIdentification().getYear());
-	String carFuelType = (String) car.getFuelinformation().getFueltype();
+	String carFuelType = (String) car.getFuelinformation().getFuelType();
 	%>
 
 	<button class="btn btn-primary hBack" type="button">REGRESAR A

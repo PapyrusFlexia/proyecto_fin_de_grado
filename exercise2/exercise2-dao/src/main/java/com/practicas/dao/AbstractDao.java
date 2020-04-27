@@ -2,6 +2,7 @@ package com.practicas.dao;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -45,5 +46,7 @@ public abstract class AbstractDao<PK extends Serializable, T> {
 	protected void delete(T entity) {
 		entityManager.remove(entity);
 	}
+
+	
 
 }

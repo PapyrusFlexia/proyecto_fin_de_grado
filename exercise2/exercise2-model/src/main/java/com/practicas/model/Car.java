@@ -47,7 +47,7 @@ public class Car implements Comparable<Car>, Serializable{
 	@JoinColumn(name = "DRIVELINE_ID", referencedColumnName = "ID")
 	private DriveLine driveLine;
 	
-	// Dimensions
+	//** Dimensions
 	@NotNull
 	@Column(name="WIDTH", nullable=false)
 	private int width;

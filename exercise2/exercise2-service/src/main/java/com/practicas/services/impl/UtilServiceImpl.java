@@ -7,10 +7,13 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.practicas.dao.CarDao;
+import com.practicas.dao.ClassificationDao;
 import com.practicas.dao.DriveLineDao;
 import com.practicas.dao.FuelTypeDao;
 import com.practicas.dao.MakeDao;
 import com.practicas.dao.TransmissionDao;
+import com.practicas.model.Car;
 import com.practicas.model.Classification;
 import com.practicas.model.DriveLine;
 import com.practicas.model.FuelType;
@@ -35,6 +38,12 @@ public class UtilServiceImpl implements UtilsService {
 	
 	@Autowired
 	private DriveLineDao driveLineDao;
+	
+	@Autowired
+	private ClassificationDao classificationDao;
+	
+	@Autowired
+	private CarDao carDao;
 	
 	/**
 	 * Obtiene las marcas distintas de los coches
@@ -75,7 +84,11 @@ public class UtilServiceImpl implements UtilsService {
 
 		return transmissionDao.save(t);
 	}
+	
+	public Classification saveClassification(Classification c) {
 
+		return classificationDao.save(c);
+	}
 
 	@Override
 	public List<Boolean> getCarsHybrids() {
@@ -99,5 +112,62 @@ public class UtilServiceImpl implements UtilsService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Make getMakeByName(String m) throws Exception {
+		Make make = makeDao.findMakeByName(m);
+		if(make == null) {
+			throw new Exception("Marca " + m + " no encontrado/a");
+		}
+		return make;
+	
+	}
+	
+	@Override
+	public Classification getClassificationByName(String c) throws Exception {
+		Classification classification = classificationDao.findClassificationByName(c);
+		if(classification == null) {
+			throw new Exception("Clasificación " + c + " no encontrado/a");
+		}
+		return classification;
+	
+	}
+	
+	@Override
+	public FuelType getFuelTypeByName(String f) throws Exception {
+		FuelType fuelType = fuelTypeDao.findFuelTypeByName(f);
+		if(fuelType == null) {
+			throw new Exception("Tipo de combustible " + f + " no encontrado/a");
+		}
+		return fuelType;
+	
+	}
+	
+	@Override
+	public DriveLine getDriveLineByName(String d) throws Exception {
+		DriveLine driveLine = driveLineDao.findDriveLineByName(d);
+		if(driveLine == null) {
+			throw new Exception("Driveline " + d + " no encontrado/a");
+		}
+		return driveLine;
+	
+	}
+	
+	@Override
+	public Transmission getTransmissionByName(String t) throws Exception {
+		Transmission transmission = transmissionDao.findTransmissionByName(t);
+		if(transmission == null) {
+			throw new Exception("Transmisión " + t + " no encontrado/a");
+		}
+		return transmission;
+	
+	}
+	
+	@Override
+	public Car save(Car c) {
+		return carDao.save(c);
+	}
+
+	
 	
 }

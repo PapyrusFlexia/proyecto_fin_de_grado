@@ -25,9 +25,9 @@ public class Make implements Serializable{
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@NotNull
+	/**@NotNull*/
 	@OneToMany( mappedBy="make", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-	private List<Car> cars;
+	private transient List<Car> cars;
 	
 	@NotEmpty
 	@Column(name="MAKE", nullable=false)
