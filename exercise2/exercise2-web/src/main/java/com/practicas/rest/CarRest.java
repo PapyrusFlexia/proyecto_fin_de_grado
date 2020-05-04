@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +24,9 @@ public class CarRest {
 	@Autowired
 	private CarService carService;
 
-	@GetMapping(value="/id/{id}", produces = "application/json")
+	@GetMapping(value="/id/{id}", produces =  MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Car getCar(@PathVariable int id) {
-        return carService.getCarByPk(id).get();
+        return carService.getCarByPk(id);
     }
 	
 	@GetMapping(value="/search", produces = "application/json")

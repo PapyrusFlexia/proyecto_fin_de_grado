@@ -25,170 +25,189 @@ import com.practicas.services.data.DatabaseJson;
 public class CarServiceImpl implements CarService {
 
 	public long totalCar;
-	
+
 	@Autowired
 	private CarDao carDao;
-	
+
 	@PostConstruct
 	public void init() {
-		
+
 	}
-	
+
 	/**
 	 * Obtiene los coches de un rango, se precargan todos
+	 * 
 	 * @param start inicio del rango
-	 * @param stop fin del rango
+	 * @param stop  fin del rango
 	 * @return
 	 */
 	public List<Car> getCars(int start, int stop) {
-		
+
 		// comprobamos los parámetros de entrada
-		
-		//List<Car> listCar = DatabaseJson.loadDatabase().getDataParsed();
-		//totalCar = listCar.size();
+
+		// List<Car> listCar = DatabaseJson.loadDatabase().getDataParsed();
+		// totalCar = listCar.size();
 		int begin = start;
-		if(begin < 0) {
+		if (begin < 0) {
 			begin = 0;
 		}
 		int end = stop;
 		// si end es mayor que la longitud, end lo asignamos a la longitud
-		if(end <= 0 ) {
+		if (end <= 0) {
 			end = 0;
 		}
-		
+
 		return carDao.findPaginationCars(begin, end);
 	}
-	
+
 	public long getTotalCar() {
-		if(totalCar == 0) {
+		if (totalCar == 0) {
 			getCars(-1, -1);
 		}
 		return totalCar;
 	}
-	
-	public List<Car> getCars(){
-		
+
+	public List<Car> getCars() {
+
 		return getCars(-1, -1);
 	}
-	
+
 	/**
 	 * Obtiene los coches que cumplen un predicado
+	 * 
 	 * @param start inicio
-	 * @param end fin
-	 * @param p Predicado
+	 * @param end   fin
+	 * @param p     Predicado
 	 * @return
 	 */
 	public List<Car> getCars(int start, int end, Predicate<Car> p) {
-		
+
 		List<Car> cars = getCars(-1, -1);
 		Stream<Car> stream = cars.stream();
-		if(p != null) {
+		if (p != null) {
 			stream = stream.filter(p);
-			
+
 		}
-		
+
 		return stream.collect(Collectors.toList()).subList(start, end);
 	}
-	
+
 	/**
 	 * Obtiene los coches que cumplen un predicado
+	 * 
 	 * @param start inicio
-	 * @param end fin
-	 * @param p Predicado
+	 * @param end   fin
+	 * @param p     Predicado
 	 * @return
 	 */
 	public List<Car> getCars(List<Predicate<Car>> ps) {
-		
+
 		Stream<Car> stream = getCars(-1, -1).stream();
-		if(ps != null) {
-			for(Predicate<Car> p: ps) {
+		if (ps != null) {
+			for (Predicate<Car> p : ps) {
 				stream = stream.filter(p);
 			}
 		}
 		List<Car> cars = stream.collect(Collectors.toList());
 		return cars;
 	}
-	
+
 	/**
 	 * Obtiene los coches que cumplen un predicado
+	 * 
 	 * @param start inicio
-	 * @param end fin
-	 * @param p Predicado
+	 * @param end   fin
+	 * @param p     Predicado
 	 * @return
 	 */
 	public List<Car> getCars(int start, int end, List<Predicate<Car>> ps) {
-		
+
 		Stream<Car> stream = getCars(-1, -1).stream();
-		if(ps != null) {
-			for(Predicate<Car> p: ps) {
+		if (ps != null) {
+			for (Predicate<Car> p : ps) {
 				stream = stream.filter(p);
 			}
 		}
 		List<Car> cars = stream.collect(Collectors.toList()).subList(start, end);
 		return cars;
 	}
-	
+
 	/**
 	 * Obtiene el número de coches que cumplen el predicado
+	 * 
 	 * @param p
 	 * @return
 	 */
 	public long getCarsCount(List<Predicate<Car>> ps) {
-		
+
 		Stream<Car> stream = getCars(-1, -1).stream();
-		if(ps != null) {
-			for(Predicate<Car> p: ps) {
+		if (ps != null) {
+			for (Predicate<Car> p : ps) {
 				stream = stream.filter(p);
 			}
 		}
 		return stream.count();
 	}
-	
-	
+
 	/**
 	 * Obtiene el número de coches que cumplen el predicado
+	 * 
 	 * @param p
 	 * @return
 	 */
-	
-	public List<Car> getCars(int start, int end, List<Predicate<Car>> p, CarComparator comparator){
-		
-		List<Car> cars = getCars( -1, -1, p);
+
+	public List<Car> getCars(int start, int end, List<Predicate<Car>> p, CarComparator comparator) {
+
+		List<Car> cars = getCars(-1, -1, p);
 		long total = getCarsCount(p);
-		if(start < 0) {
+		if (start < 0) {
 			start = 0;
 		}
-		if(total < end) {
-			end = (int)total;
+		if (total < end) {
+			end = (int) total;
 		}
-		
-		if(comparator != null) {
+
+		if (comparator != null) {
 			return cars.stream().sorted(comparator).collect(Collectors.toList()).subList(start, end);
 		}
-		
+
 		return cars.stream().sorted().collect(Collectors.toList()).subList(start, end);
 	}
-	
+
 	/*
-	public List<Car> getCars(int start, int end, Predicate<Car> p, CarComparator comparator, int limit){
-		
-		List<Car> cars = getCars( start, end, p, comparator);
-		return cars.stream().limit(limit).collect(Collectors.toList());
-	}*/
-	
-	
-	public Optional<Car> getCarByPk(int pk) {
-		
-		List<Car> cars = getCars(-1, -1);
-		return cars.stream().filter(c -> c.getId() == pk).findFirst();
+	 * public List<Car> getCars(int start, int end, Predicate<Car> p, CarComparator
+	 * comparator, int limit){
+	 * 
+	 * List<Car> cars = getCars( start, end, p, comparator); return
+	 * cars.stream().limit(limit).collect(Collectors.toList()); }
+	 */
+
+	/**
+	 * public Optional<Car> getCarByPk(int pk) {
+	 * 
+	 * List<Car> cars = getCars(-1, -1); return cars.stream().filter(c -> c.getId()
+	 * == pk).findFirst(); }
+	 */
+
+	@Override
+	public Car getCarByPk(int pk) {
+		return carDao.getByPk(pk);
 	}
 
 	@Override
 	public Car save(Car c) {
 		return carDao.save(c);
 	}
-	
-	
+
+	@Override
+	public int update(int id, String transmission, String engineType, int horsepower, int torque, boolean hybrid,
+			int numberofforwardgears, String driveline, String make, String modelyear, String name,
+			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
+			String fuelType) {
+
+		return carDao.update(id, transmission, engineType, horsepower, torque, hybrid, numberofforwardgears, driveline, make, modelyear, name, classification, year, width, length, height, highwaympg, citymph, fuelType);
+	}
+
 	public List<Car> getMarcaModelo(int start, int stop) {
 
 		// comprobamos los parametros de entrada
@@ -345,26 +364,25 @@ public class CarServiceImpl implements CarService {
 
 		List<Car> listCar = getMarcaModelo(-1, -1);
 		boolean desc = false;
-		List<Car> listCarReturn1 = listCar.stream().filter(car -> car.getYear() == anno)
-				.sorted(new Comparator<Car>() {
-					public int compare(Car a, Car b) {
-						Integer valA = a.getHorsepower();
-						Integer valB = b.getHorsepower();
+		List<Car> listCarReturn1 = listCar.stream().filter(car -> car.getYear() == anno).sorted(new Comparator<Car>() {
+			public int compare(Car a, Car b) {
+				Integer valA = a.getHorsepower();
+				Integer valB = b.getHorsepower();
 
-						int mult = -1;
-						if (!desc) {
-							mult = 1;
-						}
+				int mult = -1;
+				if (!desc) {
+					mult = 1;
+				}
 
-						if (valA < valB) {
-							return mult * -1;
-						} else if (valA > valB) {
-							return mult * 1;
-						} else {
-							return mult * (a.getIdentification().getMake().compareTo(b.getIdentification().getMake()));
-						}
-					}
-				}).limit(numberMax).collect(Collectors.toList());
+				if (valA < valB) {
+					return mult * -1;
+				} else if (valA > valB) {
+					return mult * 1;
+				} else {
+					return mult * (a.getIdentification().getMake().compareTo(b.getIdentification().getMake()));
+				}
+			}
+		}).limit(numberMax).collect(Collectors.toList());
 
 		System.out.println(listCarReturn1.size());
 		return listCarReturn1;
@@ -535,7 +553,7 @@ public class CarServiceImpl implements CarService {
 		List<Car> cars = getCars(-1, -1);
 		List<String> carsDrivelines = new ArrayList<>();
 		for (int i = 0; i < cars.size(); i++) {
-			carsDrivelines.add(cars.get(i).getEngineinformation().getDriveline());
+			carsDrivelines.add(cars.get(i).getDriveline());
 		}
 		return carsDrivelines.stream().distinct().sorted().collect(Collectors.toList());
 	}
@@ -566,6 +584,15 @@ public class CarServiceImpl implements CarService {
 		}
 		return carsFuelTypes.stream().distinct().sorted().collect(Collectors.toList());
 	}
+	
+	public List<String> getCarsTransmissions() {
+		List<Car> cars = getCars(-1, -1);
+		List<String> carsTransmissions = new ArrayList<>();
+		for (int i = 0; i < cars.size(); i++) {
+			carsTransmissions.addAll((Collection<? extends String>) cars.get(i).getTransmission());
+		}
+		return carsTransmissions.stream().distinct().sorted().collect(Collectors.toList());
+	}
 
 	public List<Boolean> getHybrid() {
 		List<Car> cars = getCars(-1, -1);
@@ -576,24 +603,20 @@ public class CarServiceImpl implements CarService {
 		return carsHybrid.stream().distinct().sorted().collect(Collectors.toList());
 	}
 
-	
-
-	
-	
-	public List<Car> getCarsCompare(int start, int end, List<Predicate<Car>> ps, CarComparator comparator){
+	public List<Car> getCarsCompare(int start, int end, List<Predicate<Car>> ps, CarComparator comparator) {
 		long total = getCarsCount(ps);
 		List<Car> cars = getCars(0, (int) total, ps); ///////////
-		if(start < 0) {
+		if (start < 0) {
 			start = 0;
 		}
-		if(total < end) {
+		if (total < end) {
 			end = (int) total;
 		}
 		if (comparator != null) {
 			return cars.stream().sorted(comparator).collect(Collectors.toList()).subList(start, end);
 		}
 		return cars.stream().sorted(comparator).collect(Collectors.toList()).subList(start, end);
-		
+
 	}
 
 	@Override
@@ -613,9 +636,5 @@ public class CarServiceImpl implements CarService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
-
-	
 
 }

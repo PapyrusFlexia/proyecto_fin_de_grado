@@ -17,8 +17,8 @@ public class DriveLineDaoImpl extends AbstractDao<Integer, DriveLine> implements
 	@Override
 	public List<DriveLine> findDriveLines() {
 		try {
-			List<DriveLine> fuelType = getEntityManager().createQuery("SELECT d FROM DriveLine d ").getResultList();
-			return fuelType;
+			List<DriveLine> driveLine = getEntityManager().createQuery("SELECT d FROM DriveLine d ").getResultList();
+			return driveLine;
 		} catch (NoResultException ex) {
 			return null;
 		}

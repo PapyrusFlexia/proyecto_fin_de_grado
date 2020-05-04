@@ -1,11 +1,12 @@
 <%@page import="java.io.UnsupportedEncodingException"%>
 <%@page import="java.nio.charset.StandardCharsets"%>
 <%@page import="java.net.URLEncoder"%>
-<%@page import="com.practicas.model.Identification"%>
-<%@page import="com.practicas.model.Car"%>
 <%@page import="java.util.List"%>
 <%@page import="com.practicas.model.Identification"%>
 <%@page import="com.practicas.model.Car"%>
+<%@page import="com.practicas.model.Make"%>
+<%@page import="com.practicas.model.Classification"%>
+<%@page import="com.practicas.model.EngineInformation"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -86,10 +87,10 @@
 		if (paginaActual == null) {
 			paginaActual = "1";
 		}
-		String modeloFiltro = (String) request.getAttribute("make");
+		Make modeloFiltro = (Make) request.getAttribute("make");
 		String annoFiltro = (String) request.getAttribute("year");
 		String hybridFiltro = (String) request.getAttribute("hybrid");
-		String classificationFiltro = (String) request.getAttribute("classification");
+		Classification classificationFiltro = (Classification) request.getAttribute("classification");
 		if (annoFiltro == null) {
 			annoFiltro = "0";
 		}
@@ -100,9 +101,9 @@
 		siguiente = paginaComienzo + 1;
 
 		List<String> idTabla = (List<String>) request.getAttribute("id");
-		List<String> modeloTabla = (List<String>) request.getAttribute("makes");
+		List<Make> modeloTabla = (List<Make>) request.getAttribute("makes");
 		List<Boolean> hybridTabla = (List<Boolean>) request.getAttribute("hybrids");
-		List<String> classificationTabla = (List<String>) request.getAttribute("classifications");
+		List<Classification> classificationTabla = (List<Classification>) request.getAttribute("classifications");
 		List<Integer> anno = (List<Integer>) request.getAttribute("years");
 		List<Car> cochesTabla = (List<Car>) request.getAttribute("cars");
 		%>
@@ -132,10 +133,10 @@
 				data-live-search="true" title="Filter by makes" id="make">
 					<option value="-1">FILTRAR POR MARCA</option>
 					<%
-						for (String model : modeloTabla) {
+						for (Make model : modeloTabla) {
 					%>
 					<option <%if (model.equals(modeloFiltro)) {%> selected <%}%>
-						value="<%=model%>"><%=model%></option>
+						value="<%=model.getId()%>"><%=model.getMake()%></option>
 					<%
 						}
 					%>
@@ -157,10 +158,10 @@
 				id="classification">
 					<option value="-1">FILTRAR POR CLASIFICACIÓN</option>
 					<%
-						for (String classification : classificationTabla) {
+						for (Classification classification : classificationTabla) {
 					%>
 					<option <%if (classification.equals(classificationFiltro)) {%>
-						selected <%}%> value="<%=classification%>"><%=classification%></option>
+						selected <%}%> value="<%=classification.getId()%>"><%=classification.getClassification()%></option>
 					<%
 						}
 					%>
@@ -187,12 +188,12 @@
 				for (Car c : cochesTabla) {
 			%>
 			<tr>
-				<th><%=c.getPk()%></th>
-				<td><%=c.getIdentification().getId()%></td>
-				<td><%=c.getIdentification().getMake()%></td>
-				<td><%=c.getIdentification().getYear()%></td>
-				<td><%=c.getEngineinformation().isHybrid()%></td>
-				<td><%=c.getIdentification().getClassification()%></td>
+				<th><%=c.getId()%></th>
+				<td><%=c.getName()%></td>
+				<td><%=c.getMake().getMake()%></td>
+				<td><%=c.getYear()%></td>
+				<td><%=c.isHybrid()%></td>
+				<td><%=c.getClassification().getClassification()%></td>
 				<td>
 					<div class="dropdown">
 						<button class="btn btn-primary dropdown-toggle" type="button"
@@ -201,7 +202,7 @@
 						</button>
 						<ul class="dropdown-menu">
 							<li><a
-								href="./?action=detalles&pk=<%=c.getPk()%>&redirect=<%=encodeValue(request.getQueryString())%>"><span
+								href="./?action=detalles&pk=<%=c.getId() %>&redirect=<%=encodeValue(request.getQueryString())%>"><span
 									class="glyphicon glyphicon-eye-open"></span></a></li>
 							<li><a href="#"><span class="glyphicon glyphicon-trash"></span></a></li>
 						</ul>
@@ -209,6 +210,7 @@
 				</td>
 			</tr>
 			<%
+				
 				}
 			} else {
 			%>

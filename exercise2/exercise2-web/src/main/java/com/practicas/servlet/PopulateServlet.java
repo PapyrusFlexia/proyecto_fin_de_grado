@@ -27,13 +27,25 @@ public class PopulateServlet extends AbstractServlet {
 	private static final long serialVersionUID = -1720688734823865429L;
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String param = request.getParameter("model");
-
+		int start = 0;
+		if(request.getParameter("start") != null && !request.getParameter("start").equals("")){
+			start = Integer.valueOf(request.getParameter("start"));
+		}
+		if(param.equals("test")) {
+			try {
+				Make m = utilsService.getMakeByName("AUDI");
+				System.out.println(m);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
 		JSONArray array = DatabaseJson.loadDatabase().getData();
-		for (int i = 0; i < array.length(); i++) {
+		System.out.println("total --> "+array.length());
+		for(int i=start ; i < array.length(); i++) {
 
 			JSONObject json = array.getJSONObject(i);
 			if (param != null && param.equals("makes")) {

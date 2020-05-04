@@ -12,35 +12,36 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="CLASSIFICATION")
-public class Classification implements Serializable{
+public class CarImage implements Serializable{
 
 	private static final long serialVersionUID = -2071600755316070507L;
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@NotEmpty
-	@Column(name="CLASSIFICATION", nullable=false)
-	private String classification;
-	
-	public Classification() {
-		
-	}
+	private byte[] image;
+	private String name;
 	
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getClassification() {
-		return classification;
+	public byte[] getImage() {
+		return image;
 	}
-
-	public void setClassification(String classification) {
-		this.classification = classification;
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
+	
+	
 }

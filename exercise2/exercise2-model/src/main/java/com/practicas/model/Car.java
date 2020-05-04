@@ -2,6 +2,7 @@
 package com.practicas.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,15 +13,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="CAR")
-public class Car implements Comparable<Car>, Serializable{
-	
+@Table(name = "CAR")
+public class Car implements Comparable<Car>, Serializable {
+
 	private int pk;
 	private EngineInformation engineinformation;
 	private Dimensions dimensions;
@@ -29,85 +31,148 @@ public class Car implements Comparable<Car>, Serializable{
 
 	private static final long serialVersionUID = 3594839582111552527L;
 
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	// Engine Information
 	@NotNull
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "TRANSMISSION_ID", referencedColumnName = "ID")
 	private Transmission transmission;
-	
+
 	@NotNull
-	@Column(name="ENGINETYPE", nullable=false)
-	private String enginetype;
-	
+	@Column(name = "ENGINETYPE", nullable = false)
+	private String engineType;
+
 	@NotNull
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "DRIVELINE_ID", referencedColumnName = "ID")
 	private DriveLine driveLine;
-	
-	//** Dimensions
+
+	// Dimensions
 	@NotNull
-	@Column(name="WIDTH", nullable=false)
+	@Column(name = "WIDTH", nullable = false)
 	private int width;
-	
+
 	@NotNull
-	@Column(name="LENGTH", nullable=false)
+	@Column(name = "LENGTH", nullable = false)
 	private int length;
-	
+
 	@NotNull
-	@Column(name="HEIGHT", nullable=false)
+	@Column(name = "HEIGHT", nullable = false)
 	private int height;
-	
+
 	// Identification
 	@NotNull
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "MAKE_ID", referencedColumnName = "ID")
 	private Make make;
-	
+
 	@NotEmpty
-	@Column(name="MODELYEAR", nullable=false)
+	@Column(name = "MODELYEAR", nullable = false)
 	private String modelyear;
-	
+
 	@NotEmpty
-	@Column(name="NAME", nullable=false)
+	@Column(name = "NAME", nullable = false)
 	private String name;
-	
+
 	@NotNull
-	@Column(name="YEAR", nullable=false)
+	@Column(name = "YEAR", nullable = false)
 	private int year;
-	
+
 	// FuelInformation
 	@NotNull
-	@Column(name="HIGHWAYMPG", nullable=false)
+	@Column(name = "HIGHWAYMPG", nullable = false)
 	private int highwaympg;
-	
+
 	@NotNull
-	@Column(name="CITYMPH", nullable=false)
+	@Column(name = "CITYMPH", nullable = false)
 	private int citymph;
-	
+
 	@NotNull
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "FUELTYPE_ID", referencedColumnName = "ID")
-	private FuelType fueltype;
-	
-	
+	private FuelType fuelType;
+
 	@NotNull
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "CLASSIFICATION_ID", referencedColumnName = "ID")
 	private Classification classification;
-	
+
 	@NotNull
-	@Column(name="HORSEPOWER", nullable=false)
+	@Column(name = "HORSEPOWER", nullable = false)
 	private int horsepower;
+
+	@NotNull
+	@Column(name = "TORQUE", nullable = false)
+	private int torque;
+
+
+	@NotNull
+	@Column(name = "ENGINESTATISTICS", nullable = false)
+	private int engineStatistics;
+
+	@NotNull
+	@Column(name = "HYBRID", nullable = false)
+	private boolean hybrid;
+
+	@NotNull
+	@Column(name = "NUMBEROFFORWARDGEARS", nullable = false)
+	private int numberofforwardgears;
+
+	@NotNull
+	@Column(name = "DRIVELINE", nullable = false)
+	private String driveline;
 	
 	@NotNull
-	@Column(name="TORQUE", nullable=false)
-	private int torque;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE) 
+	@JoinColumn(name = "car_id") 
+	private List<CarImage> carImages;
 	
+
 	public Car() {
-		
+
+	}
+
+	public int getPk() {
+		return pk;
+	}
+
+	public void setPk(int pk) {
+		this.pk = pk;
+	}
+
+	public EngineInformation getEngineinformation() {
+		return engineinformation;
+	}
+
+	public void setEngineinformation(EngineInformation engineinformation) {
+		this.engineinformation = engineinformation;
+	}
+
+	public Dimensions getDimensions() {
+		return dimensions;
+	}
+
+	public void setDimensions(Dimensions dimensions) {
+		this.dimensions = dimensions;
+	}
+
+	public Identification getIdentification() {
+		return identification;
+	}
+
+	public void setIdentification(Identification identification) {
+		this.identification = identification;
+	}
+
+	public FuelInformation getFuelinformation() {
+		return fuelinformation;
+	}
+
+	public void setFuelinformation(FuelInformation fuelinformation) {
+		this.fuelinformation = fuelinformation;
 	}
 
 	public int getId() {
@@ -127,11 +192,19 @@ public class Car implements Comparable<Car>, Serializable{
 	}
 
 	public String getEnginetype() {
-		return enginetype;
+		return engineType;
 	}
 
 	public void setEnginetype(String enginetype) {
-		this.enginetype = enginetype;
+		this.engineType = enginetype;
+	}
+
+	public DriveLine getDriveLine() {
+		return driveLine;
+	}
+
+	public void setDriveLine(DriveLine driveLine) {
+		this.driveLine = driveLine;
 	}
 
 	public int getWidth() {
@@ -207,19 +280,11 @@ public class Car implements Comparable<Car>, Serializable{
 	}
 
 	public FuelType getFueltype() {
-		return fueltype;
+		return fuelType;
 	}
 
 	public void setFueltype(FuelType fueltype) {
-		this.fueltype = fueltype;
-	}
-
-	public DriveLine getDriveLine() {
-		return driveLine;
-	}
-
-	public void setDriveLine(DriveLine driveLine) {
-		this.driveLine = driveLine;
+		this.fuelType = fueltype;
 	}
 
 	public Classification getClassification() {
@@ -245,68 +310,59 @@ public class Car implements Comparable<Car>, Serializable{
 	public void setTorque(int torque) {
 		this.torque = torque;
 	}
-	
-	public EngineInformation getEngineinformation() {
-		return engineinformation;
+
+
+	public int getEngineStatistics() {
+		return engineStatistics;
 	}
 
-	public void setEngineinformation(EngineInformation engineinformation) {
-		this.engineinformation = engineinformation;
+	public void setEngineStatistics(int engineStatistics) {
+		this.engineStatistics = engineStatistics;
 	}
 
-	public Dimensions getDimensions() {
-		return dimensions;
+	public boolean isHybrid() {
+		return hybrid;
 	}
 
-	public void setDimensions(Dimensions dimensions) {
-		this.dimensions = dimensions;
+	public void setHybrid(boolean hybrid) {
+		this.hybrid = hybrid;
 	}
 
-	public Identification getIdentification() {
-		return identification;
+	public int getNumberOfForwardGears() {
+		return numberofforwardgears;
 	}
 
-	public void setIdentification(Identification identification) {
-		this.identification = identification;
+	public void setNumberOfForwardGears(int numberOfForwardGears) {
+		this.numberofforwardgears = numberOfForwardGears;
 	}
 
-	public FuelInformation getFuelinformation() {
-		return fuelinformation;
+	public String getDriveline() {
+		return driveline;
 	}
 
-	public void setFuelinformation(FuelInformation fuelinformation) {
-		this.fuelinformation = fuelinformation;
+	public void setDriveline(String driveline) {
+		this.driveline = driveline;
 	}
-
-	public int getPk() {
-		return pk;
-	}
-
-	public void setPk(int pk) {
-		this.pk = pk;
-	}
-	
 
 	@Override
 	public int compareTo(Car o) {
-		
+
 		if (this.getId() <= o.getId()) {
 			return -1;
-		}else {
+		} else {
 			return 1;
 		}
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		Car c1 = (Car)obj;
+		Car c1 = (Car) obj;
 		return this.getId() == c1.getId();
 	}
 
 	@Override
 	public String toString() {
-		return "{id: "+id+",make: "+getMake().getMake()+", name: "+name+"}";
+		return "{id: " + id + ",make: " + getMake().getMake() + ", name: " + name + "}";
 	}
-		
-	
+
 }

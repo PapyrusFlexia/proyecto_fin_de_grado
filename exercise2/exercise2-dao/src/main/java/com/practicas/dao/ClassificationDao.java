@@ -7,7 +7,7 @@ import com.practicas.model.Classification;
 
 public interface ClassificationDao {
 
-	List<Classification> findClassification() ;
+	List<Classification> findClassifications();
 	
 	Classification findClassificationByName(String name);
 

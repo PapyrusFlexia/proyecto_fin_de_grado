@@ -15,7 +15,7 @@ public class FuelTypeDaoImpl extends AbstractDao<Integer, FuelType> implements F
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<FuelType> findFueltTpes() {
+	public List<FuelType> findFuelTypes() {
 		try {
 			List<FuelType> fuelType = getEntityManager().createQuery("SELECT f FROM FuelType f ").getResultList();
 			return fuelType;

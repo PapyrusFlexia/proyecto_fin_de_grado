@@ -13,15 +13,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.practicas.dao.CarDaoImpl;
 import com.practicas.model.Car;
 import com.practicas.services.CarFiltro;
 import com.practicas.services.CarService;
+import com.practicas.services.UtilsService;
 
 @Controller("mainController")
 public class MainController {
 
 	@Autowired
 	private CarService carService;
+	
+	@Autowired
+	private UtilsService utilsService;
+	
+
 
 	public void MainAction(HttpServletRequest request, HttpServletResponse response) {
 
@@ -142,13 +149,14 @@ public class MainController {
 			throw new Exception("Coche no encontrado");
 		}
 		String redirect = request.getParameter("redirect");
-		Optional<Car> car = carService.getCarByPk(Integer.valueOf(pk));
+		Car car = carService.getCarByPk(Integer.valueOf(pk));
 		request.setAttribute("redirect", redirect);
-		request.setAttribute("car", car.get());
-		request.setAttribute("drivelines", carService.getCarsDrivelines());
-		request.setAttribute("classifications", carService.getCarsClassifications());
-		request.setAttribute("years", carService.getCarsAnnos());
-		request.setAttribute("fueltypes", carService.getCarsFuelTypes());
+		request.setAttribute("car", car);
+		request.setAttribute("drivelines", utilsService.getCarsDriveLines());
+		request.setAttribute("classifications", utilsService.getCarsClassificationsTabla());
+		request.setAttribute("years", utilsService.getCarsYears());
+		request.setAttribute("fueltypes", utilsService.getCarsFuelTypes());
+		request.setAttribute("transmissions", utilsService.getCarsTransmissions());
 
 	}
 

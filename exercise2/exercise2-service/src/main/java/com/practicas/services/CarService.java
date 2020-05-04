@@ -10,10 +10,17 @@ import com.practicas.model.Make;
 import com.practicas.model.comparators.CarComparator;
 
 public interface CarService {
+	
+	public  Car getCarByPk(int pk);
 
 	public List<Car> getCars(int start, int end, List<Predicate<Car>> p, CarComparator comparator);
 
 	public Car save(Car c);
+	
+	int update(int id, String transmission, String engineType, int horsepower, int torque, boolean hybrid,
+			int numberofforwardgears, String driveline, String make, String modelyear, String name,
+			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
+			String fuelType);
 
 	public List<Car> getCars();
 
@@ -32,7 +39,7 @@ public interface CarService {
 	public List<Car> getCars(int start, int end, Predicate<Car> p, CarComparator comparator, int limit);
 	public List<Car> getCars(List<Predicate<Car>> ps);
 
-	public Optional<Car> getCarByPk(int pk);
+	
 
 	public List<Car> getMarcaModelo(int start, int stop);
 
@@ -79,6 +86,8 @@ public interface CarService {
 	public long  totalCar();
 
 	public List<Car> getCarsCompare(int start, int end, List<Predicate<Car>> plist, CarComparator carComparator);
+
+	
 
 	
 

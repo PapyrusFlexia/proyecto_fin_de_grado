@@ -15,7 +15,7 @@ public class ClassificationDaoImpl extends AbstractDao<Integer, Classification> 
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Classification> findClassification() {
+	public List<Classification> findClassifications() {
 		try {
 			List<Classification> classification = getEntityManager().createQuery("SELECT c FROM Classification c ").getResultList();
 			return classification;

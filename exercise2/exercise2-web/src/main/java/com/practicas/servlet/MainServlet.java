@@ -42,6 +42,7 @@ public class MainServlet extends AbstractServlet {
 				mainController.detalles(request, response);
 				dispatcher = "./detalles.jsp";
 			} catch (Exception e) {
+				e.printStackTrace();
 				request.setAttribute("message", e.getMessage());
 				dispatcher = "./error.jsp";
 			}

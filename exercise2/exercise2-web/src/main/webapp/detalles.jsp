@@ -6,6 +6,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="com.practicas.model.Car"%>
+<%@page import="com.practicas.model.Classification"%>
+<%@page import="com.practicas.model.FuelType"%>
+<%@page import="com.practicas.model.DriveLine"%>
+<%@page import="com.practicas.model.Make"%>
+<%@page import="com.practicas.model.Transmission"%>
 <%@page import="java.util.List"%>
 
 <!DOCTYPE html>
@@ -26,6 +31,10 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/path/to/js/fileinput.js"></script>
+<script src="/path/to/themes/fas/theme.js"></script>
+<link href="/path/to/css/fileinput.min.css" rel="stylesheet">
+<link href="/path/to/themes/explorer/theme.css" rel="stylesheet">
 </head>
 <body>
 	<div class="bs-example">
@@ -58,37 +67,64 @@
 		<%
 			Car car = (Car) request.getAttribute("car");
 
-		String paginaActual = (String) request.getAttribute("page");
-		String modeloFiltro = (String) request.getAttribute("make");
+		/*String paginaActual = (String) request.getAttribute("page");
+		Car modeloFiltro = (Car) request.getAttribute("make");
 		String annoFiltro = (String) request.getAttribute("year");
 		String hybridFiltro = (String) request.getAttribute("hybrid");
 
 		List<String> idTabla = (List<String>) request.getAttribute("id");
-		List<String> modeloTabla = (List<String>) request.getAttribute("makes");
+		List<Car> modeloTabla = (List<Car>) request.getAttribute("makes");
 		List<Integer> anno = (List<Integer>) request.getAttribute("years");
 		List<Boolean> hybridTabla = (List<Boolean>) request.getAttribute("hybrids");
-		List<Car> cochesTabla = (List<Car>) request.getAttribute("cars");
+		List<Car> cochesTabla = (List<Car>) request.getAttribute("cars");*/
 		%>
 	</div>
+	<%
+	String executed = (String)request.getAttribute("executed");
+	if("ok".equals(executed)){%>
+	<div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+  <div class="toast" style="position: absolute; top: 0; right: 0;">
+    <div class="toast-header">
+      <img src="..." class="rounded mr-2" alt="...">
+      <strong class="mr-auto">Bootstrap</strong>
+      <small>11 mins ago</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      Hello, world! This is a toast message.
+    </div>
+  </div>
+</div>
+<%}%>
 	<br>
 	<h2>Engine Information</h2>
-	<form action="./update" method="post">
-		<input type="hidden" name="action" value="updateCar" /> <input
-			type="hidden" name="pk" value="<%=car.getPk()%>" /> <input
-			type="hidden" name="redirect"
-			value="<%=encodeValue(request.getAttribute("redirect").toString())%>" />
+	<form action="./update" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="action" value="updateCar" /> <input type="hidden" name="pk" value="<%=car.getId()%>" /> <input type="hidden" name="redirect" value="./<%=encodeValue(request.getAttribute("redirect").toString()) %>" />
 		<fieldset class="form-row">
-			<div class="col-md-4 mb-3">
-				<label for="validationServer01">Transmission</label> <input
-					type="text" class="form-control is-valid" id="validationServer01"
-					placeholder="First name"
-					value="<%=car.getEngineinformation().getTransmission()%>" required>
-				<div class="valid-feedback">Looks good!</div>
+			<div class="form-group">
+				<label>Transmission</label> <select class="custom-select"
+					name="transmission" id="transmission" required>
+					<%
+						List<Transmission> transmissions = (List<Transmission>) request.getAttribute("transmissions");
+					if (transmissions != null) {
+						for(Transmission tr: transmissions){
+						
+					%>
+					<option value="<%=tr.getId()%>" <%if(car.getTransmission().getId() == tr.getId()){ %> selected="selected"  <%}%>><%=tr.getTransmission()%></option>
+					<%
+						}
+					}
+					%>
+				</select>
+				<div class="invalid-feedback">Example invalid custom select
+					feedback</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer02">Engine Type</label> <input
 					type="text" class="form-control is-valid" id="validationServer02"
-					placeholder="Last name"
+					placeholder="Last name" name="enginetype"
 					value="<%=car.getEnginetype()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
@@ -98,17 +134,17 @@
 				<h3>Engine Statistics</h3>
 				<div class="col-md-4 mb-3">
 					<label for="validationServer03">Horsepower</label> <input
-						type="text" class="form-control is-valid" id="validationServer03"
+						type="text" class="form-control is-valid"
 						placeholder="First name"
-						value="<%=car.getHorsepower()%>"
+						name="horsepower" id="horsepower" value="<%=car.getHorsepower()%>"
 						required>
 					<div class="valid-feedback">Looks good!</div>
 				</div>
 				<div class="col-md-4 mb-3">
 					<label for="validationServer04">Torque</label> <input type="text"
-						class="form-control is-valid" id="validationServer04"
+						class="form-control is-valid" 
 						placeholder="Last name"
-						value="<%=car.getTorque()%>"
+						name="torque" id="torque" value="<%=car.getTorque()%>"
 						required>
 					<div class="valid-feedback">Looks good!</div>
 				</div>
@@ -118,7 +154,7 @@
 				<div class="form-row">
 					<label class="mt-2 col-form-label" for="hybrid">Hybrid:</label>
 					<div class="form-check ml-1 mt-3">
-					<% String hybridSelected = car.getEngineinformation().isHybrid()?" checked=''checked'":""; %>
+					<% String hybridSelected = car.isHybrid()?" checked=''checked'":""; %>
 						<input class="form-check-input valid" type="checkbox"
 							name="hybrid" id="hybrid" <%=hybridSelected%>>
 					</div>
@@ -126,20 +162,21 @@
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer05">Number of Forward Gears</label> <input
-					type="text" class="form-control is-valid" id="validationServer05"
-					value="<%=car.getEngineinformation().getNumberOfForwardGears()%>"
+					type="text" class="form-control is-valid"
+					name="numberofforwardgears" id="numberofforwardgears" value="<%=car.getNumberOfForwardGears()%>"
 					required>
 				<div class="invalid-feedback">Please provide a valid number.</div>
 			</div>
 			<div class="form-group">
 				<label>Driveline</label> <select class="custom-select"
-					id="driveline" required>
+					name="driveline" id="driveline" required>
 					<%
-						List<String> drivelines = (List<String>) request.getAttribute("drivelines");
+						List<DriveLine> drivelines = (List<DriveLine>) request.getAttribute("drivelines");
 					if (drivelines != null) {
-						for (String dr : drivelines) {
+						for(DriveLine dl: drivelines){
+						
 					%>
-					<option value="<%=dr%>"><%=dr%></option>
+					<option value="<%=dl.getId()%>" <%if(car.getDriveLine().getId() == dl.getId()){ %> selected="selected"  <%}%>><%=dl.getDriveLine()%></option>
 					<%
 						}
 					}
@@ -151,36 +188,46 @@
 		</fieldset>
 		<h2>Identification</h2>
 		<fieldset class="form-row">
-			<div class="col-md-4 mb-3">
-				<label for="validationServer07">Make</label> <input type="text"
-					class="form-control is-valid" id="validationServer07"
-					placeholder="First name"
-					value="<%=car.getIdentification().getMake()%>" required>
-				<div class="valid-feedback">Looks good!</div>
+			<div class="form-group">
+				<label>Make</label> <select class="custom-select"
+					name="make" id="make" required>
+					<%
+						List<Make> makes = (List<Make>) request.getAttribute("makes");
+					if (makes != null) {
+						for(Make m: makes){
+					%>
+					<option value="<%=m.getId()%>" <%if(car.getMake().getId() == m.getId()){ %> selected="selected"  <%}%>><%=m.getMake()%></option>
+					<%
+						}
+					}
+					%>
+				</select>
+				<div class="invalid-feedback">Example invalid custom select
+					feedback</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer08">Model Year</label> <input
-					type="text" class="form-control is-valid" id="validationServer08"
+					type="text" class="form-control is-valid" 
 					placeholder="Last name"
-					value="<%=car.getModelyear()%>" required>
+					name="modelyear" id="modelyear" value="<%=car.getModelyear()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
-				<label for="validationServer09">Id</label> <input type="text"
-					class="form-control is-valid" id="validationServer09"
+				<label for="validationServer09">Name</label> <input type="text"
+					class="form-control is-valid"
 					placeholder="Last name"
-					value="<%=car.getIdentification().getId()%>" required>
+					name="name" id="name" value="<%=car.getName()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="form-group">
 				<label>Classification</label> <select class="custom-select"
-					id="classification" required>
+					name="classification" id="classification" required>
 					<%
-						List<String> classifications = (List<String>) request.getAttribute("classifications");
+						List<Classification> classifications = (List<Classification>) request.getAttribute("classifications");
 					if (classifications != null) {
-						for (String cl : classifications) {
+						for(Classification cl: classifications){
 					%>
-					<option value="<%=cl%>"><%=cl%></option>
+					<option value="<%=cl.getId()%>" <%if(car.getClassification().getId() == cl.getId()){ %> selected="selected"  <%}%>><%=cl.getClassification()%></option>
 					<%
 						}
 					}
@@ -189,21 +236,12 @@
 				<div class="invalid-feedback">Example invalid custom select
 					feedback</div>
 			</div>
-			<div class="form-group">
-				<label>Year</label> <select class="custom-select" id="year" required>
-					<%
-						List<Integer> years = (List<Integer>) request.getAttribute("years");
-					if (years != null) {
-						for (Integer ye : years) {
-					%>
-					<option value="<%=ye%>"><%=ye%></option>
-					<%
-						}
-					}
-					%>
-				</select>
-				<div class="invalid-feedback">Example invalid custom select
-					feedback</div>
+			<div class="col-md-4 mb-3">
+				<label for="validationServer10">Year</label> <input type="text"
+					class="form-control is-valid"
+					name="year" id="year" placeholder="Year"
+					value="<%=car.getYear()%>" required>
+				<div class="valid-feedback">Looks good!</div>
 			</div>
 		</fieldset>
 
@@ -211,23 +249,23 @@
 		<fieldset class="form-row">
 			<div class="col-md-4 mb-3">
 				<label for="validationServer12">Width</label> <input type="text"
-					class="form-control is-valid" id="validationServer12"
+					name="width" id="width" class="form-control is-valid"
 					placeholder="First name"
-					value="<%=car.getDimensions().getWidth()%>" required>
+					value="<%=car.getWidth()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer13">Length</label> <input type="text"
-					class="form-control is-valid" id="validationServer13"
-					placeholder="Last name"
-					value="<%=car.getDimensions().getLength()%>" required>
+					class="form-control is-valid" 
+					name="length" id="length" placeholder="Last name"
+					value="<%=car.getLength()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer14">Height</label> <input type="text"
-					class="form-control is-valid" id="validationServer14"
-					placeholder="Last name"
-					value="<%=car.getDimensions().getHeight()%>" required>
+					class="form-control is-valid"
+					name="height" id="height" placeholder="Last name"
+					value="<%=car.getHeight()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 
@@ -237,27 +275,27 @@
 		<fieldset class="form-row">
 			<div class="col-md-4 mb-3">
 				<label for="validationServer15">Highway mpg</label> <input
-					type="text" class="form-control is-valid" id="validationServer15"
-					placeholder="First name"
+					type="text" class="form-control is-valid" 
+					name="highwaympg" id="highwaympg" placeholder="First name"
 					value="<%=car.getHighwaympg()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer16">City mph</label> <input type="text"
-					class="form-control is-valid" id="validationServer16"
-					placeholder="Last name"
+					class="form-control is-valid"
+					name="citymph" id="citymph" placeholder="Last name"
 					value="<%=car.getCitymph()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="form-group">
-				<label>Fuel Type</label> <select class="custom-select" id="fuelType"
+				<label>Fuel Type</label> <select class="custom-select" name="fuelType" id="fuelType"
 					required>
 					<%
-						List<String> fueltypes = (List<String>) request.getAttribute("fueltypes");
+						List<FuelType> fueltypes = (List<FuelType>) request.getAttribute("fueltypes");
 					if (fueltypes != null) {
-						for (String fu : fueltypes) {
+						for(FuelType ft: fueltypes){
 					%>
-					<option value="<%=fu%>"><%=fu%></option>
+					<option value="<%=ft.getId()%>" <%if(car.getFueltype().getId() == ft.getId()){ %> selected="selected"  <%}%>><%=ft.getFuelType()%></option>
 					<%
 						}
 					}
@@ -266,6 +304,11 @@
 				<div class="invalid-feedback">Example invalid custom select
 					feedback</div>
 			</div>
+			
+ 
+<div class="file-loading">
+    <input id="input-ke-1" name="image" type="file" multiple accept="image" multiple>
+</div>
 
 		</fieldset>
 		<button class="btn btn-primary btn-lg" type="submit">Actualizar</button>
@@ -278,10 +321,11 @@
 	String filterYear = (String) request.getAttribute("filterYear");
 	String filterHybrid = (String) request.getAttribute("filterHybrid");
 
-	String carDriveline = (String) car.getEngineinformation().getDriveline();
-	String carClassification = (String) car.getIdentification().getClassification();
-	String carYear = String.valueOf(car.getIdentification().getYear());
-	String carFuelType = (String) car.getFuelinformation().getFuelType();
+	String carDriveline = (String) car.getDriveline();
+	Classification carClassification = (Classification) car.getClassification();
+	String carYear = String.valueOf(car.getYear());
+	FuelType carFuelType = (FuelType) car.getFueltype();
+	Transmission carTransmission = (Transmission) car.getTransmission();
 	%>
 
 	<button class="btn btn-primary hBack" type="button">REGRESAR A
@@ -302,5 +346,27 @@
 		});
 
 	</script>
+	<script>
+$("#input-ke-1").fileinput({
+    theme: "explorer",
+    uploadUrl: "/file-upload-batch/2",
+    allowedFileExtensions: ['jpg', 'png', 'gif'],
+    overwriteInitial: false,
+    initialPreviewAsData: true,
+    maxFileSize: 10000,
+    removeFromPreviewOnError: true,
+    initialPreview: [
+        "https://picsum.photos/1920/1080?image=101",
+        "https://picsum.photos/1920/1080?image=102",
+        "https://picsum.photos/1920/1080?image=103"
+    ],
+    initialPreviewConfig: [
+        {caption: "picture-1.jpg", size: 329892, width: "120px", url: "/site/file-delete", key: 101},
+        {caption: "picture-2.jpg", size: 872378, width: "120px", url: "/site/file-delete", key: 102},
+        {caption: "picture-3.jpg", size: 632762, width: "120px", url: "/site/file-delete", key: 103}
+    ],
+    initialPreviewDownloadUrl: 'https://picsum.photos/1920/1080?image={key}' // the key will be dynamically replaced  
+});
+</script>
 </body>
 </html>

@@ -6,7 +6,7 @@ import com.practicas.model.FuelType;
 
 public interface FuelTypeDao {
 
-	List<FuelType> findFueltTpes();
+	List<FuelType> findFuelTypes();
 	
 	FuelType findFuelTypeByName(String name);
 	

@@ -17,7 +17,7 @@ public class TransmissionDaoImpl extends AbstractDao<Integer, Transmission> impl
 	@Override
 	public List<Transmission> findTransmissions() {
 		try {
-			List<Transmission> trans = getEntityManager().createQuery("SELECT f FROM FuelType f ").getResultList();
+			List<Transmission> trans = getEntityManager().createQuery("SELECT t FROM Transmission t ").getResultList();
 			return trans;
 		} catch (NoResultException ex) {
 			return null;
