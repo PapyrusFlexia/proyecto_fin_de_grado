@@ -24,10 +24,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Car implements Comparable<Car>, Serializable {
 
 	private int pk;
-	private EngineInformation engineinformation;
+	private Engine engine;
 	private Dimensions dimensions;
-	private Identification identification;
-	private FuelInformation fuelinformation;
+	private Fuel fuel;
 
 	private static final long serialVersionUID = 3594839582111552527L;
 
@@ -43,14 +42,34 @@ public class Car implements Comparable<Car>, Serializable {
 
 	@NotNull
 	@Column(name = "ENGINETYPE", nullable = false)
-	private String engineType;
+	private String enginetype;
 
 	@NotNull
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "DRIVELINE_ID", referencedColumnName = "ID")
-	private DriveLine driveLine;
+	private DriveLine driveline;
+
+	@NotNull
+	@Column(name = "HYBRID", nullable = false) ///////// CAMBIADO
+	private Boolean hybrid;
+
+	@NotNull
+	@Column(name = "NUMBEROFFORWARDGEARS", nullable = false) ///////// CAMBIADO
+	private int numberofforwardgears;
+
+	@NotNull
+	@Column(name = "HORSEPOWER", nullable = false) ///////// CAMBIADO
+	private int horsepower;
+
+	@NotNull
+	@Column(name = "TORQUE", nullable = false) ///////// CAMBIADO
+	private int torque;
 
 	// Dimensions
+	@NotNull
+	@Column(name = "DIMENSIONNAME", nullable = false) /////////// NUEVO
+	private String dimensionname;
+
 	@NotNull
 	@Column(name = "WIDTH", nullable = false)
 	private int width;
@@ -63,7 +82,38 @@ public class Car implements Comparable<Car>, Serializable {
 	@Column(name = "HEIGHT", nullable = false)
 	private int height;
 
-	// Identification
+	// Fuel
+
+	@NotNull
+	@Column(name = "CITYMPH", nullable = false)
+	private int citymph;
+
+	@NotNull
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@JoinColumn(name = "FUELTYPE_ID", referencedColumnName = "ID")
+	private Fuel fueltype;
+
+	@NotNull
+	@Column(name = "HIGHWAYMPG", nullable = false)
+	private int highwaympg;
+
+	// Region
+
+	@NotNull
+	@Column(name = "REGIONNAME", nullable = false) /////////// NUEVO
+	private String regionname;
+
+	@NotNull
+	@Column(name = "PRICE", nullable = false)
+	private int price;
+
+	// Car
+
+	@NotNull
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@JoinColumn(name = "CLASSIFICATION_ID", referencedColumnName = "ID")
+	private Classification classification;
+
 	@NotNull
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "MAKE_ID", referencedColumnName = "ID")
@@ -81,58 +131,13 @@ public class Car implements Comparable<Car>, Serializable {
 	@Column(name = "YEAR", nullable = false)
 	private int year;
 
-	// FuelInformation
 	@NotNull
-	@Column(name = "HIGHWAYMPG", nullable = false)
-	private int highwaympg;
-
-	@NotNull
-	@Column(name = "CITYMPH", nullable = false)
-	private int citymph;
-
-	@NotNull
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-	@JoinColumn(name = "FUELTYPE_ID", referencedColumnName = "ID")
-	private FuelType fuelType;
-
-	@NotNull
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-	@JoinColumn(name = "CLASSIFICATION_ID", referencedColumnName = "ID")
-	private Classification classification;
-
-	@NotNull
-	@Column(name = "HORSEPOWER", nullable = false)
-	private int horsepower;
-
-	@NotNull
-	@Column(name = "TORQUE", nullable = false)
-	private int torque;
-
-
-	@NotNull
-	@Column(name = "ENGINESTATISTICS", nullable = false)
-	private int engineStatistics;
-
-	@NotNull
-	@Column(name = "HYBRID", nullable = false)
-	private boolean hybrid;
-
-	@NotNull
-	@Column(name = "NUMBEROFFORWARDGEARS", nullable = false)
-	private int numberofforwardgears;
-
-	@NotNull
-	@Column(name = "DRIVELINE", nullable = false)
-	private String driveline;
-	
-	@NotNull
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE) 
-	@JoinColumn(name = "car_id") 
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@JoinColumn(name = "car_id")
 	private List<CarImage> carImages;
-	
 
 	public Car() {
-
+		
 	}
 
 	public int getPk() {
@@ -143,12 +148,12 @@ public class Car implements Comparable<Car>, Serializable {
 		this.pk = pk;
 	}
 
-	public EngineInformation getEngineinformation() {
-		return engineinformation;
+	public Engine getEngine() {
+		return engine;
 	}
 
-	public void setEngineinformation(EngineInformation engineinformation) {
-		this.engineinformation = engineinformation;
+	public void setEngine(Engine engine) {
+		this.engine = engine;
 	}
 
 	public Dimensions getDimensions() {
@@ -159,20 +164,12 @@ public class Car implements Comparable<Car>, Serializable {
 		this.dimensions = dimensions;
 	}
 
-	public Identification getIdentification() {
-		return identification;
+	public Fuel getFuel() {
+		return fuel;
 	}
 
-	public void setIdentification(Identification identification) {
-		this.identification = identification;
-	}
-
-	public FuelInformation getFuelinformation() {
-		return fuelinformation;
-	}
-
-	public void setFuelinformation(FuelInformation fuelinformation) {
-		this.fuelinformation = fuelinformation;
+	public void setFuel(Fuel fuel) {
+		this.fuel = fuel;
 	}
 
 	public int getId() {
@@ -192,19 +189,59 @@ public class Car implements Comparable<Car>, Serializable {
 	}
 
 	public String getEnginetype() {
-		return engineType;
+		return enginetype;
 	}
 
 	public void setEnginetype(String enginetype) {
-		this.engineType = enginetype;
+		this.enginetype = enginetype;
 	}
 
-	public DriveLine getDriveLine() {
-		return driveLine;
+	public DriveLine getDriveline() {
+		return driveline;
 	}
 
-	public void setDriveLine(DriveLine driveLine) {
-		this.driveLine = driveLine;
+	public void setDriveline(DriveLine driveline) {
+		this.driveline = driveline;
+	}
+
+	public Boolean getHybrid() {
+		return hybrid;
+	}
+
+	public void setHybrid(Boolean hybrid) {
+		this.hybrid = hybrid;
+	}
+
+	public int getNumberofforwardgears() {
+		return numberofforwardgears;
+	}
+
+	public void setNumberofforwardgears(int numberofforwardgears) {
+		this.numberofforwardgears = numberofforwardgears;
+	}
+
+	public int getHorsepower() {
+		return horsepower;
+	}
+
+	public void setHorsepower(int horsepower) {
+		this.horsepower = horsepower;
+	}
+
+	public int getTorque() {
+		return torque;
+	}
+
+	public void setTorque(int torque) {
+		this.torque = torque;
+	}
+
+	public String getDimensionname() {
+		return dimensionname;
+	}
+
+	public void setDimensionname(String dimensionname) {
+		this.dimensionname = dimensionname;
 	}
 
 	public int getWidth() {
@@ -229,6 +266,54 @@ public class Car implements Comparable<Car>, Serializable {
 
 	public void setHeight(int height) {
 		this.height = height;
+	}
+
+	public int getCitymph() {
+		return citymph;
+	}
+
+	public void setCitymph(int citymph) {
+		this.citymph = citymph;
+	}
+
+	public Fuel getFueltype() {
+		return fueltype;
+	}
+
+	public void setFueltype(Fuel fueltype) {
+		this.fueltype = fueltype;
+	}
+
+	public int getHighwaympg() {
+		return highwaympg;
+	}
+
+	public void setHighwaympg(int highwaympg) {
+		this.highwaympg = highwaympg;
+	}
+
+	public String getRegionname() {
+		return regionname;
+	}
+
+	public void setRegionname(String regionname) {
+		this.regionname = regionname;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public Classification getClassification() {
+		return classification;
+	}
+
+	public void setClassification(Classification classification) {
+		this.classification = classification;
 	}
 
 	public Make getMake() {
@@ -263,85 +348,12 @@ public class Car implements Comparable<Car>, Serializable {
 		this.year = year;
 	}
 
-	public int getHighwaympg() {
-		return highwaympg;
+	public List<CarImage> getCarImages() {
+		return carImages;
 	}
 
-	public void setHighwaympg(int highwaympg) {
-		this.highwaympg = highwaympg;
-	}
-
-	public int getCitymph() {
-		return citymph;
-	}
-
-	public void setCitymph(int citymph) {
-		this.citymph = citymph;
-	}
-
-	public FuelType getFueltype() {
-		return fuelType;
-	}
-
-	public void setFueltype(FuelType fueltype) {
-		this.fuelType = fueltype;
-	}
-
-	public Classification getClassification() {
-		return classification;
-	}
-
-	public void setClassification(Classification classification) {
-		this.classification = classification;
-	}
-
-	public int getHorsepower() {
-		return horsepower;
-	}
-
-	public void setHorsepower(int horsepower) {
-		this.horsepower = horsepower;
-	}
-
-	public int getTorque() {
-		return torque;
-	}
-
-	public void setTorque(int torque) {
-		this.torque = torque;
-	}
-
-
-	public int getEngineStatistics() {
-		return engineStatistics;
-	}
-
-	public void setEngineStatistics(int engineStatistics) {
-		this.engineStatistics = engineStatistics;
-	}
-
-	public boolean isHybrid() {
-		return hybrid;
-	}
-
-	public void setHybrid(boolean hybrid) {
-		this.hybrid = hybrid;
-	}
-
-	public int getNumberOfForwardGears() {
-		return numberofforwardgears;
-	}
-
-	public void setNumberOfForwardGears(int numberOfForwardGears) {
-		this.numberofforwardgears = numberOfForwardGears;
-	}
-
-	public String getDriveline() {
-		return driveline;
-	}
-
-	public void setDriveline(String driveline) {
-		this.driveline = driveline;
+	public void setCarImages(List<CarImage> carImages) {
+		this.carImages = carImages;
 	}
 
 	@Override
@@ -354,7 +366,6 @@ public class Car implements Comparable<Car>, Serializable {
 		}
 	}
 
-
 	@Override
 	public boolean equals(Object obj) {
 		Car c1 = (Car) obj;
@@ -363,7 +374,16 @@ public class Car implements Comparable<Car>, Serializable {
 
 	@Override
 	public String toString() {
-		return "{id: " + id + ",make: " + getMake().getMake() + ", name: " + name + "}";
+		return "Car [pk=" + pk + ", engine=" + engine + ", dimensions=" + dimensions + ", fuel=" + fuel + ", id=" + id
+				+ ", transmission=" + transmission + ", enginetype=" + enginetype + ", driveline=" + driveline
+				+ ", hybrid=" + hybrid + ", numberofforwardgears=" + numberofforwardgears + ", horsepower=" + horsepower
+				+ ", torque=" + torque + ", dimensionname=" + dimensionname + ", width=" + width + ", length=" + length
+				+ ", height=" + height + ", citymph=" + citymph + ", fueltype=" + fueltype + ", highwaympg="
+				+ highwaympg + ", regionname=" + regionname + ", price=" + price + ", classification=" + classification
+				+ ", make=" + make + ", modelyear=" + modelyear + ", name=" + name + ", year=" + year + ", carImages="
+				+ carImages + "]";
 	}
+	
+	
 
 }

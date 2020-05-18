@@ -2,17 +2,17 @@ package com.proyecto.services;
 
 import java.util.Comparator;
 
-import com.proyecto.model.Car;
-import com.proyecto.model.Identification;
 
-public class CarYearComparator extends CarComparatorId implements Comparator<Identification> {
+import com.proyecto.model.Car;
+
+public class CarYearComparator extends CarComparator implements Comparator<Car> {
 
 	public CarYearComparator(boolean desc) {
 		super.desc = desc;
 	}
 	
 	@Override
-	public int compare(Identification car1, Identification car2) {
+	public int compare(Car car1, Car car2) {
 		Integer valA = car1.getYear();
 		Integer valB = car2.getYear();
 

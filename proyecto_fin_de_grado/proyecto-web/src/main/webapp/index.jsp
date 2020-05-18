@@ -2,11 +2,10 @@
 <%@page import="java.nio.charset.StandardCharsets"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.util.List"%>
-<%@page import="com.proyecto.model.Identification"%>
 <%@page import="com.proyecto.model.Car"%>
 <%@page import="com.proyecto.model.Make"%>
 <%@page import="com.proyecto.model.Classification"%>
-<%@page import="com.proyecto.model.EngineInformation"%>
+<%@page import="com.proyecto.model.Engine"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -230,7 +229,7 @@
 				<td><%=c.getName()%></td>
 				<td><%=c.getMake().getMake()%></td>
 				<td><%=c.getYear()%></td>
-				<td><%=c.isHybrid()%></td>
+				<td><%=c.getHybrid()%></td>
 				<td><%=c.getClassification().getClassification()%></td>
 				<td>
 					<div class="dropdown">

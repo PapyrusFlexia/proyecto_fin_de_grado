@@ -3,6 +3,7 @@ package com.proyecto.services.impl;
 import java.util.ArrayList;
 
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +12,13 @@ import org.springframework.stereotype.Service;
 import com.proyecto.dao.CarDao;
 import com.proyecto.dao.ClassificationDao;
 import com.proyecto.dao.DriveLineDao;
-import com.proyecto.dao.FuelTypeDao;
+import com.proyecto.dao.FuelDao;
 import com.proyecto.dao.MakeDao;
 import com.proyecto.dao.TransmissionDao;
 import com.proyecto.model.Classification;
 import com.proyecto.model.DriveLine;
-import com.proyecto.model.EngineStatistics;
-import com.proyecto.model.FuelType;
+import com.proyecto.model.Engine;
+import com.proyecto.model.Fuel;
 import com.proyecto.model.Make;
 import com.proyecto.model.Transmission;
 import com.proyecto.services.UtilsService;
@@ -32,7 +33,7 @@ public class UtilServiceImpl implements UtilsService {
 	private MakeDao makeDao;
 
 	@Autowired
-	private FuelTypeDao fuelTypeDao;
+	private FuelDao fuelTypeDao;
 	
 	@Autowired
 	private DriveLineDao driveLineDao;
@@ -81,9 +82,9 @@ public class UtilServiceImpl implements UtilsService {
 		return classificationDao.findClassifications();
 	}
 	
-	public List<FuelType> getCarsFuelTypes() {
+	public List<Fuel> getCarsFuelTypes() {
 
-		return fuelTypeDao.findFuelTypes();
+		return fuelTypeDao.findFuel();
 	}
 	
 	public List<DriveLine> getCarsDriveLines() {
@@ -103,7 +104,7 @@ public class UtilServiceImpl implements UtilsService {
 		return makeDao.save(m);
 	}
 
-	public FuelType saveFuelType(FuelType f) {
+	public Fuel saveFuelType(Fuel f) {
 
 		return fuelTypeDao.save(f);
 	}
@@ -151,8 +152,8 @@ public class UtilServiceImpl implements UtilsService {
 	}
 
 	@Override
-	public FuelType getFuelTypeByName(String m) throws Exception {
-		FuelType f = fuelTypeDao.findFuelTypeByName(m);
+	public Fuel getFuelTypeByName(String m) throws Exception {
+		Fuel f = fuelTypeDao.findFuelByName(m);
 		if(f == null) {
 			throw new Exception("FuelType con nombre "+ m +" no encontrada");
 		}

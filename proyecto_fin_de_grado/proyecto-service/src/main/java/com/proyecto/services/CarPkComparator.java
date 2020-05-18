@@ -25,7 +25,7 @@ public class CarPkComparator extends CarComparator implements Comparator<Car> {
 		} else if (valA > valB) {
 			return mult * 1;
 		} else {
-			return mult * (car1.getIdentification().getMake().compareTo(car2.getIdentification().getMake()));
+			return mult * (car1.getMake().compareTo(car2.getMake()));
 		}
 	}	
 	

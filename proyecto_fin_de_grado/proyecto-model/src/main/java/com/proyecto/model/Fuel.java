@@ -11,8 +11,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="FUELINFORMATION")
-public class FuelInformation implements Serializable{
+@Table(name="FUEL")
+public class Fuel implements Serializable{
 
 	private static final long serialVersionUID = 3988240899233372627L;
 
@@ -31,11 +31,11 @@ public class FuelInformation implements Serializable{
 	@Column(name="FUELTYPE", nullable=false)
 	private String fuelType;
 	
-	public FuelInformation() {
+	public Fuel() {
 		
 	}
 
-	public FuelInformation(int id, int highwayMpg, int cityMph, String fuelType) {
+	public Fuel(int id, int highwayMpg, int cityMph, String fuelType) {
 		super();
 		this.id = id;
 		this.highwayMpg = highwayMpg;

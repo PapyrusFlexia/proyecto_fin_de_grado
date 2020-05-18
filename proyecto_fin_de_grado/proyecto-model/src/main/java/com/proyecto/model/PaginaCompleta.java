@@ -5,7 +5,6 @@ import java.util.Map;
 
 public class PaginaCompleta {
 
-	
 	private List<Car> cars;
 	private Map<String, List<?>> filters;
 	private long iTotalRecords;
@@ -15,9 +14,9 @@ public class PaginaCompleta {
 	private List<Car> aaData;
 
 	public PaginaCompleta() {
-		
+
 	}
-	
+
 	public PaginaCompleta(List<Car> cars, Map<String, List<?>> filters, int iTotalRecords, int iTotalDisplayRecords,
 			String sEcho, String sColumns, List<Car> aaData) {
 		super();
@@ -92,7 +91,5 @@ public class PaginaCompleta {
 				+ ", iTotalDisplayRecords=" + iTotalDisplayRecords + ", sEcho=" + sEcho + ", sColumns=" + sColumns
 				+ ", aaData=" + aaData + "]";
 	}
-	
-	
-	
+
 }

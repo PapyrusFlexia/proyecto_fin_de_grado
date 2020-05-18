@@ -2,13 +2,14 @@ package com.proyecto.dao;
 
 import java.util.List;
 
-
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import com.proyecto.model.Car;
 import com.proyecto.model.Transmission;
+import com.proyecto.model.User;
 
 @Repository("transmissionDao")
 @Transactional
@@ -43,6 +44,19 @@ public class TransmissionDaoImpl extends AbstractDao<Integer, Transmission> impl
 			return persist(t);
 		}
 		return t;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Transmission> findAllTransmissions() {
+		List<Transmission> transmissions = getEntityManager().createQuery("SELECT t FROM Transmission t ORDER BY t.id ASC")
+				.getResultList();
+		return transmissions;
+	}
+
+	public void deleteById(String id) {
+		Transmission t = (Transmission) getEntityManager().createQuery("SELECT t FROM Transmission t WHERE t.id = :id")
+				.setParameter("id", id).getSingleResult();
+		delete(t);
 	}
 
 	public Transmission getByPk(Integer key) {

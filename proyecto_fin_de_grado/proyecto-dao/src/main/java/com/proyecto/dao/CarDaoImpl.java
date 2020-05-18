@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.proyecto.model.Car;
 import com.proyecto.model.Classification;
 import com.proyecto.model.Make;
+import com.proyecto.model.User;
 
 @Repository("carDao")
 @Transactional
@@ -21,18 +22,15 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Car> findPaginationCars(int pageSize, int paginaActual) { 
+	public List<Car> findPaginationCars(int pageSize, int paginaActual) {
 		int pageCalc = paginaActual - 1;
-		if(pageCalc< 0 ) {
+		if (pageCalc < 0) {
 			pageCalc = 0;
 		}
-		
 
-		List<Car> listCar = getEntityManager()
-				.createQuery("SELECT c FROM Car c ORDER BY c.id ASC")
-				.setFirstResult(pageCalc * pageSize) 
-				.setMaxResults(pageSize)
-				.getResultList();
+		List<Car> listCar = getEntityManager().createQuery("SELECT c FROM Car c ORDER BY c.id ASC")
+				.setFirstResult(pageCalc * pageSize) // pagesize numero de coches en la pagina
+				.setMaxResults(pageSize).getResultList();
 
 		return listCar;
 	}
@@ -92,30 +90,29 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 
 		return listYears;
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Boolean> getCarsHybrids() { /////////////// CARDAO
 
-		List<Boolean> listCarsHybrids = getEntityManager().createQuery("SELECT DISTINCT c.hybrid FROM Car c ORDER BY c.hybrid")
-				.getResultList();
+		List<Boolean> listCarsHybrids = getEntityManager()
+				.createQuery("SELECT DISTINCT c.hybrid FROM Car c ORDER BY c.hybrid").getResultList();
 
 		return listCarsHybrids;
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Make> getCarsMakesFilter(int m) {
 
 		try {
-		List<Make> listCarsMakes = getEntityManager().createQuery("SELECT c from Car c where c.make.id = :make")
-				.setParameter("make", m)
-				.getResultList();
+			List<Make> listCarsMakes = getEntityManager().createQuery("SELECT c from Car c where c.make.id = :make")
+					.setParameter("make", m).getResultList();
 
-		return listCarsMakes;
-	} catch (NoResultException e) {
-		return null;
-	}
+			return listCarsMakes;
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 
 	public Car findCarById(int id) {
@@ -139,43 +136,41 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 			return null;
 		}
 	}
-	
+
 	public List<Car> findYearByName(Integer name) {
 
 		try {
-			List<Car> year = (List<Car>) getEntityManager()
-					.createQuery("SELECT c FROM Car c where c.year = :year")
+			List<Car> year = (List<Car>) getEntityManager().createQuery("SELECT c FROM Car c where c.year = :year")
 					.setParameter("year", name).getResultList();
 			return year;
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
-	
+
 	public List<Car> findHybridByName(Boolean name) {
 
 		try {
 			List<Car> hybrid = (List<Car>) getEntityManager()
-					.createQuery("SELECT c FROM Car c where c.hybrid = :hybrid")
-					.setParameter("hybrid", name).getResultList();
+					.createQuery("SELECT c FROM Car c where c.hybrid = :hybrid").setParameter("hybrid", name)
+					.getResultList();
 			return hybrid;
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
-	
-	public List<Car>  findMakeByName(String name) {
+
+	public List<Car> findMakeByName(String name) {
 
 		try {
-			List<Car> make = (List<Car>) getEntityManager()
-					.createQuery("SELECT m FROM Make m where m.make = :make")
+			List<Car> make = (List<Car>) getEntityManager().createQuery("SELECT m FROM Make m where m.make = :make")
 					.setParameter("make", name).getSingleResult();
 			return make;
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
-	
+
 	public List<Car> findClassificationByName(String name) {
 
 		try {
@@ -195,7 +190,7 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 	}
 
 	// CREAR METODOS PARA LOS FILTROS //////////////
-	
+
 	@Override
 	public Car save(Car c) {
 		Car c1 = findCarByName(c.getName());
@@ -204,38 +199,44 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		}
 		return c1;
 	}
+	
 
-	/**public Car update(Car c) {
-		return update(c);
-	}*/
+	
+	@SuppressWarnings("unchecked")
+	public List<Car> findAllCars() {
+		List<Car> cars = getEntityManager()
+				.createQuery("SELECT c FROM Car c ORDER BY c.id ASC")
+				.getResultList();
+		return cars;
+	}
 
-	public int update(int id, String transmission, String engineType, int horsepower, int torque, boolean hybrid,
+	public void deleteById(String id) {
+		Car car = (Car) getEntityManager().createQuery("SELECT c FROM Car c WHERE c.id = :id").setParameter("id", id)
+				.getSingleResult();
+		delete(car);
+	}
+
+	/**
+	 * public Car update(Car c) { return update(c); }
+	 */
+
+	public int update(int id, String transmission, String enginetype, int horsepower, int torque, boolean hybrid,
 			int numberofforwardgears, String driveline, String make, String modelyear, String name,
 			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
 			String fuelType) {
 
 		int executed = getEntityManager().createQuery(
 				"UPDATE Car c set c.transmission.id = :transmission, c.engineType = :engineType, c.horsepower = :horsepower, c.torque = :torque, c.hybrid = :hybrid, c.numberofforwardgears = :numberofforwardgears, c.driveline.id = :driveline, c.make.id = :make, c.modelyear = :modelyear, c.name = :name, c.classification.id = :classification, c.year = :year, c.width = :width, c.length = :length, c.height = :height, c.highwaympg = :highwaympg, c.citymph = :citymph, c.fuelType.id = :fuelType WHERE c.id = :id")
-				.setParameter("id", id)
-				.setParameter("transmission", Integer.valueOf(transmission))
-				.setParameter("engineType", engineType)
-				.setParameter("horsepower", horsepower)
-				.setParameter("torque", torque)
-				.setParameter("hybrid", hybrid)
+				.setParameter("id", id).setParameter("transmission", Integer.valueOf(transmission))
+				.setParameter("enginetype", enginetype).setParameter("horsepower", horsepower)
+				.setParameter("torque", torque).setParameter("hybrid", hybrid)
 				.setParameter("numberofforwardgears", numberofforwardgears)
-				.setParameter("driveline", Integer.valueOf(driveline))
-				.setParameter("make", Integer.valueOf(make))
-				.setParameter("modelyear", modelyear)
-				.setParameter("name", name)
-				.setParameter("classification", Integer.valueOf(classification))
-				.setParameter("year", year)
-				.setParameter("width", width)
-				.setParameter("length", length)
-				.setParameter("height", height)
-				.setParameter("highwaympg", highwaympg)
-				.setParameter("citymph", citymph)
-				.setParameter("fuelType", Integer.valueOf(fuelType))
-				.executeUpdate();
+				.setParameter("driveline", Integer.valueOf(driveline)).setParameter("make", Integer.valueOf(make))
+				.setParameter("modelyear", modelyear).setParameter("name", name)
+				.setParameter("classification", Integer.valueOf(classification)).setParameter("year", year)
+				.setParameter("width", width).setParameter("length", length).setParameter("height", height)
+				.setParameter("highwaympg", highwaympg).setParameter("citymph", citymph)
+				.setParameter("fuelType", Integer.valueOf(fuelType)).executeUpdate();
 
 		return executed;
 	}
@@ -248,7 +249,5 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 	public Car getByPk(Integer key) {
 		return getByKey(key);
 	}
-
-	
 
 }

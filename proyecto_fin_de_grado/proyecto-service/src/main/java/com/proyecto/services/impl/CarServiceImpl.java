@@ -287,7 +287,7 @@ public class CarServiceImpl implements CarService {
 
 			@Override
 			public boolean test(Car t) {
-				return t.getEngineinformation().getDriveline().equals("Rear-wheel drive");
+				return t.getEngine().getDriveline().equals("Rear-wheel drive");
 			}
 		};
 
@@ -316,7 +316,7 @@ public class CarServiceImpl implements CarService {
 
 			@Override
 			public boolean test(Car t) {
-				return t.getFuelinformation().getFuelType().equals("Diesel fuel");
+				return t.getFuel().getFuelType().equals("Diesel fuel");
 			}
 		};
 
@@ -366,7 +366,7 @@ public class CarServiceImpl implements CarService {
 				} else if (valA > valB) {
 					return mult * 1;
 				} else {
-					return mult * (a.getIdentification().getMake().compareTo(b.getIdentification().getMake()));
+					return mult * (a.getMake().compareTo(b.getMake()));
 				}
 			}
 		}).limit(numberMax).collect(Collectors.toList());
@@ -399,7 +399,7 @@ public class CarServiceImpl implements CarService {
 
 			@Override
 			public boolean test(Car t) {
-				return t.getEngineinformation().isHybrid() == true;
+				return t.getEngine().isHybrid() == true;
 			}
 		};
 
@@ -419,7 +419,7 @@ public class CarServiceImpl implements CarService {
 
 			@Override
 			public boolean test(Car t) {
-				return t.getEngineinformation().getNumberOfForwardGears() == velocidades;
+				return t.getEngine().getNumberOfForwardGears() == velocidades;
 			}
 		};
 
@@ -440,17 +440,17 @@ public class CarServiceImpl implements CarService {
 
 			@Override
 			public boolean test(Car t) {
-				return t.getFuelinformation().getCityMph() < consumo;
+				return t.getFuel().getCityMph() < consumo;
 			}
 		};
 
 		List<Car> listCar = getMarcaModelo(-1, -1);
 		boolean desc = true;
-		List<Car> listCarReturn1 = listCar.stream().filter(car -> car.getFuelinformation().getCityMph() < consumo)
+		List<Car> listCarReturn1 = listCar.stream().filter(car -> car.getFuel().getCityMph() < consumo)
 				.sorted(new Comparator<Car>() {
 					public int compare(Car a, Car b) {
-						Integer valA = a.getFuelinformation().getCityMph();
-						Integer valB = b.getFuelinformation().getCityMph();
+						Integer valA = a.getFuel().getCityMph();
+						Integer valB = b.getFuel().getCityMph();
 
 						int mult = -1;
 						if (desc) {
@@ -462,7 +462,7 @@ public class CarServiceImpl implements CarService {
 						} else if (valA > valB) {
 							return mult * 1;
 						} else {
-							return mult * (a.getIdentification().getMake().compareTo(b.getIdentification().getMake()));
+							return mult * (a.getMake().compareTo(b.getMake()));
 						}
 					}
 				}).collect(Collectors.toList());
@@ -479,7 +479,7 @@ public class CarServiceImpl implements CarService {
 
 		List<Car> listCar = getMarcaModelo(-1, -1);
 		List<Car> listCarReturn1 = listCar.stream()
-				.filter(car -> car.getEngineinformation().getEngineType().contains(palabra))
+				.filter(car -> car.getEngine().getEngineType().contains(palabra))
 				.collect(Collectors.toList());
 
 		System.out.println(listCarReturn1.size());
@@ -512,7 +512,7 @@ public class CarServiceImpl implements CarService {
 		List<Boolean> carsHybrids = new ArrayList<>();
 		List<Boolean> carsHybridsSinDuplicados = new ArrayList<>(new HashSet<>(carsHybrids));
 		for (int i = 0; i < cars.size(); i++) {
-			carsHybridsSinDuplicados.add(cars.get(i).getEngineinformation().isHybrid());
+			carsHybridsSinDuplicados.add(cars.get(i).getEngine().isHybrid());
 		}
 		return carsHybridsSinDuplicados.stream().distinct().sorted().collect(Collectors.toList());
 	}
@@ -547,7 +547,7 @@ public class CarServiceImpl implements CarService {
 		List<Car> cars = getCars(-1, -1);
 		List<String> carsDrivelines = new ArrayList<>();
 		for (int i = 0; i < cars.size(); i++) {
-			carsDrivelines.add(cars.get(i).getDriveline());
+			carsDrivelines.addAll((Collection<? extends String>) cars.get(i).getDriveline());
 		}
 		return carsDrivelines.stream().distinct().sorted().collect(Collectors.toList());
 	}
@@ -574,7 +574,7 @@ public class CarServiceImpl implements CarService {
 		List<Car> cars = getCars(-1, -1);
 		List<String> carsFuelTypes = new ArrayList<>();
 		for (int i = 0; i < cars.size(); i++) {
-			carsFuelTypes.add(cars.get(i).getFuelinformation().getFuelType());
+			carsFuelTypes.add(cars.get(i).getFuel().getFuelType());
 		}
 		return carsFuelTypes.stream().distinct().sorted().collect(Collectors.toList());
 	}
@@ -592,7 +592,7 @@ public class CarServiceImpl implements CarService {
 		List<Car> cars = getCars(-1, -1);
 		List<Boolean> carsHybrid = new ArrayList<>();
 		for (int i = 0; i < cars.size(); i++) {
-			carsHybrid.add(cars.get(i).getEngineinformation().isHybrid());
+			carsHybrid.add(cars.get(i).getEngine().isHybrid());
 		}
 		return carsHybrid.stream().distinct().sorted().collect(Collectors.toList());
 	}

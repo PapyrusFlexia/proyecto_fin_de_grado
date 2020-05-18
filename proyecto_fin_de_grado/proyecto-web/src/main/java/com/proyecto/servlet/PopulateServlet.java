@@ -3,6 +3,7 @@ package com.proyecto.servlet;
 import java.io.IOException;
 
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,7 @@ import com.proyecto.model.Car;
 import com.proyecto.model.Classification;
 import com.proyecto.model.Dimensions;
 import com.proyecto.model.DriveLine;
-import com.proyecto.model.FuelType;
+import com.proyecto.model.Fuel;
 import com.proyecto.model.Make;
 import com.proyecto.model.Transmission;
 import com.proyecto.services.UtilsService;
@@ -56,7 +57,7 @@ public class PopulateServlet extends AbstractServlet {
 				utilsService.saveMake(m);
 			} else if (param != null && param.equals("fuel")) {
 				String fuel = json.getJSONObject("fuelinformation").getString("fueltype");
-				FuelType f = new FuelType();
+				Fuel f = new Fuel();
 				f.setFuelType(fuel);
 				utilsService.saveFuelType(f);
 			} else if (param != null && param.equals("drive")) {
@@ -85,7 +86,7 @@ public class PopulateServlet extends AbstractServlet {
 							json.getJSONObject("engineinformation").getJSONObject("enginestatistics").getInt("torque"));
 					c.setHorsepower(json.getJSONObject("engineinformation").getJSONObject("enginestatistics")
 							.getInt("horsepower"));
-					c.setDriveLine(utilsService
+					c.setDriveline(utilsService
 							.getDriveLineByName(json.getJSONObject("engineinformation").getString("driveline")));
 					c.setTransmission(utilsService
 							.getTransmissionByName(json.getJSONObject("engineinformation").getString("transmission")));

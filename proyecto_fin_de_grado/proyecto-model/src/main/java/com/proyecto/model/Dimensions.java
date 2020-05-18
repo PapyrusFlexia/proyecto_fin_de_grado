@@ -11,33 +11,39 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="DIMENSIONS")
-public class Dimensions implements Serializable{
+@Table(name = "DIMENSIONS")
+public class Dimensions implements Serializable {
 
 	private static final long serialVersionUID = 3988240899233372627L;
 
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@NotNull
-	@Column(name="WIDTH", nullable=false)
+	@Column(name = "DIMENSIONNAME", nullable = false) /////////// NUEVO
+	private String dimensionname;
+
+	@NotNull
+	@Column(name = "WIDTH", nullable = false)
 	private int width;
-	
+
 	@NotNull
-	@Column(name="LENGTH", nullable=false)
+	@Column(name = "LENGTH", nullable = false)
 	private int length;
-	
+
 	@NotNull
-	@Column(name="HEIGHT", nullable=false)
+	@Column(name = "HEIGHT", nullable = false)
 	private int height;
-	
+
 	public Dimensions() {
-		
+
 	}
 
-	public Dimensions(int id, int width, int length, int height) {
+	public Dimensions(int id, String dimensionname, int width, int length, int height) {
 		super();
 		this.id = id;
+		this.dimensionname = dimensionname;
 		this.width = width;
 		this.length = length;
 		this.height = height;
@@ -49,6 +55,14 @@ public class Dimensions implements Serializable{
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getDimensionname() {
+		return dimensionname;
+	}
+
+	public void setDimensionname(String dimensionname) {
+		this.dimensionname = dimensionname;
 	}
 
 	public int getWidth() {
@@ -74,7 +88,5 @@ public class Dimensions implements Serializable{
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	
-	
-	
+
 }

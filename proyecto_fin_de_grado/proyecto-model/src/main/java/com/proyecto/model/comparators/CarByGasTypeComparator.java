@@ -15,7 +15,7 @@ public class CarByGasTypeComparator extends CarComparator implements Comparator<
 	@Override
 	public int compare(Car o1, Car o2) {
 
-		int compare = o1.getFueltype().getFuelType().compareTo(o1.getFueltype().getFuelType()); 
+		int compare = o1.getFuel().getFuelType().compareTo(o1.getFuel().getFuelType()); 
 		
 		return (asc)?compare: (-1)*compare;
 	}

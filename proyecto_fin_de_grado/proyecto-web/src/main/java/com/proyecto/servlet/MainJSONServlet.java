@@ -2,6 +2,7 @@
 package com.proyecto.servlet;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,8 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.proyecto.model.Car;
-import com.proyecto.model.EngineInformation;
-import com.proyecto.model.Identification;
+import com.proyecto.model.Engine;
 import com.proyecto.model.PaginaCompleta;
 import com.proyecto.model.comparators.CarComparator;
 import com.proyecto.services.CarMakeComparator;
