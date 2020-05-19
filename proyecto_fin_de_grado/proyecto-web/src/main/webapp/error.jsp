@@ -1,4 +1,3 @@
-<%@page import="com.proyecto.model.Identification"%>
 <%@page import="com.proyecto.model.Car"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

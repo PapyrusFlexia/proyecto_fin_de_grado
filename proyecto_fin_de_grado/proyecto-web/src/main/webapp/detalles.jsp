@@ -1,13 +1,13 @@
 <%@page import="java.io.UnsupportedEncodingException"%>
 <%@page import="java.nio.charset.StandardCharsets"%>
-<%@page import="com.proyecto.model.Identification"%>
 <%@page import="com.proyecto.model.Car"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="com.proyecto.model.Car"%>
 <%@page import="com.proyecto.model.Classification"%>
-<%@page import="com.proyecto.model.FuelType"%>
+<%@page import="com.proyecto.model.Engine"%>
+<%@page import="com.proyecto.model.Fuel"%>
 <%@page import="com.proyecto.model.DriveLine"%>
 <%@page import="com.proyecto.model.Make"%>
 <%@page import="com.proyecto.model.Transmission"%>
@@ -66,6 +66,7 @@
 
 		<%
 			Car car = (Car) request.getAttribute("car");
+			Engine engine = (Engine) request.getAttribute("engine");
 
 				/*String paginaActual = (String) request.getAttribute("page");
 				Car modeloFiltro = (Car) request.getAttribute("make");
@@ -154,7 +155,7 @@
 				<div class="form-row">
 					<label class="mt-2 col-form-label" for="hybrid">Hybrid:</label>
 					<div class="form-check ml-1 mt-3">
-					<% String hybridSelected = car.isHybrid()?" checked=''checked'":""; %>
+					<% String hybridSelected = car.getHybrid()?" checked=''checked'":""; %>
 						<input class="form-check-input valid" type="checkbox"
 							name="hybrid" id="hybrid" <%=hybridSelected%>>
 					</div>
@@ -163,7 +164,7 @@
 			<div class="col-md-4 mb-3">
 				<label for="validationServer05">Number of Forward Gears</label> <input
 					type="text" class="form-control is-valid"
-					name="numberofforwardgears" id="numberofforwardgears" value="<%=car.getNumberOfForwardGears()%>"
+					name="numberofforwardgears" id="numberofforwardgears" value="<%=car.getNumberofforwardgears()%>"
 					required>
 				<div class="invalid-feedback">Please provide a valid number.</div>
 			</div>
@@ -176,7 +177,7 @@
 						for(DriveLine dl: drivelines){
 						
 					%>
-					<option value="<%=dl.getId()%>" <%if(car.getDriveLine().getId() == dl.getId()){ %> selected="selected"  <%}%>><%=dl.getDriveLine()%></option>
+					<option value="<%=dl.getId()%>" <%if(car.getDriveline().getId() == dl.getId()){ %> selected="selected"  <%}%>><%=dl.getDriveLine()%></option>
 					<%
 						}
 					}
@@ -291,9 +292,9 @@
 				<label>Fuel Type</label> <select class="custom-select" name="fuelType" id="fuelType"
 					required>
 					<%
-						List<FuelType> fueltypes = (List<FuelType>) request.getAttribute("fueltypes");
+						List<Fuel> fueltypes = (List<Fuel>) request.getAttribute("fueltypes");
 					if (fueltypes != null) {
-						for(FuelType ft: fueltypes){
+						for(Fuel ft: fueltypes){
 					%>
 					<option value="<%=ft.getId()%>" <%if(car.getFueltype().getId() == ft.getId()){ %> selected="selected"  <%}%>><%=ft.getFuelType()%></option>
 					<%
@@ -321,10 +322,10 @@
 	String filterYear = (String) request.getAttribute("filterYear");
 	String filterHybrid = (String) request.getAttribute("filterHybrid");
 
-	String carDriveline = (String) car.getDriveline();
+	String carDriveline = (String) engine.getDriveline(); ////////////////////////////////////
 	Classification carClassification = (Classification) car.getClassification();
 	String carYear = String.valueOf(car.getYear());
-	FuelType carFuelType = (FuelType) car.getFueltype();
+	Fuel carFuelType = (Fuel) car.getFueltype();
 	Transmission carTransmission = (Transmission) car.getTransmission();
 	%>
 
