@@ -6,9 +6,9 @@ import java.util.function.Predicate;
 import com.proyecto.model.Car;
 
 public class CarFiltro {
-	public Predicate<Car> hibrido(boolean hibrido) {
+/**public Predicate<Car> hibrido(boolean hibrido) {
 		return car -> car.getHybrid() == hibrido;
-	}
+	}*/
 
 	public Predicate<Car> velocidades(int velocidades) {
 		return car -> car.getEngine().getNumberOfForwardGears() == velocidades;

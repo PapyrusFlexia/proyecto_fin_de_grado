@@ -49,9 +49,9 @@ public class Car implements Comparable<Car>, Serializable {
 	@JoinColumn(name = "DRIVELINE_ID", referencedColumnName = "ID")
 	private DriveLine driveline;
 
-	@NotNull
-	@Column(name = "HYBRID", nullable = false) ///////// CAMBIADO
-	private Boolean hybrid;
+	// @NotNull
+	// @Column(name = "HYBRID", nullable = false) ///////// CAMBIADO
+	// private Boolean hybrid;
 
 	@NotNull
 	@Column(name = "NUMBEROFFORWARDGEARS", nullable = false) ///////// CAMBIADO
@@ -66,9 +66,12 @@ public class Car implements Comparable<Car>, Serializable {
 	private int torque;
 
 	// Dimensions
-	@NotNull
-	@Column(name = "DIMENSIONNAME", nullable = false) /////////// NUEVO
-	private String dimensionname;
+	/*
+	 * @NotNull
+	 * 
+	 * @Column(name = "DIMENSIONNAME", nullable = false) /////////// NUEVO private
+	 * String dimensionname;
+	 */
 
 	@NotNull
 	@Column(name = "WIDTH", nullable = false)
@@ -99,13 +102,16 @@ public class Car implements Comparable<Car>, Serializable {
 
 	// Region
 
-	@NotNull
-	@Column(name = "REGIONNAME", nullable = false) /////////// NUEVO
-	private String regionname;
-
-	@NotNull
-	@Column(name = "PRICE", nullable = false)
-	private int price;
+	/*
+	 * @NotNull
+	 * 
+	 * @Column(name = "REGIONNAME", nullable = false) /////////// NUEVO private
+	 * String regionname;
+	 * 
+	 * @NotNull
+	 * 
+	 * @Column(name = "PRICE", nullable = false) private int price;
+	 */
 
 	// Car
 
@@ -114,10 +120,15 @@ public class Car implements Comparable<Car>, Serializable {
 	@JoinColumn(name = "CLASSIFICATION_ID", referencedColumnName = "ID")
 	private Classification classification;
 
-	@NotNull
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-	@JoinColumn(name = "MAKE_ID", referencedColumnName = "ID")
-	private Make make;
+	// @NotNull
+	// @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade =
+	// CascadeType.MERGE)
+	// @JoinColumn(name = "MAKE_ID", referencedColumnName = "ID")
+	// private Make make;
+
+	@NotEmpty
+	@Column(name = "MAKE", nullable = false)
+	private String make;
 
 	@NotEmpty
 	@Column(name = "MODELYEAR", nullable = false)
@@ -131,13 +142,16 @@ public class Car implements Comparable<Car>, Serializable {
 	@Column(name = "YEAR", nullable = false)
 	private int year;
 
-	@NotNull
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-	@JoinColumn(name = "car_id")
-	private List<CarImage> carImages;
+	/*
+	 * @NotNull
+	 * 
+	 * @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	 * 
+	 * @JoinColumn(name = "car_id") private List<CarImage> carImages;
+	 */
 
 	public Car() {
-		
+
 	}
 
 	public int getPk() {
@@ -204,14 +218,6 @@ public class Car implements Comparable<Car>, Serializable {
 		this.driveline = driveline;
 	}
 
-	public Boolean getHybrid() {
-		return hybrid;
-	}
-
-	public void setHybrid(Boolean hybrid) {
-		this.hybrid = hybrid;
-	}
-
 	public int getNumberofforwardgears() {
 		return numberofforwardgears;
 	}
@@ -234,14 +240,6 @@ public class Car implements Comparable<Car>, Serializable {
 
 	public void setTorque(int torque) {
 		this.torque = torque;
-	}
-
-	public String getDimensionname() {
-		return dimensionname;
-	}
-
-	public void setDimensionname(String dimensionname) {
-		this.dimensionname = dimensionname;
 	}
 
 	public int getWidth() {
@@ -292,22 +290,6 @@ public class Car implements Comparable<Car>, Serializable {
 		this.highwaympg = highwaympg;
 	}
 
-	public String getRegionname() {
-		return regionname;
-	}
-
-	public void setRegionname(String regionname) {
-		this.regionname = regionname;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
 	public Classification getClassification() {
 		return classification;
 	}
@@ -316,11 +298,11 @@ public class Car implements Comparable<Car>, Serializable {
 		this.classification = classification;
 	}
 
-	public Make getMake() {
+	public String getMake() {
 		return make;
 	}
 
-	public void setMake(Make make) {
+	public void setMake(String make) {
 		this.make = make;
 	}
 
@@ -348,14 +330,6 @@ public class Car implements Comparable<Car>, Serializable {
 		this.year = year;
 	}
 
-	public List<CarImage> getCarImages() {
-		return carImages;
-	}
-
-	public void setCarImages(List<CarImage> carImages) {
-		this.carImages = carImages;
-	}
-
 	@Override
 	public int compareTo(Car o) {
 
@@ -376,12 +350,10 @@ public class Car implements Comparable<Car>, Serializable {
 	public String toString() {
 		return "Car [pk=" + pk + ", engine=" + engine + ", dimensions=" + dimensions + ", fuel=" + fuel + ", id=" + id
 				+ ", transmission=" + transmission + ", enginetype=" + enginetype + ", driveline=" + driveline
-				+ ", hybrid=" + hybrid + ", numberofforwardgears=" + numberofforwardgears + ", horsepower=" + horsepower
-				+ ", torque=" + torque + ", dimensionname=" + dimensionname + ", width=" + width + ", length=" + length
-				+ ", height=" + height + ", citymph=" + citymph + ", fueltype=" + fueltype + ", highwaympg="
-				+ highwaympg + ", regionname=" + regionname + ", price=" + price + ", classification=" + classification
-				+ ", make=" + make + ", modelyear=" + modelyear + ", name=" + name + ", year=" + year + ", carImages="
-				+ carImages + "]";
+				+ ", numberofforwardgears=" + numberofforwardgears + ", horsepower=" + horsepower + ", torque=" + torque
+				+ ", width=" + width + ", length=" + length + ", height=" + height + ", citymph=" + citymph
+				+ ", fueltype=" + fueltype + ", highwaympg=" + highwaympg + ", classification=" + classification
+				+ ", make=" + make + ", modelyear=" + modelyear + ", name=" + name + ", year=" + year + "]";
 	}
 	
 	

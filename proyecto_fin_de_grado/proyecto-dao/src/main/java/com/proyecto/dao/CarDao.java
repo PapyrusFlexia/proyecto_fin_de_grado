@@ -2,9 +2,9 @@ package com.proyecto.dao;
 
 import java.util.List;
 
+
 import com.proyecto.model.Car;
 import com.proyecto.model.Classification;
-import com.proyecto.model.Make;
 import com.proyecto.model.User;
 
 public interface CarDao {
@@ -28,9 +28,9 @@ public interface CarDao {
 
 	List<Integer> getCarsYears();
 
-	List<Boolean> getCarsHybrids();
+	//List<Boolean> getCarsHybrids();
 
-	List<Make> getCarsMakesFilter(int m);
+	List<Car> getCarsMakesFilter(int m);
 
 	List<Car> findYearByName(Integer annoFiltro);
 

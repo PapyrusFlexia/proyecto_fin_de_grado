@@ -2,6 +2,7 @@ package com.proyecto.dao;
 
 import javax.persistence.Query;
 
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import com.proyecto.model.Car;
 import com.proyecto.model.Classification;
-import com.proyecto.model.Make;
 import com.proyecto.model.User;
 
 @Repository("carDao")
@@ -91,22 +91,22 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		return listYears;
 	}
 
+	//@Override
+	//@SuppressWarnings("unchecked")
+	//public List<Boolean> getCarsHybrids() { /////////////// CARDAO
+
+		//List<Boolean> listCarsHybrids = getEntityManager()
+				//.createQuery("SELECT DISTINCT c.hybrid FROM Car c ORDER BY c.hybrid").getResultList();
+
+		//return listCarsHybrids;
+	//}
+
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Boolean> getCarsHybrids() { /////////////// CARDAO
-
-		List<Boolean> listCarsHybrids = getEntityManager()
-				.createQuery("SELECT DISTINCT c.hybrid FROM Car c ORDER BY c.hybrid").getResultList();
-
-		return listCarsHybrids;
-	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<Make> getCarsMakesFilter(int m) {
+	public List<Car> getCarsMakesFilter(int m) {
 
 		try {
-			List<Make> listCarsMakes = getEntityManager().createQuery("SELECT c from Car c where c.make.id = :make")
+			List<Car> listCarsMakes = getEntityManager().createQuery("SELECT c from Car c where c.make.id = :make")
 					.setParameter("make", m).getResultList();
 
 			return listCarsMakes;

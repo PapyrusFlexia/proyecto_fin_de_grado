@@ -70,13 +70,7 @@ public class Make implements Serializable {
 		this.make = make;
 	}
 
-	/**
-	 * public boolean equals(Make obj) { if (this == obj) return true; if (obj ==
-	 * null) return false; if (!(obj instanceof Make)) return false; Make other =
-	 * (Make) obj; if (make == null) { if (other.make != null) return false; } else
-	 * if (!make.equals(other.make)) return false; return true; }
-	 */
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		Make c1 = (Make) obj;

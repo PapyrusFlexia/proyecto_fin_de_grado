@@ -65,7 +65,7 @@ public class CarRest {
 
 				@Override
 				public boolean test(Car t) {
-					return t.getMake().getMake().equals(makeFilter);
+					return t.getMake().equals(makeFilter);
 				}
 				
 			}; 
@@ -90,7 +90,7 @@ public class CarRest {
 
 				@Override
 				public boolean test(Car t) {
-					return t.getMake().getMake().equals(makeFilter);
+					return t.getMake().equals(makeFilter);
 				}
 				
 			}; 

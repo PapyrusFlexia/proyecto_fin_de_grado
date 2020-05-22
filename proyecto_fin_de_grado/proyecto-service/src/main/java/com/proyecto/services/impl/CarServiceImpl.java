@@ -1,6 +1,7 @@
 package com.proyecto.services.impl;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto.dao.CarDao;
 import com.proyecto.model.Car;
-import com.proyecto.model.Make;
 import com.proyecto.model.comparators.CarComparator;
 import com.proyecto.services.CarService;
 import com.proyecto.services.data.DatabaseJson;
@@ -120,7 +120,7 @@ public class CarServiceImpl implements CarService {
 	}
 
 	/**
-	 * Obtiene el número de coches que cumplen el predicado
+	 * Obtiene el nï¿½mero de coches que cumplen el predicado
 	 * 
 	 * @param p
 	 * @return
@@ -137,7 +137,7 @@ public class CarServiceImpl implements CarService {
 	}
 
 	/**
-	 * Obtiene el número de coches que cumplen el predicado
+	 * Obtiene el nï¿½mero de coches que cumplen el predicado
 	 * 
 	 * @param p
 	 * @return
@@ -492,7 +492,7 @@ public class CarServiceImpl implements CarService {
 		List<String> carsMakes = new ArrayList<>();
 		List<String> carsMakesSinDuplicados = new ArrayList<>(new HashSet<>(carsMakes));
 		for (int i = 0; i < cars.size(); i++) {
-			carsMakesSinDuplicados.addAll((Collection<? extends String>) cars.get(i).getMake());
+			carsMakesSinDuplicados.add(cars.get(i).getMake());
 		}
 		return carsMakesSinDuplicados.stream().distinct().sorted().collect(Collectors.toList());
 	}
@@ -531,7 +531,7 @@ public class CarServiceImpl implements CarService {
 		return (long) getCars(-1, -1).stream().filter(p).count();
 	}*/
 	
-	public List<Make> getCarsCount(int m) {
+	public List<Car> getCarsCount(int m) {
 
 		return carDao.getCarsMakesFilter(m);
 	}
@@ -611,24 +611,6 @@ public class CarServiceImpl implements CarService {
 		}
 		return cars.stream().sorted(comparator).collect(Collectors.toList()).subList(start, end);
 
-	}
-
-	@Override
-	public List<Car> getCars(int start, int end, Predicate<Car> p, CarComparator comparator) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Car> getCarsSortMake(int begin, int end, List<Predicate<Car>> ps, CarComparator makecomparator) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Car> getCars(int start, int end, Predicate<Car> p, CarComparator comparator, int limit) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	

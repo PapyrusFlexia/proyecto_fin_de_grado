@@ -3,21 +3,21 @@ package com.proyecto.services;
 import java.util.List;
 
 
+import com.proyecto.model.Car;
 import com.proyecto.model.Classification;
 import com.proyecto.model.DriveLine;
 import com.proyecto.model.Fuel;
-import com.proyecto.model.Make;
 import com.proyecto.model.Transmission;
 
 public interface UtilsService {
 
-	public List<Make> getCarsMakes();
+	public List<Car> getCarsMakes();
 	
-	public List<Make> getCarsMakesFilter(int m);
+	public List<Car> getCarsMakesFilter(int m);
 	
 	public List<Integer> getCarsYears();
 	
-	public List<Boolean> getCarsHybrids();
+	public List<Boolean> getEngineHybrids();
 	
 	public List<Classification> getCarsClassificationsTabla();
 	
@@ -27,7 +27,7 @@ public interface UtilsService {
 	
 	public List<Transmission>	getCarsTransmissions();
 	
-	public Make saveMake(Make m);
+	public Car saveMake(Car m);
 	
 	public Fuel saveFuelType(Fuel f);
 	
@@ -37,7 +37,7 @@ public interface UtilsService {
 	
 	public Classification saveClassification(Classification c);
 	
-	public Make getMakeByName(String m) throws Exception;
+	public Car getMakeByName(String m) throws Exception;
 	
 	public Classification getClassificationByName(String m) throws Exception;
 	

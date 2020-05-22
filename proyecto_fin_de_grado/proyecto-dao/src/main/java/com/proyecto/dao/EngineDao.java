@@ -2,10 +2,10 @@ package com.proyecto.dao;
 
 import java.util.List;
 
+
 import com.proyecto.model.Engine;
 import com.proyecto.model.Car;
 import com.proyecto.model.Classification;
-import com.proyecto.model.Make;
 import com.proyecto.model.User;
 
 public interface EngineDao {
@@ -19,6 +19,8 @@ public interface EngineDao {
 	long totalEngine();
 
 	void deleteById(String id);
+	
+	List<Boolean> getEngineHybrids();
 	
 	List<Engine> findAllEngines();
 

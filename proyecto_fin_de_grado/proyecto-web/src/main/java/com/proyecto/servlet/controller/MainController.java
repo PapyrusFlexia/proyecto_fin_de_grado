@@ -1,6 +1,7 @@
 package com.proyecto.servlet.controller;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +19,6 @@ import com.proyecto.dao.CarDaoImpl;
 import com.proyecto.dao.ClassificationDao;
 import com.proyecto.dao.MakeDao;
 import com.proyecto.model.Car;
-import com.proyecto.model.Make;
 import com.proyecto.services.CarFiltro;
 import com.proyecto.services.CarService;
 import com.proyecto.services.UtilsService;
@@ -122,6 +122,24 @@ public class MainController {
 	
 
 	public void detalles(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		String pk = request.getParameter("pk");
+		if (pk == null) {
+			throw new Exception("Coche no encontrado");
+		}
+		String redirect = request.getParameter("redirect");
+		Car car = carService.getCarByPk(Integer.valueOf(pk));
+		request.setAttribute("redirect", redirect);
+		request.setAttribute("car", car);
+		request.setAttribute("drivelines", utilsService.getCarsDriveLines());
+		request.setAttribute("classifications", utilsService.getCarsClassificationsTabla());
+		request.setAttribute("years", utilsService.getCarsYears());
+		request.setAttribute("fueltypes", utilsService.getCarsFuelTypes());
+		request.setAttribute("transmissions", utilsService.getCarsTransmissions());
+
+	}
+	
+	public void booking(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String pk = request.getParameter("pk");
 		if (pk == null) {

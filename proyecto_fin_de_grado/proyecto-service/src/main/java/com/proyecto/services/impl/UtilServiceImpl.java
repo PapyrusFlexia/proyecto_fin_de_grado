@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +13,15 @@ import org.springframework.stereotype.Service;
 import com.proyecto.dao.CarDao;
 import com.proyecto.dao.ClassificationDao;
 import com.proyecto.dao.DriveLineDao;
+import com.proyecto.dao.EngineDao;
 import com.proyecto.dao.FuelDao;
 import com.proyecto.dao.MakeDao;
 import com.proyecto.dao.TransmissionDao;
+import com.proyecto.model.Car;
+import com.proyecto.model.Engine;
 import com.proyecto.model.Classification;
 import com.proyecto.model.DriveLine;
-import com.proyecto.model.Engine;
 import com.proyecto.model.Fuel;
-import com.proyecto.model.Make;
 import com.proyecto.model.Transmission;
 import com.proyecto.services.UtilsService;
 
@@ -38,6 +40,9 @@ public class UtilServiceImpl implements UtilsService {
 	@Autowired
 	private DriveLineDao driveLineDao;
 	
+	@Autowired
+	private EngineDao engineDao;
+	
 	//@Autowired
 	//private EngineStatisticsDaoImpl engineStatisticsDao;
 	
@@ -52,18 +57,18 @@ public class UtilServiceImpl implements UtilsService {
 	 * 
 	 * @return
 	 */
-	public List<Make> getCarsMakes() {
+	public List<Car> getCarsMakes() {
 
 		return makeDao.findMakes();
 	}
 	
-	public List<Make> getCarsMakesFilter(int m) {
+	public List<Car> getCarsMakesFilter(int m) {
 
 		return carDao.getCarsMakesFilter(m);
 	}
 
 	/**
-	 * Obtiene los años distintos de los vehículos
+	 * Obtiene los aï¿½os distintos de los vehï¿½culos
 	 * 
 	 * @return
 	 */
@@ -72,9 +77,9 @@ public class UtilServiceImpl implements UtilsService {
 		return carDao.getCarsYears();
 	}
 	
-	public List<Boolean> getCarsHybrids() {
+	public List<Boolean> getEngineHybrids() {
 
-		return carDao.getCarsHybrids();
+		return engineDao.getEngineHybrids();
 	}
 	
 	public List<Classification> getCarsClassificationsTabla() {
@@ -99,7 +104,7 @@ public class UtilServiceImpl implements UtilsService {
 
 
 
-	public Make saveMake(Make m) {
+	public Car saveMake(Car m) {
 
 		return makeDao.save(m);
 	}
@@ -127,8 +132,8 @@ public class UtilServiceImpl implements UtilsService {
 	}
 	
 	
-	public Make getMakeByName(String m) throws Exception{
-		Make make = makeDao.findMakeByName(m);
+	public Car getMakeByName(String m) throws Exception{
+		Car make = makeDao.findMakeByName(m);
 		if(make == null) {
 			throw new Exception("Marca con nombre "+ m +" no encontrada");
 		}

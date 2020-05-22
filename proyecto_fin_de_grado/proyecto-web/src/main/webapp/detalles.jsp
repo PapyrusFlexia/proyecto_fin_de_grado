@@ -155,7 +155,7 @@
 				<div class="form-row">
 					<label class="mt-2 col-form-label" for="hybrid">Hybrid:</label>
 					<div class="form-check ml-1 mt-3">
-					<% String hybridSelected = car.getHybrid()?" checked=''checked'":""; %>
+					<% String hybridSelected = engine.isHybrid()?" checked=''checked'":""; %>
 						<input class="form-check-input valid" type="checkbox"
 							name="hybrid" id="hybrid" <%=hybridSelected%>>
 					</div>
@@ -189,22 +189,12 @@
 		</fieldset>
 		<h2>Identification</h2>
 		<fieldset class="form-row">
-			<div class="form-group">
-				<label>Make</label> <select class="custom-select"
-					name="make" id="make" required>
-					<%
-						List<Make> makes = (List<Make>) request.getAttribute("makes");
-					if (makes != null) {
-						for(Make m: makes){
-					%>
-					<option value="<%=m.getId()%>" <%if(car.getMake().getId() == m.getId()){ %> selected="selected"  <%}%>><%=m.getMake()%></option>
-					<%
-						}
-					}
-					%>
-				</select>
-				<div class="invalid-feedback">Example invalid custom select
-					feedback</div>
+			<div class="col-md-4 mb-3">
+				<label for="validationServer08">Make</label> <input
+					type="text" class="form-control is-valid" 
+					placeholder="Last name"
+					name="modelyear" id="modelyear" value="<%=car.getMake()%>" required>
+				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer08">Model Year</label> <input

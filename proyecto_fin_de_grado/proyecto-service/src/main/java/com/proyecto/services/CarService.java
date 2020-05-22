@@ -2,12 +2,13 @@
 package com.proyecto.services;
 
 import java.util.List;
+
 import java.util.Optional;
 import java.util.function.Predicate;
 
 import com.proyecto.model.Car;
-import com.proyecto.model.Make;
 import com.proyecto.model.comparators.CarComparator;
+
 
 public interface CarService {
 	
@@ -30,18 +31,9 @@ public interface CarService {
 
 	public List<Car> getCars(int start, int end, List<Predicate<Car>> ps);
 
-	//public long getCarsCount(List<Predicate<Car>> ps);
-	
-	public List<Make> getCarsCount(int m);
+	public List<Car> getCarsCount(int m);
 
-	public List<Car> getCars(int start, int end, Predicate<Car> p, CarComparator comparator);
-
-	public List<Car> getCarsSortMake(int begin, int end, List<Predicate<Car>> ps, CarComparator makecomparator);
-
-	public List<Car> getCars(int start, int end, Predicate<Car> p, CarComparator comparator, int limit);
 	public List<Car> getCars(List<Predicate<Car>> ps);
-
-	
 
 	public List<Car> getMarcaModelo(int start, int stop);
 
@@ -73,7 +65,6 @@ public interface CarService {
 
 	public List<String> getCarsClassificationsTabla();
 
-	//public long getCarsCount(Predicate<Car> p);
 
 	public List<String> getCarsDrivelines();
 
@@ -91,7 +82,7 @@ public interface CarService {
 
 	
 
-	
+
 
 	
 

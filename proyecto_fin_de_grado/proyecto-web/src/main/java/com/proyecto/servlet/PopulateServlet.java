@@ -4,6 +4,7 @@ import java.io.IOException;
 
 
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,6 @@ import com.proyecto.model.Classification;
 import com.proyecto.model.Dimensions;
 import com.proyecto.model.DriveLine;
 import com.proyecto.model.Fuel;
-import com.proyecto.model.Make;
 import com.proyecto.model.Transmission;
 import com.proyecto.services.UtilsService;
 import com.proyecto.services.data.DatabaseJson;
@@ -38,7 +38,7 @@ public class PopulateServlet extends AbstractServlet {
 		}
 		if(param.equals("test")) {
 			try {
-				Make m = utilsService.getMakeByName("AUDI");
+				Car m = utilsService.getMakeByName("AUDI");
 				System.out.println(m);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -50,12 +50,7 @@ public class PopulateServlet extends AbstractServlet {
 		for(int i=start ; i < array.length(); i++) {
 
 			JSONObject json = array.getJSONObject(i);
-			if (param != null && param.equals("makes")) {
-				String make = json.getJSONObject("identification").getString("make");
-				Make m = new Make();
-				m.setMake(make);
-				utilsService.saveMake(m);
-			} else if (param != null && param.equals("fuel")) {
+			 if (param != null && param.equals("fuel")) {
 				String fuel = json.getJSONObject("fuelinformation").getString("fueltype");
 				Fuel f = new Fuel();
 				f.setFuelType(fuel);
@@ -91,7 +86,7 @@ public class PopulateServlet extends AbstractServlet {
 					c.setTransmission(utilsService
 							.getTransmissionByName(json.getJSONObject("engineinformation").getString("transmission")));
 					c.setEnginetype(json.getJSONObject("engineinformation").getString("enginetype"));
-					c.setMake(utilsService.getMakeByName(json.getJSONObject("identification").getString("make")));
+					c.setMake(json.getJSONObject("identification").getString("make"));
 					c.setClassification(utilsService
 							.getClassificationByName(json.getJSONObject("identification").getString("classification")));
 					c.setName(json.getJSONObject("identification").getString("id"));
@@ -101,7 +96,7 @@ public class PopulateServlet extends AbstractServlet {
 					c.setLength(json.getJSONObject("dimensions").getInt("length"));
 					c.setHeight(json.getJSONObject("dimensions").getInt("height"));
 					c = carService.save(c);
-					//System.out.println(c);
+		
 				
 				} catch (Exception e) {
 					System.out.println(json);

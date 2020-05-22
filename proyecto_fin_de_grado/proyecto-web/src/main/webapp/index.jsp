@@ -78,7 +78,7 @@
 	siguiente = paginaComienzo + 1;
 
 	List<String> idTabla = (List<String>) request.getAttribute("id");
-	List<Make> modeloTabla = (List<Make>) request.getAttribute("makes");
+	List<Car> modeloTabla = (List<Car>) request.getAttribute("makes");
 	List<Boolean> hybridTabla = (List<Boolean>) request.getAttribute("hybrids");
 	List<Classification> classificationTabla = (List<Classification>) request.getAttribute("classifications");
 	List<Integer> anno = (List<Integer>) request.getAttribute("years");
@@ -88,13 +88,12 @@
 
 	<jsp:include page="head.jsp" />
 
-	<section id="hero" class="d-flex align-items-center">
+	<section id="hero">
 
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3 col-sm-3">
 					<div class="form-group">
-						<ul class="navbar-nav">
 							<select class="form-control" data-live-search="true"
 								title="Filter by year" id="year">
 								<option value="-1">FILTRAR POR AÑO</option>
@@ -117,7 +116,7 @@
 							<option value="-1">FILTRAR POR MARCA</option>
 							<%
 								if (modeloTabla != null) {
-								for (Make model : modeloTabla) {
+								for (Car model : modeloTabla) {
 							%>
 							<option <%if (model.getId() == modeloFiltroInt) {%> selected
 								<%}%> value="<%=model.getId()%>"><%=model.getMake()%></option>
@@ -200,13 +199,14 @@
 						<%
 							if (cochesTabla != null) {
 							for (Car c : cochesTabla) {
+								Engine e = new Engine();
 						%>
 						<tr>
 							<th><%=c.getId()%></th>
 							<td><%=c.getName()%></td>
-							<td><%=c.getMake().getMake()%></td>
+							<td><%=c.getMake()%></td>
 							<td><%=c.getYear()%></td>
-							<td><%=c.getHybrid()%></td>
+							<td><%=e.isHybrid()%></td>
 							<td><%=c.getClassification().getClassification()%></td>
 							<td>
 								<div class="dropdown">
@@ -244,7 +244,7 @@
 					value="<%=classificationFiltro%>" />
 			</div>
 		</div>
-		</div>
+	
 
 	</section>
 
@@ -340,7 +340,7 @@
 						data-aos-delay="300">
 						<p>Disfruta de los servicios del producto Organizatium, donde
 							quieras y cuando quieras. ¡Prueba nuestra app!</p>
-						<a href="#" class="btn-learn-more">Learn More</a>
+						<a href="#" class="btn-learn-more">Conocer más</a>
 					</div>
 				</div>
 
@@ -397,7 +397,8 @@
 									<div class="count-box">
 										<i class="icofont-award"></i> <span data-toggle="counter-up">1</span>
 										<p>
-											<strong>Aprobado</strong> en la creación y desarrollo del
+											<strong>Aprobado</strong> en la cr
+											eación y desarrollo del
 											proyecto de aplicaciones web.
 										</p>
 									</div>
@@ -666,7 +667,6 @@
 
 				<div class="section-title" data-aos="fade-up">
 					<h2>Equipo</h2>
-					<p>Necessitatibus eius consequatur ex aliquid fuga eum quidem</p>
 				</div>
 
 				<div class="row">

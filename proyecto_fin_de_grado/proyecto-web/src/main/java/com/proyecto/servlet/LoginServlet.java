@@ -8,11 +8,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "LoginServlet", 
 	urlPatterns = { "/login" }, 
-	initParams = {@WebInitParam(name = "login", value = "") , @WebInitParam(name = "pass", value = "") })
+	initParams = {@WebInitParam(name = "login", value = "root") , @WebInitParam(name = "pass", value = "root") })
 public class LoginServlet extends HttpServlet {
+	
+	
 
 	private static final long serialVersionUID = -1720688734823865429L;
 	
@@ -21,6 +24,17 @@ public class LoginServlet extends HttpServlet {
 		
 
 		request.getRequestDispatcher("./login.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		
+		String captcha = (String) session.getAttribute("captcha");
+		String code = (String) request.getParameter("code");
+		if (captcha != null && code != null) {
+			if (captcha.equals(code)) {
+				System.out.print("<p class='alert'>Correct</p>");
+			} else {
+				System.out.print("<p class='alert'>Incorrect</p>");
+			}
+		}
 	}
 
 	@Override

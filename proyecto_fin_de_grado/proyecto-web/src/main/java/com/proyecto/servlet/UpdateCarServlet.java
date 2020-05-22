@@ -28,10 +28,6 @@ import com.proyecto.services.data.DatabaseJson;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 
 public class UpdateCarServlet extends AbstractServlet {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -69,8 +65,6 @@ public class UpdateCarServlet extends AbstractServlet {
 		String pk = request.getParameter("pk");
 		String redirect = request.getParameter("redirect");
 
-		// Part pPepe = request.getPart("pepe");
-
 		List<Part> fileParts = request.getParts().stream()
 				.filter(part -> part.getName().contains("image") && part.getSize() > 0).collect(Collectors.toList());
 		List<CarImage> cImages = new ArrayList<>();
@@ -86,14 +80,7 @@ public class UpdateCarServlet extends AbstractServlet {
 		}
 
 		// Validator
-		/**
-		 * if(name != null) { if(!cImages.isEmpty()) { c.setCarImages(cImages);
-		 * 
-		 * } c = carService.update(c); if (1 > 0) { c =
-		 * carService.getCarByPk(Integer.valueOf(pk)); if(!cImages.isEmpty()) {
-		 * c.setCarImages(cImages); c = carService.update(c); } } }
-		 **/
-
+		
 		if (transmission != null && !transmission.equals("") && engineType != null && !engineType.equals("")
 				&& horsepower != null && Integer.valueOf(horsepower) > 0 && torque != null
 				&& Integer.valueOf(torque) > 0 && hybrid != null && numberofforwardgears != null
@@ -114,34 +101,6 @@ public class UpdateCarServlet extends AbstractServlet {
 			request.setAttribute("executed", "ok");
 
 		}
-		/**
-		 * if (redirect.equals("") || redirect == null) { response.sendRedirect("./id="
-		 * + pk +"&executed=" + executed + "&redirect="); }
-		 */
-
-		/*
-		 * if(!width.equals("")) { map.put("c.width", Integer.valueOf(width)); }else {
-		 * map.put("c.width", 0); }
-		 * 
-		 * response.sendRedirect( "./cars?id=" + pk + "&executed=" + executed +
-		 * "&redirect=" + decodeValue(redirect));
-		 */
-
-		/*
-		 * Optional<Car> carOp = CarService.getCarByPk(Integer.valueOf(pk));
-		 * 
-		 * if(carOp.isPresent()) {
-		 * 
-		 * Car car = carOp.get();
-		 * 
-		 * car.getEngineinformation().setDriveline(driveline);
-		 * car.getEngineinformation().setEnginetype(engineType);
-		 * 
-		 * int contador = 0; for(Car c :DatabaseJson.loadDatabase().getDataParsed()) {
-		 * if(c.getPk() == Integer.valueOf(pk)) {
-		 * DatabaseJson.loadDatabase().getDataParsed().set(contador, c); } contador ++;
-		 * } }
-		 */
 		try {
 			mainController.detalles(request, response);
 			dispatcher = "./detalles.jsp";
@@ -152,7 +111,7 @@ public class UpdateCarServlet extends AbstractServlet {
 		}
 		request.setAttribute("years", utilsService.getCarsYears());
 		request.setAttribute("makes", utilsService.getCarsMakes());
-		request.setAttribute("hybrids", utilsService.getCarsHybrids());
+		request.setAttribute("hybrids", utilsService.getEngineHybrids());
 		request.setAttribute("classifications",  utilsService.getCarsClassificationsTabla());
 
 		request.getRequestDispatcher("/detalles.jsp").forward(request, response);

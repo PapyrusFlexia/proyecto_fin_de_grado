@@ -2,6 +2,7 @@ package com.proyecto.dao;
 
 import javax.persistence.Query;
 
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Repository;
 import com.proyecto.model.Engine;
 import com.proyecto.model.Car;
 import com.proyecto.model.Classification;
-import com.proyecto.model.Make;
 import com.proyecto.model.User;
 
 @Repository("engineDao")
@@ -33,6 +33,16 @@ public class EngineDaoImpl extends AbstractDao<Serializable, Engine> implements 
 		}
 	}
 
+	@Override
+		@SuppressWarnings("unchecked")
+		public List<Boolean> getEngineHybrids() { 
+
+			List<Boolean> listCarsHybrids = getEntityManager()
+					.createQuery("SELECT DISTINCT c.hybrid FROM Engine c ORDER BY c.hybrid").getResultList();
+
+			return listCarsHybrids;
+		}
+	
 	@Override
 	public long totalEngine() {
 		long totalEngine = (long) getEntityManager().createQuery("SELECT COUNT (e.id) FROM Engine e").getSingleResult();

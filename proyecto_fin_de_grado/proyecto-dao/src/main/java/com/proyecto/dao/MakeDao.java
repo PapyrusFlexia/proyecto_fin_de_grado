@@ -2,22 +2,22 @@ package com.proyecto.dao;
 
 import java.util.List;
 
+
 import com.proyecto.model.Car;
-import com.proyecto.model.Make;
 import com.proyecto.model.User;
 
 public interface MakeDao {
 
-	List<Make> findMakes();
+	List<Car> findMakes();
 
-	Make findMakeByName(String name);
+	Car findMakeByName(String name);
 
-	Make save(Make m);
+	Car save(Car m);
 
-	Make getByPk(Integer key);
+	Car getByPk(Integer key);
 
 	void deleteById(String id);
 
-	List<Make> findAllMakes();
+	List<Car> findAllMakes();
 
 }

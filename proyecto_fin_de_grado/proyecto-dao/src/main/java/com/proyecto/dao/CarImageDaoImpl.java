@@ -2,6 +2,7 @@ package com.proyecto.dao;
 
 import javax.persistence.Query;
 
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Repository;
 import com.proyecto.model.CarImage;
 import com.proyecto.model.Car;
 import com.proyecto.model.Classification;
-import com.proyecto.model.Make;
 import com.proyecto.model.User;
 
 @Repository("carImageDao")

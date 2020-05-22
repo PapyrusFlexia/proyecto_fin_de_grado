@@ -2,7 +2,6 @@ package com.proyecto.servlet;
 
 import java.io.IOException;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -16,17 +15,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import com.proyecto.services.UtilsService;
 import com.proyecto.servlet.controller.MainController;
 
-@WebServlet(name = "MainServlet", urlPatterns = { "" }, initParams = @WebInitParam(name = "location", value = "Hola"), loadOnStartup = 1)
-public class MainServlet extends AbstractServlet {
+@WebServlet(name = "BookingServlet", urlPatterns = { "/booking" })
+public class BookingServlet extends AbstractServlet {
 
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = -1720688734823865429L;
+	
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 
 		String action = request.getParameter("action");
-		String dispatcher = "./index.jsp";
+		String dispatcher = "./booking.jsp";
 		String filterMake = request.getParameter("make");
 		String filterYear = request.getParameter("year");
 		String filterHybrid = request.getParameter("hybrid");
@@ -47,10 +46,6 @@ public class MainServlet extends AbstractServlet {
 				request.setAttribute("message", e.getMessage());
 				dispatcher = "./error.jsp";
 			}
-
-		/**}else if("datatable".equals(action)) {
-			dispatcher = "./datatable.jsp";
-		} */
 			
 		}else if("booking".equals(action)) {
 			dispatcher = "./booking.jsp";
@@ -73,15 +68,27 @@ public class MainServlet extends AbstractServlet {
 		request.setAttribute("hybrids", utilsService.getEngineHybrids());
 		request.setAttribute("classifications",  utilsService.getCarsClassificationsTabla());
 		request.getRequestDispatcher(dispatcher).forward(request, response);
-		
-
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		super.doPost(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String login = request.getParameter("login");
+		String pass = request.getParameter("pass");
+		
+		if(getInitParameter("login").equals(login) && 
+				getInitParameter("pass").equals(pass)){
+			
+			request.getSession(true).setAttribute("username", login);
+			response.sendRedirect("./");
+		}else {
+		
+			request.getRequestDispatcher("./booking.jsp").forward(request, response);
+		}
+		
+		
 	}
+
+	
 
 }
