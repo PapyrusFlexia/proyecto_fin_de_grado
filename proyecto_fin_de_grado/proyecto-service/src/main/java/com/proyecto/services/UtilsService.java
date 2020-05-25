@@ -11,7 +11,7 @@ import com.proyecto.model.Transmission;
 
 public interface UtilsService {
 
-	public List<Car> getCarsMakes();
+	public List<String> getCarsMakes();
 	
 	public List<Car> getCarsMakesFilter(int m);
 	

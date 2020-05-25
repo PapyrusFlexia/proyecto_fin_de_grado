@@ -41,14 +41,14 @@ public class UpdateCarServlet extends AbstractServlet {
 			throws ServletException, IOException {
 		String dispatcher = "./detalles.jsp";
 		String transmission = request.getParameter("transmission");
-		String engineType = request.getParameter("enginetype");
+		String enginetype = request.getParameter("enginetype");
 		String driveline = request.getParameter("driveline");
 		String horsepower = request.getParameter("horsepower");
 		String torque = request.getParameter("torque");
-		String hybrid = request.getParameter("hybrid");
-		if (hybrid == null) {
-			hybrid = "false";
-		}
+		//String hybrid = request.getParameter("hybrid");
+		//if (hybrid == null) {
+		//	hybrid = "false";
+		//}
 
 		String numberofforwardgears = request.getParameter("numberofforwardgears");
 		String make = request.getParameter("make");
@@ -81,9 +81,9 @@ public class UpdateCarServlet extends AbstractServlet {
 
 		// Validator
 		
-		if (transmission != null && !transmission.equals("") && engineType != null && !engineType.equals("")
+		if (transmission != null && !transmission.equals("") && enginetype != null && !enginetype.equals("")
 				&& horsepower != null && Integer.valueOf(horsepower) > 0 && torque != null
-				&& Integer.valueOf(torque) > 0 && hybrid != null && numberofforwardgears != null
+				&& Integer.valueOf(torque) > 0 && numberofforwardgears != null
 				&& !numberofforwardgears.equals("") && driveline != null && !driveline.equals("") && make != null
 				&& !make.equals("") && modelyear != null && !modelyear.equals("") && classification != null
 				&& !classification.equals("") && year != null && !year.equals("") && Integer.valueOf(year) >= 2009
@@ -92,8 +92,8 @@ public class UpdateCarServlet extends AbstractServlet {
 				&& Integer.valueOf(highwaympg) > 0 && citymph != null && Integer.valueOf(citymph) > 0
 				&& fuelType != null && !fuelType.equals("") && name != null && !name.equals("")) {
 
-			carService.update(Integer.parseInt(pk), transmission, engineType, Integer.parseInt(horsepower),
-					Integer.parseInt(horsepower), Boolean.parseBoolean(hybrid), Integer.parseInt(numberofforwardgears),
+			carService.update(Integer.parseInt(pk), transmission, enginetype, Integer.parseInt(horsepower),
+					Integer.parseInt(horsepower), Integer.parseInt(numberofforwardgears),
 					driveline, make, modelyear, name, classification, Integer.parseInt(year), Integer.parseInt(width),
 					Integer.parseInt(length), Integer.parseInt(height), Integer.parseInt(highwaympg),
 					Integer.parseInt(citymph), fuelType);

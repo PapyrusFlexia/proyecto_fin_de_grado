@@ -38,7 +38,7 @@ public class EngineDaoImpl extends AbstractDao<Serializable, Engine> implements 
 		public List<Boolean> getEngineHybrids() { 
 
 			List<Boolean> listCarsHybrids = getEntityManager()
-					.createQuery("SELECT DISTINCT c.hybrid FROM Engine c ORDER BY c.hybrid").getResultList();
+					.createQuery("SELECT DISTINCT e.hybrid FROM Engine e ORDER BY e.hybrid").getResultList();
 
 			return listCarsHybrids;
 		}
@@ -57,6 +57,8 @@ public class EngineDaoImpl extends AbstractDao<Serializable, Engine> implements 
 		}
 		return e1;
 	}
+	
+	
 
 	@SuppressWarnings("unchecked")
 	public List<Engine> findAllEngines() {

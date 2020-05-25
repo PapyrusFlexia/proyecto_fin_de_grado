@@ -2,9 +2,6 @@ package com.proyecto.servlet;
 
 import java.io.IOException;
 
-
-
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +15,7 @@ import com.proyecto.model.Car;
 import com.proyecto.model.Classification;
 import com.proyecto.model.Dimensions;
 import com.proyecto.model.DriveLine;
+import com.proyecto.model.Engine;
 import com.proyecto.model.Fuel;
 import com.proyecto.model.Transmission;
 import com.proyecto.services.UtilsService;
@@ -29,28 +27,29 @@ public class PopulateServlet extends AbstractServlet {
 	private static final long serialVersionUID = -1720688734823865429L;
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String param = request.getParameter("model");
 		int start = 0;
-		if(request.getParameter("start") != null && !request.getParameter("start").equals("")){
+		if (request.getParameter("start") != null && !request.getParameter("start").equals("")) {
 			start = Integer.valueOf(request.getParameter("start"));
 		}
-		if(param.equals("test")) {
+		if (param.equals("test")) {
 			try {
 				Car m = utilsService.getMakeByName("AUDI");
 				System.out.println(m);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 		JSONArray array = DatabaseJson.loadDatabase().getData();
-		System.out.println("total --> "+array.length());
-		for(int i=start ; i < array.length(); i++) {
+		System.out.println("total --> " + array.length());
+		for (int i = start; i < array.length(); i++) {
 
 			JSONObject json = array.getJSONObject(i);
-			 if (param != null && param.equals("fuel")) {
+			if (param != null && param.equals("fuel")) {
 				String fuel = json.getJSONObject("fuelinformation").getString("fueltype");
 				Fuel f = new Fuel();
 				f.setFuelType(fuel);
@@ -70,6 +69,7 @@ public class PopulateServlet extends AbstractServlet {
 				Classification c = new Classification();
 				c.setClassification(classification);
 				utilsService.saveClassification(c);
+			
 			} else if (param != null && param.equals("car")) {
 				try {
 					Car c = new Car();
@@ -96,8 +96,32 @@ public class PopulateServlet extends AbstractServlet {
 					c.setLength(json.getJSONObject("dimensions").getInt("length"));
 					c.setHeight(json.getJSONObject("dimensions").getInt("height"));
 					c = carService.save(c);
+				} catch (Exception e) {
+					System.out.println(json);
+					System.out.println("Error" + e.getMessage());
+				}
+
+			} else if (param != null && param.equals("engine")) {
+				try {
+					Engine e = new Engine();
+					e.setCitymph(json.getJSONObject("fuelinformation").getInt("citymph"));
+					e.setDriveline(json.getJSONObject("engineinformation").getString("driveline"));
+					e.setEngineType(json.getJSONObject("engineinformation").getString("enginetype"));
+					e.setFueltype(utilsService
+							.getFuelTypeByName(json.getJSONObject("fuelinformation").getString("fueltype")));
+					e.setHighwaympg(json.getJSONObject("fuelinformation").getInt("highwaympg"));
+					e.setHorsepower(json.getJSONObject("engineinformation").getJSONObject("enginestatistics")
+							.getInt("horsepower"));
+					e.setHybrid(json.getJSONObject("engineinformation").getBoolean("hybrid"));
+					e.setNumberOfForwardGears(json.getJSONObject("engineinformation").getInt("numberofforwardgears"));
+					e.setTorque(
+							json.getJSONObject("engineinformation").getJSONObject("enginestatistics").getInt("torque"));
+					
+					e.setTransmission(json.getJSONObject("engineinformation").getString("transmission"));
+					
 		
-				
+					e = carService.saveEngine(e);
+
 				} catch (Exception e) {
 					System.out.println(json);
 					System.out.println("Error" + e.getMessage());

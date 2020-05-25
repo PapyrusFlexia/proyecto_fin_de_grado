@@ -13,7 +13,7 @@ public interface CarDao {
 
 	Car save(Car c);
 
-	int update(int id, String transmission, String engineType, int horsepower, int torque, boolean hybrid,
+	int update(int id, String transmission, String enginetype, int horsepower, int torque,
 			int numberofforwardgears, String driveline, String make, String modelyear, String name,
 			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
 			String fuelType);
@@ -27,6 +27,8 @@ public interface CarDao {
 	List<Integer> getCarsNumberOfForwardGears();
 
 	List<Integer> getCarsYears();
+	
+	List<String> getCarsMakes();
 
 	//List<Boolean> getCarsHybrids();
 

@@ -131,6 +131,7 @@ public class MainController {
 		Car car = carService.getCarByPk(Integer.valueOf(pk));
 		request.setAttribute("redirect", redirect);
 		request.setAttribute("car", car);
+		request.setAttribute("make", utilsService.getCarsMakes());
 		request.setAttribute("drivelines", utilsService.getCarsDriveLines());
 		request.setAttribute("classifications", utilsService.getCarsClassificationsTabla());
 		request.setAttribute("years", utilsService.getCarsYears());

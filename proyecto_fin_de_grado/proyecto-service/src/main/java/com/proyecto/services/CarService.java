@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import com.proyecto.model.Car;
+import com.proyecto.model.Engine;
 import com.proyecto.model.comparators.CarComparator;
 
 
@@ -18,7 +19,9 @@ public interface CarService {
 
 	public Car save(Car c);
 	
-	int update(int id, String transmission, String engineType, int horsepower, int torque, boolean hybrid,
+	Engine saveEngine(Engine e);
+	
+	int update(int id, String transmission, String engineType, int horsepower, int torque,
 			int numberofforwardgears, String driveline, String make, String modelyear, String name,
 			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
 			String fuelType);
@@ -79,6 +82,8 @@ public interface CarService {
 	public long  totalCar();
 
 	public List<Car> getCarsCompare(int start, int end, List<Predicate<Car>> plist, CarComparator carComparator);
+
+
 
 	
 

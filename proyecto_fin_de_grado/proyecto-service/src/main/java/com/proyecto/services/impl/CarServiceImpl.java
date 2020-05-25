@@ -17,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proyecto.dao.CarDao;
+import com.proyecto.dao.EngineDao;
 import com.proyecto.model.Car;
+import com.proyecto.model.Engine;
 import com.proyecto.model.comparators.CarComparator;
 import com.proyecto.services.CarService;
 import com.proyecto.services.data.DatabaseJson;
@@ -29,6 +31,9 @@ public class CarServiceImpl implements CarService {
 
 	@Autowired
 	private CarDao carDao;
+	
+	@Autowired
+	private EngineDao engineDao;
 
 	@PostConstruct
 	public void init() {
@@ -185,16 +190,20 @@ public class CarServiceImpl implements CarService {
 	public Car save(Car c) {
 		return carDao.save(c);
 	}
-
+	
 	@Override
-	public int update(int id, String transmission, String engineType, int horsepower, int torque, boolean hybrid,
+	public Engine saveEngine(Engine e) {
+		return engineDao.save(e);
+	}
+
+	@Override // ELIMINADO ID MAKE y HYBRID
+	public int update(int id, String transmission, String engineType, int horsepower, int torque,
 			int numberofforwardgears, String driveline, String make, String modelyear, String name,
 			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
 			String fuelType) {
 
-		return carDao.update(id, transmission, engineType, horsepower, torque, hybrid, numberofforwardgears, driveline, make, modelyear, name, classification, year, width, length, height, highwaympg, citymph, fuelType);
+		return carDao.update(id, transmission, engineType, horsepower, torque,numberofforwardgears, driveline, make, modelyear, name, classification, year, width, length, height, highwaympg, citymph, fuelType);
 	}
-
 	public List<Car> getMarcaModelo(int start, int stop) {
 
 		// comprobamos los parametros de entrada

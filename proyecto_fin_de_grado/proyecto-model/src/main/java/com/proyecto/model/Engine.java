@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "ENGINEINFORMATION")
+@Table(name = "ENGINE")
 public class Engine implements Serializable {
 
 	private Fuel fuel;
@@ -36,11 +36,7 @@ public class Engine implements Serializable {
 
 	@NotNull
 	@Column(name = "ENGINETYPE", nullable = false)
-	private String engineType;
-
-	@NotNull
-	@Column(name = "ENGINESTATISTICS", nullable = false)
-	private int engineStatistics;
+	private String enginetype;
 
 	@NotNull
 	@Column(name = "HYBRID", nullable = false)
@@ -77,16 +73,14 @@ public class Engine implements Serializable {
 
 	}
 
-	public Engine(Fuel fuel, int id, String driveline, String transmission, String engineType, int engineStatistics,
-			boolean hybrid, int numberOfForwardGears, int horsepower, int torque, int citymph, Fuel fueltype,
-			int highwaympg) {
+	public Engine(Fuel fuel, int id, String driveline, String transmission, String enginetype, boolean hybrid,
+			int numberOfForwardGears, int horsepower, int torque, int citymph, Fuel fueltype, int highwaympg) {
 		super();
 		this.fuel = fuel;
 		this.id = id;
 		this.driveline = driveline;
 		this.transmission = transmission;
-		this.engineType = engineType;
-		this.engineStatistics = engineStatistics;
+		this.enginetype = enginetype;
 		this.hybrid = hybrid;
 		this.numberOfForwardGears = numberOfForwardGears;
 		this.horsepower = horsepower;
@@ -129,19 +123,11 @@ public class Engine implements Serializable {
 	}
 
 	public String getEngineType() {
-		return engineType;
+		return enginetype;
 	}
 
 	public void setEngineType(String engineType) {
-		this.engineType = engineType;
-	}
-
-	public int getEngineStatistics() {
-		return engineStatistics;
-	}
-
-	public void setEngineStatistics(int engineStatistics) {
-		this.engineStatistics = engineStatistics;
+		this.enginetype = engineType;
 	}
 
 	public boolean isHybrid() {
@@ -203,9 +189,9 @@ public class Engine implements Serializable {
 	@Override
 	public String toString() {
 		return "Engine [fuel=" + fuel + ", id=" + id + ", driveline=" + driveline + ", transmission=" + transmission
-				+ ", engineType=" + engineType + ", engineStatistics=" + engineStatistics + ", hybrid=" + hybrid
-				+ ", numberOfForwardGears=" + numberOfForwardGears + ", horsepower=" + horsepower + ", torque=" + torque
-				+ ", citymph=" + citymph + ", fueltype=" + fueltype + ", highwaympg=" + highwaympg + "]";
+				+ ", enginetype=" + enginetype + ", hybrid=" + hybrid + ", numberOfForwardGears=" + numberOfForwardGears
+				+ ", horsepower=" + horsepower + ", torque=" + torque + ", citymph=" + citymph + ", fueltype="
+				+ fueltype + ", highwaympg=" + highwaympg + "]";
 	}
 
 }

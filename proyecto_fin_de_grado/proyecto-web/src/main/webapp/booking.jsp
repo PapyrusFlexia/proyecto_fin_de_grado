@@ -40,6 +40,7 @@
 <link href="assets/vendor/aos/aos.css" rel="stylesheet">
 
 <link href="assets/css/style.css" rel="stylesheet">
+<script src="assets/vendor/jquery/jquery.min.js"></script>
 
 </head>
 
@@ -158,13 +159,10 @@
 							<td><%=c.getMake()%></td>
 							<td><%=c.getYear()%></td>
 							<td>
-								<div class="dropdown">
-									<button class="btn btn-primary" type="button"
+									<button class="btn btn-primary reserved" type="button"
 										data-toggle="dropdown">
 										Reservar <span class="caret"></span>
 									</button>
-									
-								</div>
 							</td>
 						</tr>
 						
@@ -259,6 +257,7 @@
 
 			</div>
 		</section>
+		
 
 		<jsp:include page="footer.jsp" />
 
@@ -275,102 +274,21 @@
 		}
 		return url;
 	}%>
+	
 	<script type="text/javascript">
 		$(document)
 				.ready(
+						
 						function() {
-							$('#year')
-									.change(
-											function() {
-												var valor = $(this).children(
-														"option:selected")
-														.val();
-												location.href = './?action=paginacion&year='
-														+ valor
-														+ '&make='
-														+ $('#makeFilterValue')
-																.val()
-														+ '&hybrid='
-														+ $('#hybridFilterValue')
-														.val()
-														+ '&classification='
-														+ $('#classificationFilterValue')
-														.val()
-														+ '&page=0';
-											});
-							$('#make')
-									.change(
-											function() {
-												var valor = $(this).children(
-														"option:selected")
-														.val();
-												location.href = './?action=paginacion&year='
-														+ $('#yearFilterValue')
-																.val()
-														+ '&make='
-														+ valor
-														+ '&hybrid='
-														+ $('#hybridFilterValue')
-														.val()
-														+ '&classification='
-														+ $('#classificationFilterValue')
-														.val()
-														+ '&page=0';
-											});
-							$('#hybrid')
-							.change(
-									function() {
-										var valor = $(this).children(
-												"option:selected")
-												.val();
-										location.href = './?action=paginacion&year='
-												+ $('#yearFilterValue')
-														.val()
-												+ '&make='
-												+ $('#makeFilterValue')
-														.val()
-												+ '&hybrid='
-												+ valor
-												+ '&classification='
-												+ $('#classificationFilterValue')
-												.val()
-												+ '&page=0';
-									});
-							
-							$('#classification')
-							.change(
-									function() {
-										var valor = $(this).children(
-												"option:selected")
-												.val();
-										location.href = './?action=paginacion&year='
-												+ $('#yearFilterValue')
-														.val()
-												+ '&make='
-												+ $('#makeFilterValue')
-														.val()
-												+ '&hybrid='
-														+ $('#hybridFilterValue')
-														.val()
-												+ '&classification='
-												+ valor
-												+ '&page=0';
-									});
-							
-							<%if (anno != null) {%>
-							$("#year option[value=<%=anno%>]").attr('selected', 'selected');<%}%>
-							<%if (modeloTabla != null) {%>
-							$("#make option[value=<%=modeloTabla%>']").attr('selected','selected');<%}%>
-							<%if (hybridTabla != null) {%>
-							$("#hybrid option[value=<%=hybridTabla%>]").attr('selected','selected');<%}%>
-							<%if (classificationTabla != null) {%>
-							$("#classification option[value=<%=classificationTabla%>']").attr('selected', 'selected');
-	<%}%>
+							$("button.reserved").click(function(){
+							      $(this).prop("disabled",true);
+							});
+						
 		});
 	</script>
 
 
-	<script src="assets/vendor/jquery/jquery.min.js"></script>
+	
 	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
 	<script src="assets/vendor/php-email-form/validate.js"></script>
@@ -385,19 +303,7 @@
 	<script src="assets/js/main.js"></script>
 
 
-	<script src="assets/vendor/jquery/jquery.min.js"></script>
-	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-	<script src="assets/vendor/php-email-form/validate.js"></script>
-	<script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-	<script src="assets/vendor/counterup/counterup.min.js"></script>
-	<script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-	<script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-	<script src="assets/vendor/venobox/venobox.min.js"></script>
-	<script src="assets/vendor/aos/aos.js"></script>
 
-
-	<script src="assets/js/main.js"></script>
 
 </body>
 

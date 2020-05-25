@@ -1,9 +1,7 @@
 <%@page import="java.io.UnsupportedEncodingException"%>
 <%@page import="java.nio.charset.StandardCharsets"%>
-<%@page import="com.proyecto.model.Car"%>
+<%@page import="java.net.URLEncoder"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <%@page import="com.proyecto.model.Car"%>
 <%@page import="com.proyecto.model.Classification"%>
 <%@page import="com.proyecto.model.Engine"%>
@@ -12,74 +10,72 @@
 <%@page import="com.proyecto.model.Make"%>
 <%@page import="com.proyecto.model.Transmission"%>
 <%@page import="java.util.List"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
 
+<head>
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <title>Organizatium</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<meta content="" name="descriptison">
+<meta content="" name="keywords">
+
+<link href="assets/img/icon1.png" rel="icon">
+<link href="assets/img/icon1.png" rel="apple-touch-icon">
+
 <link
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
 	rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script src="/path/to/js/fileinput.js"></script>
-<script src="/path/to/themes/fas/theme.js"></script>
-<link href="/path/to/css/fileinput.min.css" rel="stylesheet">
-<link href="/path/to/themes/explorer/theme.css" rel="stylesheet">
+
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+<link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+<link href="assets/vendor/boxicons/css/boxicons.min.css"
+	rel="stylesheet">
+<link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
+<link href="assets/vendor/aos/aos.css" rel="stylesheet">
+
+<link href="assets/css/style.css" rel="stylesheet">
+
 </head>
+
 <body>
-	<div class="bs-example">
+	<header id="header" class="fixed-top d-flex align-items-center">
+		<div class="container d-flex align-items-center">
 
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+			<div class="logo mr-auto">
+				<h1 class="text-light">
+					<a onclick="location.href = 'http://localhost:8080/proyecto-web/';"><span>Organizatium</span></a>
+				</h1>
 
-
-
-			<button type="button" class="navbar-toggler" data-toggle="collapse"
-				data-target="#navbarCollapse">
-
-				<span class="navbar-toggler-icon"></span>
-
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarCollapse">
-
-				<div class="navbar-nav">
-
-					<a href="#"
-						class="nav-item nav-link active font-weight-bold text-uppercase"
-						data-toggle="tooltip" data-placement="bottom" title="">Coches</a>
-				</div>
 			</div>
 
+			<nav class="nav-menu d-none d-lg-block">
+				<ul>
 
-		</nav>
+
+					<li class="get-started"><a
+						onclick="location.href = 'http://localhost:8080/proyecto-web/login';">Login</a></li>
+
+					<li class="get-started"><a
+						onclick="location.href = 'http://localhost:8080/proyecto-web/';">Home</a></li>
+			</nav>
 
 
+		</div>
+	</header>
 		<%
 			Car car = (Car) request.getAttribute("car");
 			Engine engine = (Engine) request.getAttribute("engine");
-
-				/*String paginaActual = (String) request.getAttribute("page");
-				Car modeloFiltro = (Car) request.getAttribute("make");
-				String annoFiltro = (String) request.getAttribute("year");
-				String hybridFiltro = (String) request.getAttribute("hybrid");
-
-				List<String> idTabla = (List<String>) request.getAttribute("id");
-				List<Car> modeloTabla = (List<Car>) request.getAttribute("makes");
-				List<Integer> anno = (List<Integer>) request.getAttribute("years");
-				List<Boolean> hybridTabla = (List<Boolean>) request.getAttribute("hybrids");
-				List<Car> cochesTabla = (List<Car>) request.getAttribute("cars");*/
 		%>
-	</div>
+	
 	<%
 	String executed = (String)request.getAttribute("executed");
 	if("ok".equals(executed)){%>
@@ -155,7 +151,9 @@
 				<div class="form-row">
 					<label class="mt-2 col-form-label" for="hybrid">Hybrid:</label>
 					<div class="form-check ml-1 mt-3">
-					<% String hybridSelected = engine.isHybrid()?" checked=''checked'":""; %>
+					<% 
+					Engine e = new Engine();
+					String hybridSelected = e.isHybrid()?" checked=''checked'":""; %>
 						<input class="form-check-input valid" type="checkbox"
 							name="hybrid" id="hybrid" <%=hybridSelected%>>
 					</div>
@@ -193,7 +191,7 @@
 				<label for="validationServer08">Make</label> <input
 					type="text" class="form-control is-valid" 
 					placeholder="Last name"
-					name="modelyear" id="modelyear" value="<%=car.getMake()%>" required>
+					name="make" id="make" value="<%=car.getMake()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
@@ -305,22 +303,10 @@
 		<button class="btn btn-primary btn-lg" type="submit">Actualizar</button>
 	</form>
 
-	<%
-		String id = (String) request.getAttribute("id");
-	String pagei = (String) request.getAttribute("page");
-	String filterMake = (String) request.getAttribute("filterMake");
-	String filterYear = (String) request.getAttribute("filterYear");
-	String filterHybrid = (String) request.getAttribute("filterHybrid");
-
-	String carDriveline = (String) engine.getDriveline(); ////////////////////////////////////
-	Classification carClassification = (Classification) car.getClassification();
-	String carYear = String.valueOf(car.getYear());
-	Fuel carFuelType = (Fuel) car.getFueltype();
-	Transmission carTransmission = (Transmission) car.getTransmission();
-	%>
-
-	<button class="btn btn-primary hBack" type="button">REGRESAR A
+	<button class="btn btn-primary hBack" onclick="location.href = 'http://localhost:8080/proyecto-web/';">REGRESAR A
 		LOS COCHES</button>
+		
+		<jsp:include page="footer.jsp" />
 	<%!public static String encodeValue(String value) {
 		String result = "";
 		try {
@@ -330,13 +316,6 @@
 		}
 		return result;
 	}%>
-	<script>
-		$(".hBack").on("click", function(e) {
-			e.preventDefault();
-			window.history.back();
-		});
-
-	</script>
 	<script>
 $("#input-ke-1").fileinput({
     theme: "explorer",
@@ -356,8 +335,9 @@ $("#input-ke-1").fileinput({
         {caption: "picture-2.jpg", size: 872378, width: "120px", url: "/site/file-delete", key: 102},
         {caption: "picture-3.jpg", size: 632762, width: "120px", url: "/site/file-delete", key: 103}
     ],
-    initialPreviewDownloadUrl: 'https://picsum.photos/1920/1080?image={key}' // the key will be dynamically replaced  
+    initialPreviewDownloadUrl: 'https://picsum.photos/1920/1080?image={key}'  
 });
 </script>
 </body>
+
 </html>

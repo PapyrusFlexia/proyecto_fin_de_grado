@@ -78,7 +78,7 @@
 	siguiente = paginaComienzo + 1;
 
 	List<String> idTabla = (List<String>) request.getAttribute("id");
-	List<Car> modeloTabla = (List<Car>) request.getAttribute("makes");
+	List<String> modeloTabla = (List<String>) request.getAttribute("makes");
 	List<Boolean> hybridTabla = (List<Boolean>) request.getAttribute("hybrids");
 	List<Classification> classificationTabla = (List<Classification>) request.getAttribute("classifications");
 	List<Integer> anno = (List<Integer>) request.getAttribute("years");
@@ -94,19 +94,19 @@
 			<div class="row">
 				<div class="col-md-3 col-sm-3">
 					<div class="form-group">
-							<select class="form-control" data-live-search="true"
-								title="Filter by year" id="year">
-								<option value="-1">FILTRAR POR AÑO</option>
-								<%
-									for (Integer year : anno) {
-								%>
-								<option <%if (year.equals(annoFiltro)) {%> selected <%}%>
-									value="<%=year%>"><%=year%></option>
-								<%
-									//ERRORES EN CARDAO, CREAR MYSQL QUERY Y MIRAR UTILSSERVICE
-								}
-								%>
-							</select>
+						<select class="form-control" data-live-search="true"
+							title="Filter by year" id="year">
+							<option value="-1">FILTRAR POR AÑO</option>
+							<%
+								for (Integer year : anno) {
+							%>
+							<option <%if (year.equals(annoFiltro)) {%> selected <%}%>
+								value="<%=year%>"><%=year%></option>
+							<%
+								//ERRORES EN CARDAO, CREAR MYSQL QUERY Y MIRAR UTILSSERVICE
+							}
+							%>
+						</select>
 					</div>
 				</div>
 				<div class="col-md-3 col-sm-3">
@@ -115,13 +115,12 @@
 							title="Filter by makes" id="make">
 							<option value="-1">FILTRAR POR MARCA</option>
 							<%
-								if (modeloTabla != null) {
-								for (Car model : modeloTabla) {
+								for (String model : modeloTabla) {
 							%>
-							<option <%if (model.getId() == modeloFiltroInt) {%> selected
-								<%}%> value="<%=model.getId()%>"><%=model.getMake()%></option>
+							<option <%if (model.equals(modeloFiltro)) {%> selected <%}%>
+								value="<%=model%>"><%=model%></option>
 							<%
-								}
+								//ERRORES EN CARDAO, CREAR MYSQL QUERY Y MIRAR UTILSSERVICE
 							}
 							%>
 						</select>
@@ -209,22 +208,26 @@
 							<td><%=e.isHybrid()%></td>
 							<td><%=c.getClassification().getClassification()%></td>
 							<td>
+
+
+
 								<div class="dropdown">
 									<button class="btn btn-primary dropdown-toggle" type="button"
 										data-toggle="dropdown">
-										Acciones <span class="caret"></span>
+										Detalles <span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu">
 										<li><a
-											href="./?action=detalles&pk=<%=c.getId()%>&redirect=<%=encodeValue(request.getQueryString())%>"><span
-												class="glyphicon glyphicon-eye-open d-flex justify-content-center"></span></a></li>
-										<li><a href="#"><span
-												class="glyphicon glyphicon-trash d-flex justify-content-center"></span></a></li>
+											href="./?action=detalles&pk=<%=c.getId()%>&redirect=<%=encodeValue(request.getQueryString())%>">Detalles</a></li>
+										<li><a href="#">Eliminar</a></li>
+
 									</ul>
 								</div>
+
+
 							</td>
 						</tr>
-						
+
 						<%
 							}
 						} else {
@@ -244,7 +247,7 @@
 					value="<%=classificationFiltro%>" />
 			</div>
 		</div>
-	
+
 
 	</section>
 
@@ -311,7 +314,7 @@
 						</ul>
 
 					</div>
-					
+
 				</div>
 
 			</div>
@@ -397,8 +400,7 @@
 									<div class="count-box">
 										<i class="icofont-award"></i> <span data-toggle="counter-up">1</span>
 										<p>
-											<strong>Aprobado</strong> en la cr
-											eación y desarrollo del
+											<strong>Aprobado</strong> en la cr eación y desarrollo del
 											proyecto de aplicaciones web.
 										</p>
 									</div>
@@ -907,7 +909,7 @@
 
 			</div>
 		</section>
-		
+
 		<jsp:include page="footer.jsp" />
 
 	</main>
@@ -924,6 +926,7 @@
 		return url;
 	}%>
 	<script type="text/javascript">
+	
 		$(document)
 				.ready(
 						function() {
@@ -1020,6 +1023,7 @@
 
 	<script src="assets/vendor/jquery/jquery.min.js"></script>
 	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 	<script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
 	<script src="assets/vendor/php-email-form/validate.js"></script>
 	<script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>

@@ -23,7 +23,7 @@ public class MaestrosRest {
 	private UtilsService utilsService;
 
 	@GetMapping(value="/makes", produces = "application/json")
-    public @ResponseBody List<Car> getMakes() {
+    public @ResponseBody List<String> getMakes() {
         return utilsService.getCarsMakes();
     }
 

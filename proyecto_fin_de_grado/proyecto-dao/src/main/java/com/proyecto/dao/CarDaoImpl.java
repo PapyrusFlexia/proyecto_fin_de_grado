@@ -75,7 +75,7 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 	public List<Integer> getCarsNumberOfForwardGears() {
 
 		List<Integer> listNumberOfForwardGears = getEntityManager()
-				.createQuery("SELECT DISTINCT c.NUMBEROFFORWARDGEARS FROM Car c ORDER BY c.NUMBEROFFORWARDGEARS")
+				.createQuery("SELECT DISTINCT c.numberofforwardgears FROM Car c ORDER BY c.numberofforwardgears")
 				.getResultList();
 
 		return listNumberOfForwardGears;
@@ -90,16 +90,16 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 
 		return listYears;
 	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<String> getCarsMakes() { /////////////// CARDAO
 
-	//@Override
-	//@SuppressWarnings("unchecked")
-	//public List<Boolean> getCarsHybrids() { /////////////// CARDAO
+		List<String> listMakes = getEntityManager().createQuery("SELECT DISTINCT c.make FROM Car c ORDER BY c.make")
+				.getResultList();
 
-		//List<Boolean> listCarsHybrids = getEntityManager()
-				//.createQuery("SELECT DISTINCT c.hybrid FROM Car c ORDER BY c.hybrid").getResultList();
-
-		//return listCarsHybrids;
-	//}
+		return listMakes;
+	}
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -220,23 +220,23 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 	 * public Car update(Car c) { return update(c); }
 	 */
 
-	public int update(int id, String transmission, String enginetype, int horsepower, int torque, boolean hybrid,
+	public int update(int id, String transmission, String enginetype, int horsepower, int torque,
 			int numberofforwardgears, String driveline, String make, String modelyear, String name,
 			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
 			String fuelType) {
 
 		int executed = getEntityManager().createQuery(
-				"UPDATE Car c set c.transmission.id = :transmission, c.engineType = :engineType, c.horsepower = :horsepower, c.torque = :torque, c.hybrid = :hybrid, c.numberofforwardgears = :numberofforwardgears, c.driveline.id = :driveline, c.make.id = :make, c.modelyear = :modelyear, c.name = :name, c.classification.id = :classification, c.year = :year, c.width = :width, c.length = :length, c.height = :height, c.highwaympg = :highwaympg, c.citymph = :citymph, c.fuelType.id = :fuelType WHERE c.id = :id")
+				"UPDATE Car c set c.transmission.id = :transmission, c.enginetype = :enginetype, c.horsepower = :horsepower, c.torque = :torque, c.numberofforwardgears = :numberofforwardgears, c.driveline.id = :driveline, c.make = :make, c.modelyear = :modelyear, c.name = :name, c.classification.id = :classification, c.year = :year, c.width = :width, c.length = :length, c.height = :height, c.highwaympg = :highwaympg, c.citymph = :citymph, c.fueltype.id = :fueltype WHERE c.id = :id")
 				.setParameter("id", id).setParameter("transmission", Integer.valueOf(transmission))
 				.setParameter("enginetype", enginetype).setParameter("horsepower", horsepower)
-				.setParameter("torque", torque).setParameter("hybrid", hybrid)
+				.setParameter("torque", torque)
 				.setParameter("numberofforwardgears", numberofforwardgears)
-				.setParameter("driveline", Integer.valueOf(driveline)).setParameter("make", Integer.valueOf(make))
+				.setParameter("driveline", Integer.valueOf(driveline)).setParameter("make", make)
 				.setParameter("modelyear", modelyear).setParameter("name", name)
 				.setParameter("classification", Integer.valueOf(classification)).setParameter("year", year)
 				.setParameter("width", width).setParameter("length", length).setParameter("height", height)
 				.setParameter("highwaympg", highwaympg).setParameter("citymph", citymph)
-				.setParameter("fuelType", Integer.valueOf(fuelType)).executeUpdate();
+				.setParameter("fueltype", Integer.valueOf(fuelType)).executeUpdate();
 
 		return executed;
 	}
@@ -249,5 +249,7 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 	public Car getByPk(Integer key) {
 		return getByKey(key);
 	}
+
+	
 
 }
