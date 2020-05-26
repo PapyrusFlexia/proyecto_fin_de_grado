@@ -24,10 +24,10 @@ import com.proyecto.model.CarImage;
 import com.proyecto.services.CarService;
 import com.proyecto.services.data.DatabaseJson;
 
-@WebServlet(name = "UpdateCarServlet", urlPatterns = { "/update" })
+@WebServlet(name = "InsertCarServlet", urlPatterns = { "/insert" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 
-public class UpdateCarServlet extends AbstractServlet {
+public class InsertCarServlet extends AbstractServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -39,17 +39,14 @@ public class UpdateCarServlet extends AbstractServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String dispatcher = "./detalles.jsp";
+		String dispatcher = "./insert.jsp";
 		String transmission = request.getParameter("transmission");
 		String enginetype = request.getParameter("enginetype");
 		String driveline = request.getParameter("driveline");
 		String horsepower = request.getParameter("horsepower");
 		String torque = request.getParameter("torque");
-		//String hybrid = request.getParameter("hybrid");
-		//if (hybrid == null) {
-		//	hybrid = "false";
-		//}
-
+	
+		String id = request.getParameter("id");
 		String numberofforwardgears = request.getParameter("numberofforwardgears");
 		String make = request.getParameter("make");
 		String modelyear = request.getParameter("modelyear");
@@ -84,7 +81,8 @@ public class UpdateCarServlet extends AbstractServlet {
 		if (transmission != null && !transmission.equals("") && enginetype != null && !enginetype.equals("")
 				&& horsepower != null && Integer.valueOf(horsepower) > 0 && torque != null
 				&& Integer.valueOf(torque) > 0 && numberofforwardgears != null
-				&& !numberofforwardgears.equals("") && driveline != null && !driveline.equals("") && make != null
+				&& !numberofforwardgears.equals("") && pk != null
+						&& !pk.equals("") && driveline != null && !driveline.equals("") && make != null
 				&& !make.equals("") && modelyear != null && !modelyear.equals("") && classification != null
 				&& !classification.equals("") && year != null && !year.equals("") && Integer.valueOf(year) >= 2009
 				&& Integer.valueOf(year) <= 2020 && width != null && Integer.valueOf(width) > 0 && length != null
@@ -92,8 +90,8 @@ public class UpdateCarServlet extends AbstractServlet {
 				&& Integer.valueOf(highwaympg) > 0 && citymph != null && Integer.valueOf(citymph) > 0
 				&& fuelType != null && !fuelType.equals("") && name != null && !name.equals("")) {
 
-			carService.update(Integer.parseInt(pk), transmission, enginetype, Integer.parseInt(horsepower),
-					Integer.parseInt(horsepower), Integer.parseInt(numberofforwardgears),
+			carService.insert(Integer.parseInt(pk), transmission, enginetype, Integer.parseInt(horsepower),
+					Integer.parseInt(horsepower), Integer.parseInt(numberofforwardgears), Integer.parseInt(pk),
 					driveline, make, modelyear, name, classification, Integer.parseInt(year), Integer.parseInt(width),
 					Integer.parseInt(length), Integer.parseInt(height), Integer.parseInt(highwaympg),
 					Integer.parseInt(citymph), fuelType);
@@ -102,8 +100,8 @@ public class UpdateCarServlet extends AbstractServlet {
 
 		}
 		try {
-			mainController.detalles(request, response);
-			dispatcher = "./detalles.jsp";
+			mainController.insertar(request, response);
+			dispatcher = "./insert.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("message", e.getMessage());
@@ -115,7 +113,7 @@ public class UpdateCarServlet extends AbstractServlet {
 		request.setAttribute("hybrids", utilsService.getEngineHybrids());
 		request.setAttribute("classifications",  utilsService.getCarsClassificationsTabla());
 
-		request.getRequestDispatcher("/detalles.jsp").forward(request, response);
+		request.getRequestDispatcher("/insert.jsp").forward(request, response);
 		;
 
 	}

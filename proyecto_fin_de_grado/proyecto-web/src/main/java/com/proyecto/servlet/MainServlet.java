@@ -62,6 +62,17 @@ public class MainServlet extends AbstractServlet {
 				request.setAttribute("message", e.getMessage());
 				dispatcher = "./error.jsp";
 			}
+			
+		}else if("insert".equals(action)) {
+			dispatcher = "./insert.jsp";
+			try {
+				mainController.detalles(request, response);
+				dispatcher = "./insert.jsp";
+			} catch (Exception e) {
+				e.printStackTrace();
+				request.setAttribute("message", e.getMessage());
+				dispatcher = "./error.jsp";
+			}
 		}
 		
 		if(request.getParameter("parse") != null && !request.getParameter("parse").equals("")) {

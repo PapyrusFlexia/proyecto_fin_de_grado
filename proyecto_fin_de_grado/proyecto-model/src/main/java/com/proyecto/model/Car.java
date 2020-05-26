@@ -24,9 +24,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Car implements Comparable<Car>, Serializable {
 
 	private int pk;
-	private Engine engine;
-	private Dimensions dimensions;
-	private Fuel fuel;
 
 	private static final long serialVersionUID = 3594839582111552527L;
 
@@ -160,30 +157,6 @@ public class Car implements Comparable<Car>, Serializable {
 
 	public void setPk(int pk) {
 		this.pk = pk;
-	}
-
-	public Engine getEngine() {
-		return engine;
-	}
-
-	public void setEngine(Engine engine) {
-		this.engine = engine;
-	}
-
-	public Dimensions getDimensions() {
-		return dimensions;
-	}
-
-	public void setDimensions(Dimensions dimensions) {
-		this.dimensions = dimensions;
-	}
-
-	public Fuel getFuel() {
-		return fuel;
-	}
-
-	public void setFuel(Fuel fuel) {
-		this.fuel = fuel;
 	}
 
 	public int getId() {
@@ -348,14 +321,12 @@ public class Car implements Comparable<Car>, Serializable {
 
 	@Override
 	public String toString() {
-		return "Car [pk=" + pk + ", engine=" + engine + ", dimensions=" + dimensions + ", fuel=" + fuel + ", id=" + id
-				+ ", transmission=" + transmission + ", enginetype=" + enginetype + ", driveline=" + driveline
-				+ ", numberofforwardgears=" + numberofforwardgears + ", horsepower=" + horsepower + ", torque=" + torque
-				+ ", width=" + width + ", length=" + length + ", height=" + height + ", citymph=" + citymph
-				+ ", fueltype=" + fueltype + ", highwaympg=" + highwaympg + ", classification=" + classification
-				+ ", make=" + make + ", modelyear=" + modelyear + ", name=" + name + ", year=" + year + "]";
+		return "Car [pk=" + pk + ", id=" + id + ", transmission=" + transmission + ", enginetype=" + enginetype
+				+ ", driveline=" + driveline + ", numberofforwardgears=" + numberofforwardgears + ", horsepower="
+				+ horsepower + ", torque=" + torque + ", width=" + width + ", length=" + length + ", height=" + height
+				+ ", citymph=" + citymph + ", fueltype=" + fueltype + ", highwaympg=" + highwaympg + ", classification="
+				+ classification + ", make=" + make + ", modelyear=" + modelyear + ", name=" + name + ", year=" + year
+				+ "]";
 	}
-	
-	
 
 }

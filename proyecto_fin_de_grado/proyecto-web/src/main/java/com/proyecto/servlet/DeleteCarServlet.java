@@ -24,10 +24,9 @@ import com.proyecto.model.CarImage;
 import com.proyecto.services.CarService;
 import com.proyecto.services.data.DatabaseJson;
 
-@WebServlet(name = "UpdateCarServlet", urlPatterns = { "/update" })
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
+@WebServlet(name = "DeleteCarServlet", urlPatterns = { "/delete" })
 
-public class UpdateCarServlet extends AbstractServlet {
+public class DeleteCarServlet extends AbstractServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -45,11 +44,6 @@ public class UpdateCarServlet extends AbstractServlet {
 		String driveline = request.getParameter("driveline");
 		String horsepower = request.getParameter("horsepower");
 		String torque = request.getParameter("torque");
-		//String hybrid = request.getParameter("hybrid");
-		//if (hybrid == null) {
-		//	hybrid = "false";
-		//}
-
 		String numberofforwardgears = request.getParameter("numberofforwardgears");
 		String make = request.getParameter("make");
 		String modelyear = request.getParameter("modelyear");
@@ -62,61 +56,34 @@ public class UpdateCarServlet extends AbstractServlet {
 		String highwaympg = request.getParameter("highwaympg");
 		String citymph = request.getParameter("citymph");
 		String fuelType = request.getParameter("fuelType");
-		String pk = request.getParameter("pk");
+		String id = request.getParameter("id");
 		String redirect = request.getParameter("redirect");
 
-		List<Part> fileParts = request.getParts().stream()
-				.filter(part -> part.getName().contains("image") && part.getSize() > 0).collect(Collectors.toList());
-		List<CarImage> cImages = new ArrayList<>();
-		Car c = carService.getCarByPk(Integer.valueOf(pk));
-		for (Part p : fileParts) {
-
-			byte[] bytes = IOUtils.toByteArray(p.getInputStream());
-			String nameImage = p.getName();
-			CarImage cImage = new CarImage();
-			cImage.setImage(bytes);
-			cImage.setName(nameImage);
-			cImages.add(cImage);
-		}
-
 		// Validator
-		
-		if (transmission != null && !transmission.equals("") && enginetype != null && !enginetype.equals("")
-				&& horsepower != null && Integer.valueOf(horsepower) > 0 && torque != null
-				&& Integer.valueOf(torque) > 0 && numberofforwardgears != null
-				&& !numberofforwardgears.equals("") && driveline != null && !driveline.equals("") && make != null
-				&& !make.equals("") && modelyear != null && !modelyear.equals("") && classification != null
-				&& !classification.equals("") && year != null && !year.equals("") && Integer.valueOf(year) >= 2009
-				&& Integer.valueOf(year) <= 2020 && width != null && Integer.valueOf(width) > 0 && length != null
-				&& Integer.valueOf(length) > 0 && height != null && Integer.valueOf(height) > 0 && highwaympg != null
-				&& Integer.valueOf(highwaympg) > 0 && citymph != null && Integer.valueOf(citymph) > 0
-				&& fuelType != null && !fuelType.equals("") && name != null && !name.equals("")) {
 
-			carService.update(Integer.parseInt(pk), transmission, enginetype, Integer.parseInt(horsepower),
-					Integer.parseInt(horsepower), Integer.parseInt(numberofforwardgears),
-					driveline, make, modelyear, name, classification, Integer.parseInt(year), Integer.parseInt(width),
-					Integer.parseInt(length), Integer.parseInt(height), Integer.parseInt(highwaympg),
-					Integer.parseInt(citymph), fuelType);
+		if (id != null && !id.equals("")) {
+
+			carService.delete(Integer.parseInt(id));
 
 			request.setAttribute("executed", "ok");
 
 		}
 		try {
-			mainController.detalles(request, response);
+			mainController.delete(request, response);
 			dispatcher = "./detalles.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("message", e.getMessage());
 			dispatcher = "./error.jsp";
 		}
-		request.setAttribute("pk", utilsService.getCarsPk());
+
+		request.setAttribute("id", utilsService.getCarsId());
 		request.setAttribute("years", utilsService.getCarsYears());
 		request.setAttribute("makes", utilsService.getCarsMakes());
 		request.setAttribute("hybrids", utilsService.getEngineHybrids());
 		request.setAttribute("classifications",  utilsService.getCarsClassificationsTabla());
-
+		
 		request.getRequestDispatcher("/detalles.jsp").forward(request, response);
-		;
 
 	}
 

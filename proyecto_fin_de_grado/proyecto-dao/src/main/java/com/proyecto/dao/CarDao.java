@@ -17,6 +17,14 @@ public interface CarDao {
 			int numberofforwardgears, String driveline, String make, String modelyear, String name,
 			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
 			String fuelType);
+	
+	int insert(int id, String transmission, String enginetype, int horsepower, int torque,
+			int numberofforwardgears, int pk, String driveline, String make, String modelyear, String name,
+			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
+			String fuelType);
+	
+	int delete(int id);
+	
 
 	long totalCar();
 
@@ -29,6 +37,10 @@ public interface CarDao {
 	List<Integer> getCarsYears();
 	
 	List<String> getCarsMakes();
+	
+	List<Integer> getCarsId();
+	
+	List<Integer> getCarsPk();
 
 	//List<Boolean> getCarsHybrids();
 

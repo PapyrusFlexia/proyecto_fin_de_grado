@@ -82,6 +82,16 @@ public class UtilServiceImpl implements UtilsService {
 		return engineDao.getEngineHybrids();
 	}
 	
+	public List<Integer> getCarsId() {
+
+		return carDao.getCarsId();
+	}
+	
+	public List<Integer> getCarsPk() {
+
+		return carDao.getCarsPk();
+	}
+	
 	public List<Classification> getCarsClassificationsTabla() {
 
 		return classificationDao.findClassifications();

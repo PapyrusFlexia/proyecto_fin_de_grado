@@ -25,6 +25,14 @@ public interface CarService {
 			int numberofforwardgears, String driveline, String make, String modelyear, String name,
 			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
 			String fuelType);
+	
+	int insert(int id, String transmission, String engineType, int horsepower, int torque,
+			int numberofforwardgears, int pk, String driveline, String make, String modelyear, String name,
+			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
+			String fuelType);
+	
+	int delete(int id);
+
 
 	public List<Car> getCars();
 
@@ -38,33 +46,11 @@ public interface CarService {
 
 	public List<Car> getCars(List<Predicate<Car>> ps);
 
-	public List<Car> getMarcaModelo(int start, int stop);
-
-	public List<Car> getMarcaModeloHorsePower(int numberMax, int horsepower);
-
-	public List<Car> getMarcaModeloAutomaticos(String automatico);
-
-	public List<Car> getMarcaModeloTraccionTrasera(String trasera);
-
-	public List<Car> getMarcaModeloDiesel(String diesel);
-
-	public List<Car> getMarcaModelo2011Potencia(int numberMax, int anno);
-
-	public List<Car> septimaPosicion(int nCharacter);
-
-	public List<Car> getMarcaModeloHibrido(boolean hibrido);
-
-	public List<Car> velocidades(int velocidades);
-
-	public List<Car> getCochesConsumo(int consumo);
-
-	public List<Car> hp(String palabra);
-
 	public List<String> getCarsMakes();
 
 	public List<Integer> getCarsYears();
 
-	public List<Boolean> getCarsHybrids();
+	//public List<Boolean> getCarsHybrids();
 
 	public List<String> getCarsClassificationsTabla();
 
@@ -77,7 +63,7 @@ public interface CarService {
 
 	public List<String> getCarsFuelTypes();
 
-	public List<Boolean> getHybrid();
+	//public List<Boolean> getHybrid();
 	
 	public long  totalCar();
 

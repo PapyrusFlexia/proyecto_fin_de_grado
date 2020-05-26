@@ -31,7 +31,7 @@ public class CarServiceImpl implements CarService {
 
 	@Autowired
 	private CarDao carDao;
-	
+
 	@Autowired
 	private EngineDao engineDao;
 
@@ -49,7 +49,7 @@ public class CarServiceImpl implements CarService {
 	 */
 	public List<Car> getCars(int pageSize, int paginaActual) {
 
-		return carDao.findPaginationCars(pageSize, paginaActual); 
+		return carDao.findPaginationCars(pageSize, paginaActual);
 	}
 
 	public long getTotalCar() {
@@ -190,7 +190,7 @@ public class CarServiceImpl implements CarService {
 	public Car save(Car c) {
 		return carDao.save(c);
 	}
-	
+
 	@Override
 	public Engine saveEngine(Engine e) {
 		return engineDao.save(e);
@@ -202,8 +202,27 @@ public class CarServiceImpl implements CarService {
 			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
 			String fuelType) {
 
-		return carDao.update(id, transmission, engineType, horsepower, torque,numberofforwardgears, driveline, make, modelyear, name, classification, year, width, length, height, highwaympg, citymph, fuelType);
+		return carDao.update(id, transmission, engineType, horsepower, torque, numberofforwardgears, driveline, make,
+				modelyear, name, classification, year, width, length, height, highwaympg, citymph, fuelType);
 	}
+	
+	@Override //
+	public int insert(int id, String transmission, String engineType, int horsepower, int torque,
+			int numberofforwardgears, int pk, String driveline, String make, String modelyear, String name,
+			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
+			String fuelType) {
+
+		return carDao.insert(id, transmission, engineType, horsepower, torque, numberofforwardgears, pk, driveline, make,
+				modelyear, name, classification, year, width, length, height, highwaympg, citymph, fuelType);
+	}
+
+	@Override
+	public int delete(int id) {
+		return carDao.delete(id);
+		
+
+	}
+
 	public List<Car> getMarcaModelo(int start, int stop) {
 
 		// comprobamos los parametros de entrada
@@ -287,215 +306,6 @@ public class CarServiceImpl implements CarService {
 
 	}
 
-	public List<Car> getMarcaModeloTraccionTrasera(String trasera) {
-		if (!trasera.equals("Rear-wheel drive")) {
-			return null;
-		}
-
-		Predicate<Car> p = new Predicate<Car>() {
-
-			@Override
-			public boolean test(Car t) {
-				return t.getEngine().getDriveline().equals("Rear-wheel drive");
-			}
-		};
-
-		List<Car> listCar = getMarcaModelo(-1, -1);
-		// List<Car> listCarReturn = new ArrayList<>();
-		// int counter = 0;
-		List<Car> listCarReturn1 = listCar.stream().filter(p).collect(Collectors.toList());
-
-		/*
-		 * for (Car car : listCar) { if
-		 * (car.getEngineinformation().getDriveline().equals("Rear-wheel drive")) {
-		 * listCarReturn.add(car); counter++; if (counter >= listCar.size()) { break; }
-		 * } }
-		 */
-		System.out.println(listCarReturn1.size());
-		return listCarReturn1;
-
-	}
-
-	public List<Car> getMarcaModeloDiesel(String diesel) {
-		if (!diesel.equals("Diesel fuel")) {
-			return null;
-		}
-
-		Predicate<Car> p = new Predicate<Car>() {
-
-			@Override
-			public boolean test(Car t) {
-				return t.getFuel().getFuelType().equals("Diesel fuel");
-			}
-		};
-
-		List<Car> listCar = getMarcaModelo(-1, -1);
-		// List<Car> listCarReturn = new ArrayList<>();
-		// int counter = 0;
-		List<Car> listCarReturn1 = listCar.stream().filter(p).collect(Collectors.toList());
-
-		/*
-		 * for (Car car : listCar) { if
-		 * (car.getFuelinformation().getFueltype().equals("Diesel fuel")) {
-		 * listCarReturn.add(car); counter++; if (counter >= listCar.size()) { break; }
-		 * } }
-		 */
-		System.out.println(listCarReturn1.size());
-		return listCarReturn1;
-
-	}
-
-	public List<Car> getMarcaModelo2011Potencia(int numberMax, int anno) {
-		if (anno < 0) {
-			return null;
-		}
-
-		Predicate<Car> p = new Predicate<Car>() {
-
-			@Override
-			public boolean test(Car t) {
-				return t.getYear() == anno;
-			}
-		};
-
-		List<Car> listCar = getMarcaModelo(-1, -1);
-		boolean desc = false;
-		List<Car> listCarReturn1 = listCar.stream().filter(car -> car.getYear() == anno).sorted(new Comparator<Car>() {
-			public int compare(Car a, Car b) {
-				Integer valA = a.getHorsepower();
-				Integer valB = b.getHorsepower();
-
-				int mult = -1;
-				if (!desc) {
-					mult = 1;
-				}
-
-				if (valA < valB) {
-					return mult * -1;
-				} else if (valA > valB) {
-					return mult * 1;
-				} else {
-					return mult * (a.getMake().compareTo(b.getMake()));
-				}
-			}
-		}).limit(numberMax).collect(Collectors.toList());
-
-		System.out.println(listCarReturn1.size());
-		return listCarReturn1;
-
-	}
-
-	public List<Car> septimaPosicion(int nCharacter) {
-		if (nCharacter < 0) {
-			return null;
-		}
-
-		List<Car> listCar = getMarcaModelo(-1, -1);
-		List<Car> listCarReturn1 = listCar.stream().filter(car -> {
-			return Character.isDigit(car.getName().charAt(nCharacter));
-		}).collect(Collectors.toList());
-
-		System.out.println(listCarReturn1.size());
-		return listCarReturn1;
-
-	}
-
-	public List<Car> getMarcaModeloHibrido(boolean hibrido) {
-		if (hibrido != true) {
-			return null;
-		}
-		Predicate<Car> p = new Predicate<Car>() {
-
-			@Override
-			public boolean test(Car t) {
-				return t.getEngine().isHybrid() == true;
-			}
-		};
-
-		List<Car> listCar = getMarcaModelo(-1, -1);
-		List<Car> listCarReturn1 = listCar.stream().filter(p).collect(Collectors.toList());
-
-		System.out.println(listCarReturn1.size());
-		return listCarReturn1;
-
-	}
-
-	public List<Car> velocidades(int velocidades) {
-		if (velocidades != 6) {
-			return null;
-		}
-		Predicate<Car> p = new Predicate<Car>() {
-
-			@Override
-			public boolean test(Car t) {
-				return t.getEngine().getNumberOfForwardGears() == velocidades;
-			}
-		};
-
-		List<Car> listCar = getMarcaModelo(-1, -1);
-		List<Car> listCarReturn1 = listCar.stream().filter(p).collect(Collectors.toList());
-
-		System.out.println(listCarReturn1.size());
-		return listCarReturn1;
-
-	}
-
-	public List<Car> getCochesConsumo(int consumo) {
-		if (consumo > 18) {
-			return null;
-		}
-
-		Predicate<Car> p = new Predicate<Car>() {
-
-			@Override
-			public boolean test(Car t) {
-				return t.getFuel().getCityMph() < consumo;
-			}
-		};
-
-		List<Car> listCar = getMarcaModelo(-1, -1);
-		boolean desc = true;
-		List<Car> listCarReturn1 = listCar.stream().filter(car -> car.getFuel().getCityMph() < consumo)
-				.sorted(new Comparator<Car>() {
-					public int compare(Car a, Car b) {
-						Integer valA = a.getFuel().getCityMph();
-						Integer valB = b.getFuel().getCityMph();
-
-						int mult = -1;
-						if (desc) {
-							mult = 1;
-						}
-
-						if (valA < valB) {
-							return mult * -1;
-						} else if (valA > valB) {
-							return mult * 1;
-						} else {
-							return mult * (a.getMake().compareTo(b.getMake()));
-						}
-					}
-				}).collect(Collectors.toList());
-
-		System.out.println(listCarReturn1.size());
-		return listCarReturn1;
-
-	}
-
-	public List<Car> hp(String palabra) {
-		if (palabra.length() == 0) {
-			return null;
-		}
-
-		List<Car> listCar = getMarcaModelo(-1, -1);
-		List<Car> listCarReturn1 = listCar.stream()
-				.filter(car -> car.getEngine().getEngineType().contains(palabra))
-				.collect(Collectors.toList());
-
-		System.out.println(listCarReturn1.size());
-		return listCarReturn1;
-
-	}
-
 	public List<String> getCarsMakes() {
 		List<Car> cars = getCars(-1, -1);
 		List<String> carsMakes = new ArrayList<>();
@@ -516,7 +326,7 @@ public class CarServiceImpl implements CarService {
 		return carsYearsSinDuplicados.stream().distinct().sorted().collect(Collectors.toList());
 	}
 
-	public List<Boolean> getCarsHybrids() {
+	/**public List<Boolean> getCarsHybrids() {
 		List<Car> cars = getCars(-1, -1);
 		List<Boolean> carsHybrids = new ArrayList<>();
 		List<Boolean> carsHybridsSinDuplicados = new ArrayList<>(new HashSet<>(carsHybrids));
@@ -524,7 +334,7 @@ public class CarServiceImpl implements CarService {
 			carsHybridsSinDuplicados.add(cars.get(i).getEngine().isHybrid());
 		}
 		return carsHybridsSinDuplicados.stream().distinct().sorted().collect(Collectors.toList());
-	}
+	}*/
 
 	public List<String> getCarsClassificationsTabla() {
 		List<Car> cars = getCars(-1, -1);
@@ -536,16 +346,15 @@ public class CarServiceImpl implements CarService {
 		return carsClassificationsSinDuplicados.stream().distinct().sorted().collect(Collectors.toList());
 	}
 
-	/**public long getCarsCount(Predicate<Car> p) {
-		return (long) getCars(-1, -1).stream().filter(p).count();
-	}*/
-	
+	/**
+	 * public long getCarsCount(Predicate<Car> p) { return (long) getCars(-1,
+	 * -1).stream().filter(p).count(); }
+	 */
+
 	public List<Car> getCarsCount(int m) {
 
 		return carDao.getCarsMakesFilter(m);
 	}
-	
-	
 
 	public long totalCar() {
 		long totalCar = carDao.totalCar();
@@ -583,11 +392,11 @@ public class CarServiceImpl implements CarService {
 		List<Car> cars = getCars(-1, -1);
 		List<String> carsFuelTypes = new ArrayList<>();
 		for (int i = 0; i < cars.size(); i++) {
-			carsFuelTypes.add(cars.get(i).getFuel().getFuelType());
+			carsFuelTypes.addAll((Collection<? extends String>) cars.get(i).getFueltype());
 		}
 		return carsFuelTypes.stream().distinct().sorted().collect(Collectors.toList());
 	}
-	
+
 	public List<String> getCarsTransmissions() {
 		List<Car> cars = getCars(-1, -1);
 		List<String> carsTransmissions = new ArrayList<>();
@@ -597,14 +406,14 @@ public class CarServiceImpl implements CarService {
 		return carsTransmissions.stream().distinct().sorted().collect(Collectors.toList());
 	}
 
-	public List<Boolean> getHybrid() {
+	/**public List<Boolean> getHybrid() {
 		List<Car> cars = getCars(-1, -1);
 		List<Boolean> carsHybrid = new ArrayList<>();
 		for (int i = 0; i < cars.size(); i++) {
 			carsHybrid.add(cars.get(i).getEngine().isHybrid());
 		}
 		return carsHybrid.stream().distinct().sorted().collect(Collectors.toList());
-	}
+	}*/
 
 	public List<Car> getCarsCompare(int start, int end, List<Predicate<Car>> ps, CarComparator comparator) {
 		long total = getCarsCount(ps);
@@ -622,5 +431,4 @@ public class CarServiceImpl implements CarService {
 
 	}
 
-	
 }

@@ -207,24 +207,10 @@
 							<td><%=c.getYear()%></td>
 							<td><%=e.isHybrid()%></td>
 							<td><%=c.getClassification().getClassification()%></td>
-							<td>
-
-
-
-								<div class="dropdown">
-									<button class="btn btn-primary dropdown-toggle" type="button"
-										data-toggle="dropdown">
-										Detalles <span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu">
-										<li><a
-											href="./?action=detalles&pk=<%=c.getId()%>&redirect=<%=encodeValue(request.getQueryString())%>">Detalles</a></li>
-										<li><a href="#">Eliminar</a></li>
-
-									</ul>
-								</div>
-
-
+							<td><a
+								href="./?action=detalles&pk=<%=c.getId()%>&redirect=<%=encodeValue(request.getQueryString())%>">Detalles |</a>
+								<a
+								href="./?action=insert&pk=<%=c.getId()%>&redirect=<%=encodeValue(request.getQueryString())%>">Insertar</a>
 							</td>
 						</tr>
 

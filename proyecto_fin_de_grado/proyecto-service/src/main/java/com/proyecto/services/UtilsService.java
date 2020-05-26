@@ -17,6 +17,10 @@ public interface UtilsService {
 	
 	public List<Integer> getCarsYears();
 	
+	public List<Integer> getCarsId();
+	
+	public List<Integer> getCarsPk();
+	
 	public List<Boolean> getEngineHybrids();
 	
 	public List<Classification> getCarsClassificationsTabla();
@@ -26,6 +30,7 @@ public interface UtilsService {
 	public List<DriveLine>	getCarsDriveLines();
 	
 	public List<Transmission>	getCarsTransmissions();
+
 	
 	public Car saveMake(Car m);
 	

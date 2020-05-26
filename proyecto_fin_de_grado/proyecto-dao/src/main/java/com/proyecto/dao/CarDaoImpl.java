@@ -2,7 +2,6 @@ package com.proyecto.dao;
 
 import javax.persistence.Query;
 
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -90,7 +89,7 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 
 		return listYears;
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<String> getCarsMakes() { /////////////// CARDAO
@@ -113,6 +112,26 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		} catch (NoResultException e) {
 			return null;
 		}
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Integer> getCarsId() {
+
+		List<Integer> listId = getEntityManager().createQuery("SELECT DISTINCT c.id FROM Car c ORDER BY c.id")
+				.getResultList();
+
+		return listId;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Integer> getCarsPk() {
+
+		List<Integer> listPk = getEntityManager().createQuery("SELECT DISTINCT c.pk FROM Car c ORDER BY c.pk")
+				.getResultList();
+
+		return listPk;
 	}
 
 	public Car findCarById(int id) {
@@ -199,14 +218,10 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		}
 		return c1;
 	}
-	
 
-	
 	@SuppressWarnings("unchecked")
 	public List<Car> findAllCars() {
-		List<Car> cars = getEntityManager()
-				.createQuery("SELECT c FROM Car c ORDER BY c.id ASC")
-				.getResultList();
+		List<Car> cars = getEntityManager().createQuery("SELECT c FROM Car c ORDER BY c.id ASC").getResultList();
 		return cars;
 	}
 
@@ -229,14 +244,42 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 				"UPDATE Car c set c.transmission.id = :transmission, c.enginetype = :enginetype, c.horsepower = :horsepower, c.torque = :torque, c.numberofforwardgears = :numberofforwardgears, c.driveline.id = :driveline, c.make = :make, c.modelyear = :modelyear, c.name = :name, c.classification.id = :classification, c.year = :year, c.width = :width, c.length = :length, c.height = :height, c.highwaympg = :highwaympg, c.citymph = :citymph, c.fueltype.id = :fueltype WHERE c.id = :id")
 				.setParameter("id", id).setParameter("transmission", Integer.valueOf(transmission))
 				.setParameter("enginetype", enginetype).setParameter("horsepower", horsepower)
-				.setParameter("torque", torque)
-				.setParameter("numberofforwardgears", numberofforwardgears)
+				.setParameter("torque", torque).setParameter("numberofforwardgears", numberofforwardgears)
 				.setParameter("driveline", Integer.valueOf(driveline)).setParameter("make", make)
 				.setParameter("modelyear", modelyear).setParameter("name", name)
 				.setParameter("classification", Integer.valueOf(classification)).setParameter("year", year)
 				.setParameter("width", width).setParameter("length", length).setParameter("height", height)
 				.setParameter("highwaympg", highwaympg).setParameter("citymph", citymph)
 				.setParameter("fueltype", Integer.valueOf(fuelType)).executeUpdate();
+
+		return executed;
+	}
+
+	public int insert(int id, String transmission, String enginetype, int horsepower, int torque,
+			int numberofforwardgears, int pk, String driveline, String make, String modelyear, String name,
+			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
+			String fuelType) {
+
+		int executed = getEntityManager().createQuery(
+				"INSERT INTO Car(id, citymph, enginetype, height, highwaympg, horsepower, length, make, modelyear, name, numberofforwardgears, pk, torque, width, year, classification, driveline, fueltype, transmission) "+"SELECT c.id, c.citymph, c.enginetype, c.height, c.highwaympg, c.horsepower,  c.length, c.make, c.modelyear, c.name, c.numberofforwardgears, c.pk, c.torque, c.year, c.width, c.classification, c.driveline, c.fueltype, c.transmission FROM Car c ")
+				.setParameter("id", id).setParameter("transmission", Integer.valueOf(transmission))
+				.setParameter("enginetype", enginetype).setParameter("horsepower", horsepower)
+				.setParameter("torque", torque).setParameter("numberofforwardgears", numberofforwardgears)
+				.setParameter("pk", pk)
+				.setParameter("driveline", Integer.valueOf(driveline)).setParameter("make", make)
+				.setParameter("modelyear", modelyear).setParameter("name", name)
+				.setParameter("classification", Integer.valueOf(classification)).setParameter("year", year)
+				.setParameter("width", width).setParameter("length", length).setParameter("height", height)
+				.setParameter("highwaympg", highwaympg).setParameter("citymph", citymph)
+				.setParameter("fueltype", Integer.valueOf(fuelType)).executeUpdate();
+
+		return executed;
+	}
+
+	public int delete(int id) {
+
+		int executed = getEntityManager().createQuery("DELETE FROM Car c WHERE c.id = :id").setParameter("id", id)
+				.executeUpdate();
 
 		return executed;
 	}
@@ -249,7 +292,5 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 	public Car getByPk(Integer key) {
 		return getByKey(key);
 	}
-
-	
 
 }
