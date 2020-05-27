@@ -90,11 +90,32 @@ public class InsertCarServlet extends AbstractServlet {
 				&& Integer.valueOf(highwaympg) > 0 && citymph != null && Integer.valueOf(citymph) > 0
 				&& fuelType != null && !fuelType.equals("") && name != null && !name.equals("")) {
 
-			carService.insert(Integer.parseInt(pk), transmission, enginetype, Integer.parseInt(horsepower),
-					Integer.parseInt(horsepower), Integer.parseInt(numberofforwardgears), Integer.parseInt(pk),
-					driveline, make, modelyear, name, classification, Integer.parseInt(year), Integer.parseInt(width),
-					Integer.parseInt(length), Integer.parseInt(height), Integer.parseInt(highwaympg),
-					Integer.parseInt(citymph), fuelType);
+			Car car = new Car();
+			car.setId(Integer.valueOf(id));
+			car.setCitymph(Integer.valueOf(citymph));
+			/**car.setHighwaympg(json.getJSONObject("fuelinformation").getInt("highwaympg"));
+			car.setFueltype(utilsService
+					.getFuelTypeByName(json.getJSONObject("fuelinformation").getString("fueltype")));
+			car.setTorque(
+					json.getJSONObject("engineinformation").getJSONObject("enginestatistics").getInt("torque"));
+			car.setHorsepower(json.getJSONObject("engineinformation").getJSONObject("enginestatistics")
+					.getInt("horsepower"));
+			car.setDriveline(utilsService
+					.getDriveLineByName(json.getJSONObject("engineinformation").getString("driveline")));
+			car.setTransmission(utilsService
+					.getTransmissionByName(json.getJSONObject("engineinformation").getString("transmission")));
+			car.setEnginetype(json.getJSONObject("engineinformation").getString("enginetype"));
+			car.setMake(json.getJSONObject("identification").getString("make"));
+			car.setClassification(utilsService
+					.getClassificationByName(json.getJSONObject("identification").getString("classification")));
+			car.setName(json.getJSONObject("identification").getString("id"));
+			car.setYear(json.getJSONObject("identification").getInt("year"));
+			car.setModelyear(json.getJSONObject("identification").getString("modelyear"));
+			car.setWidth(json.getJSONObject("dimensions").getInt("width"));
+			car.setLength(json.getJSONObject("dimensions").getInt("length"));
+			car.setHeight(json.getJSONObject("dimensions").getInt("height"));*/
+		
+			carService.insert(car);
 
 			request.setAttribute("executed", "ok");
 

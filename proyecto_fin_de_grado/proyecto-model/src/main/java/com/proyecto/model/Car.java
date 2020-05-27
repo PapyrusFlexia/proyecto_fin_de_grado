@@ -150,6 +150,32 @@ public class Car implements Comparable<Car>, Serializable {
 	public Car() {
 
 	}
+	
+	public Car(int pk, int id, Transmission transmission, String enginetype, DriveLine driveline,
+			int numberofforwardgears, int horsepower, int torque, int width, int length, int height, int citymph,
+			Fuel fueltype, int highwaympg, Classification classification, String make, String modelyear, String name,
+			int year) {
+		super();
+		this.pk = pk;
+		this.id = id;
+		this.transmission = transmission;
+		this.enginetype = enginetype;
+		this.driveline = driveline;
+		this.numberofforwardgears = numberofforwardgears;
+		this.horsepower = horsepower;
+		this.torque = torque;
+		this.width = width;
+		this.length = length;
+		this.height = height;
+		this.citymph = citymph;
+		this.fueltype = fueltype;
+		this.highwaympg = highwaympg;
+		this.classification = classification;
+		this.make = make;
+		this.modelyear = modelyear;
+		this.name = name;
+		this.year = year;
+	}
 
 	public int getPk() {
 		return pk;

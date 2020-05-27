@@ -25,6 +25,7 @@ import com.proyecto.services.CarService;
 import com.proyecto.services.data.DatabaseJson;
 
 @WebServlet(name = "DeleteCarServlet", urlPatterns = { "/delete" })
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 
 public class DeleteCarServlet extends AbstractServlet {
 	private static final long serialVersionUID = 1L;
@@ -39,23 +40,6 @@ public class DeleteCarServlet extends AbstractServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String dispatcher = "./detalles.jsp";
-		String transmission = request.getParameter("transmission");
-		String enginetype = request.getParameter("enginetype");
-		String driveline = request.getParameter("driveline");
-		String horsepower = request.getParameter("horsepower");
-		String torque = request.getParameter("torque");
-		String numberofforwardgears = request.getParameter("numberofforwardgears");
-		String make = request.getParameter("make");
-		String modelyear = request.getParameter("modelyear");
-		String name = request.getParameter("name");
-		String classification = request.getParameter("classification");
-		String year = request.getParameter("year");
-		String width = request.getParameter("width");
-		String length = request.getParameter("length");
-		String height = request.getParameter("height");
-		String highwaympg = request.getParameter("highwaympg");
-		String citymph = request.getParameter("citymph");
-		String fuelType = request.getParameter("fuelType");
 		String id = request.getParameter("id");
 		String redirect = request.getParameter("redirect");
 
@@ -84,7 +68,6 @@ public class DeleteCarServlet extends AbstractServlet {
 		request.setAttribute("classifications",  utilsService.getCarsClassificationsTabla());
 		
 		request.getRequestDispatcher("/detalles.jsp").forward(request, response);
-
 	}
 
 	public static String decodeValue(String value) {

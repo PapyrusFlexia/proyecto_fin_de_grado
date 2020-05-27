@@ -323,7 +323,6 @@ form[action*="./update"] {
 		<button class="btn btn-primary btn-lg" type="submit">Eliminar</button>
 	</form> 
 	
-	
 	<button class="btn btn-primary hBack" onclick="location.href = 'http://localhost:8080/proyecto-web/';">REGRESAR A
 		LOS COCHES</button>
 		

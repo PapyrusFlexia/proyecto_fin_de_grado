@@ -19,7 +19,11 @@ import org.springframework.stereotype.Service;
 import com.proyecto.dao.CarDao;
 import com.proyecto.dao.EngineDao;
 import com.proyecto.model.Car;
+import com.proyecto.model.Classification;
+import com.proyecto.model.DriveLine;
 import com.proyecto.model.Engine;
+import com.proyecto.model.Fuel;
+import com.proyecto.model.Transmission;
 import com.proyecto.model.comparators.CarComparator;
 import com.proyecto.services.CarService;
 import com.proyecto.services.data.DatabaseJson;
@@ -205,21 +209,23 @@ public class CarServiceImpl implements CarService {
 		return carDao.update(id, transmission, engineType, horsepower, torque, numberofforwardgears, driveline, make,
 				modelyear, name, classification, year, width, length, height, highwaympg, citymph, fuelType);
 	}
-	
-	@Override //
-	public int insert(int id, String transmission, String engineType, int horsepower, int torque,
-			int numberofforwardgears, int pk, String driveline, String make, String modelyear, String name,
-			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
-			String fuelType) {
 
-		return carDao.insert(id, transmission, engineType, horsepower, torque, numberofforwardgears, pk, driveline, make,
-				modelyear, name, classification, year, width, length, height, highwaympg, citymph, fuelType);
+	@Override //
+	public int insert(Car c) {
+		
+		carDao.save(c);
+		
+		return 0;
+
+		// return carDao.insert(id, transmission, engineType, horsepower, torque,
+		// numberofforwardgears, pk, driveline, make,
+		// modelyear, name, classification, year, width, length, height, highwaympg,
+		// citymph, fuelType);
 	}
 
 	@Override
 	public int delete(int id) {
 		return carDao.delete(id);
-		
 
 	}
 
@@ -326,15 +332,15 @@ public class CarServiceImpl implements CarService {
 		return carsYearsSinDuplicados.stream().distinct().sorted().collect(Collectors.toList());
 	}
 
-	/**public List<Boolean> getCarsHybrids() {
-		List<Car> cars = getCars(-1, -1);
-		List<Boolean> carsHybrids = new ArrayList<>();
-		List<Boolean> carsHybridsSinDuplicados = new ArrayList<>(new HashSet<>(carsHybrids));
-		for (int i = 0; i < cars.size(); i++) {
-			carsHybridsSinDuplicados.add(cars.get(i).getEngine().isHybrid());
-		}
-		return carsHybridsSinDuplicados.stream().distinct().sorted().collect(Collectors.toList());
-	}*/
+	/**
+	 * public List<Boolean> getCarsHybrids() { List<Car> cars = getCars(-1, -1);
+	 * List<Boolean> carsHybrids = new ArrayList<>(); List<Boolean>
+	 * carsHybridsSinDuplicados = new ArrayList<>(new HashSet<>(carsHybrids)); for
+	 * (int i = 0; i < cars.size(); i++) {
+	 * carsHybridsSinDuplicados.add(cars.get(i).getEngine().isHybrid()); } return
+	 * carsHybridsSinDuplicados.stream().distinct().sorted().collect(Collectors.toList());
+	 * }
+	 */
 
 	public List<String> getCarsClassificationsTabla() {
 		List<Car> cars = getCars(-1, -1);
@@ -406,14 +412,13 @@ public class CarServiceImpl implements CarService {
 		return carsTransmissions.stream().distinct().sorted().collect(Collectors.toList());
 	}
 
-	/**public List<Boolean> getHybrid() {
-		List<Car> cars = getCars(-1, -1);
-		List<Boolean> carsHybrid = new ArrayList<>();
-		for (int i = 0; i < cars.size(); i++) {
-			carsHybrid.add(cars.get(i).getEngine().isHybrid());
-		}
-		return carsHybrid.stream().distinct().sorted().collect(Collectors.toList());
-	}*/
+	/**
+	 * public List<Boolean> getHybrid() { List<Car> cars = getCars(-1, -1);
+	 * List<Boolean> carsHybrid = new ArrayList<>(); for (int i = 0; i <
+	 * cars.size(); i++) { carsHybrid.add(cars.get(i).getEngine().isHybrid()); }
+	 * return carsHybrid.stream().distinct().sorted().collect(Collectors.toList());
+	 * }
+	 */
 
 	public List<Car> getCarsCompare(int start, int end, List<Predicate<Car>> ps, CarComparator comparator) {
 		long total = getCarsCount(ps);

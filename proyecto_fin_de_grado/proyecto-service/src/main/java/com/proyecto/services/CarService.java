@@ -26,10 +26,7 @@ public interface CarService {
 			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
 			String fuelType);
 	
-	int insert(int id, String transmission, String engineType, int horsepower, int torque,
-			int numberofforwardgears, int pk, String driveline, String make, String modelyear, String name,
-			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
-			String fuelType);
+	int insert(Car c);
 	
 	int delete(int id);
 
