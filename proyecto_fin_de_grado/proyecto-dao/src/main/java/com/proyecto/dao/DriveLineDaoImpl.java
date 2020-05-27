@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.proyecto.model.Car;
+import com.proyecto.model.Classification;
 import com.proyecto.model.DriveLine;
 import com.proyecto.model.User;
 
@@ -19,8 +20,9 @@ public class DriveLineDaoImpl extends AbstractDao<Integer, DriveLine> implements
 	@Override
 	public List<DriveLine> findDriveLines() {
 		try {
-			List<DriveLine> driveLine = getEntityManager().createQuery("SELECT d FROM DriveLine d ").getResultList();
-			return driveLine;
+			List<DriveLine> drivelines = getEntityManager().createQuery("SELECT dl FROM DriveLine dl ")
+					.getResultList();
+			return drivelines;
 		} catch (NoResultException ex) {
 			return null;
 		}

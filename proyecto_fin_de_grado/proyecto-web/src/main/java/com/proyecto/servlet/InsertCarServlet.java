@@ -10,7 +10,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,21 +23,34 @@ import com.proyecto.model.CarImage;
 import com.proyecto.services.CarService;
 import com.proyecto.services.data.DatabaseJson;
 
+
 @WebServlet(name = "InsertCarServlet", urlPatterns = { "/insert" })
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
-
 public class InsertCarServlet extends AbstractServlet {
-	private static final long serialVersionUID = 1L;
 
+	private static final long serialVersionUID = -1720688734823865429L;
+	
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		super.doGet(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("pk", utilsService.getCarsPk());
+		request.setAttribute("years", utilsService.getCarsYears());
+		request.setAttribute("makes", utilsService.getCarsMakes());
+		request.setAttribute("hybrids", utilsService.getEngineHybrids());
+		request.setAttribute("classifications", utilsService.getCarsClassificationsTabla());
+		request.setAttribute("transmissions",  utilsService.getCarsTransmissions());
+		request.setAttribute("drivelines",  utilsService.getCarsDriveLines());
+		request.setAttribute("fueltypes",  utilsService.getCarsFuelTypes());
+
+		request.getRequestDispatcher("/insert.jsp").forward(request, response);
+		;
+		
+	
 	}
+		
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String action = request.getParameter("action");
 		String dispatcher = "./insert.jsp";
 		String transmission = request.getParameter("transmission");
 		String enginetype = request.getParameter("enginetype");
@@ -46,7 +58,7 @@ public class InsertCarServlet extends AbstractServlet {
 		String horsepower = request.getParameter("horsepower");
 		String torque = request.getParameter("torque");
 	
-		String id = request.getParameter("id");
+		String id = request.getParameter("pk");
 		String numberofforwardgears = request.getParameter("numberofforwardgears");
 		String make = request.getParameter("make");
 		String modelyear = request.getParameter("modelyear");
@@ -62,19 +74,7 @@ public class InsertCarServlet extends AbstractServlet {
 		String pk = request.getParameter("pk");
 		String redirect = request.getParameter("redirect");
 
-		List<Part> fileParts = request.getParts().stream()
-				.filter(part -> part.getName().contains("image") && part.getSize() > 0).collect(Collectors.toList());
-		List<CarImage> cImages = new ArrayList<>();
-		Car c = carService.getCarByPk(Integer.valueOf(pk));
-		for (Part p : fileParts) {
-
-			byte[] bytes = IOUtils.toByteArray(p.getInputStream());
-			String nameImage = p.getName();
-			CarImage cImage = new CarImage();
-			cImage.setImage(bytes);
-			cImage.setName(nameImage);
-			cImages.add(cImage);
-		}
+		
 
 		// Validator
 		
@@ -93,28 +93,20 @@ public class InsertCarServlet extends AbstractServlet {
 			Car car = new Car();
 			car.setId(Integer.valueOf(id));
 			car.setCitymph(Integer.valueOf(citymph));
-			/**car.setHighwaympg(json.getJSONObject("fuelinformation").getInt("highwaympg"));
-			car.setFueltype(utilsService
-					.getFuelTypeByName(json.getJSONObject("fuelinformation").getString("fueltype")));
-			car.setTorque(
-					json.getJSONObject("engineinformation").getJSONObject("enginestatistics").getInt("torque"));
-			car.setHorsepower(json.getJSONObject("engineinformation").getJSONObject("enginestatistics")
-					.getInt("horsepower"));
-			car.setDriveline(utilsService
-					.getDriveLineByName(json.getJSONObject("engineinformation").getString("driveline")));
-			car.setTransmission(utilsService
-					.getTransmissionByName(json.getJSONObject("engineinformation").getString("transmission")));
-			car.setEnginetype(json.getJSONObject("engineinformation").getString("enginetype"));
-			car.setMake(json.getJSONObject("identification").getString("make"));
-			car.setClassification(utilsService
-					.getClassificationByName(json.getJSONObject("identification").getString("classification")));
-			car.setName(json.getJSONObject("identification").getString("id"));
-			car.setYear(json.getJSONObject("identification").getInt("year"));
-			car.setModelyear(json.getJSONObject("identification").getString("modelyear"));
-			car.setWidth(json.getJSONObject("dimensions").getInt("width"));
-			car.setLength(json.getJSONObject("dimensions").getInt("length"));
-			car.setHeight(json.getJSONObject("dimensions").getInt("height"));*/
-		
+			car.setEnginetype(enginetype);
+			car.setHeight(Integer.valueOf(height));
+			car.setHighwaympg(Integer.valueOf(highwaympg));
+			car.setHorsepower(Integer.valueOf(horsepower));
+			car.setLength(Integer.valueOf(length));
+			car.setMake(make);
+			car.setModelyear(modelyear);
+			car.setName(name);
+			car.setNumberofforwardgears(Integer.valueOf(numberofforwardgears));
+			car.setPk(Integer.valueOf(pk));
+			car.setTorque(Integer.valueOf(torque));
+			car.setWidth(Integer.valueOf(width));
+			car.setYear(Integer.valueOf(year));
+			car = carService.save(car);
 			carService.insert(car);
 
 			request.setAttribute("executed", "ok");
@@ -128,25 +120,9 @@ public class InsertCarServlet extends AbstractServlet {
 			request.setAttribute("message", e.getMessage());
 			dispatcher = "./error.jsp";
 		}
-		request.setAttribute("pk", utilsService.getCarsPk());
-		request.setAttribute("years", utilsService.getCarsYears());
-		request.setAttribute("makes", utilsService.getCarsMakes());
-		request.setAttribute("hybrids", utilsService.getEngineHybrids());
-		request.setAttribute("classifications",  utilsService.getCarsClassificationsTabla());
-
-		request.getRequestDispatcher("/insert.jsp").forward(request, response);
-		;
 
 	}
 
-	public static String decodeValue(String value) {
-		String result = "";
-		try {
-			result = java.net.URLDecoder.decode(value, StandardCharsets.UTF_8.name());
-		} catch (UnsupportedEncodingException e) {
-			// not going to happen - value came from JDK's own StandardCharsets
-		}
-		return result;
-	}
+	
 
 }

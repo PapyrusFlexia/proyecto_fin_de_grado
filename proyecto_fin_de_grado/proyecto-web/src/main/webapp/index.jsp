@@ -210,7 +210,7 @@
 							<td><a
 								href="./?action=detalles&pk=<%=c.getId()%>&redirect=<%=encodeValue(request.getQueryString())%>">Detalles |</a>
 								<a
-								href="./?action=insert&pk=<%=c.getId()%>&redirect=<%=encodeValue(request.getQueryString())%>">Insertar</a>
+								href="http://localhost:8080/proyecto-web/insert">Insertar</a>
 							</td>
 						</tr>
 

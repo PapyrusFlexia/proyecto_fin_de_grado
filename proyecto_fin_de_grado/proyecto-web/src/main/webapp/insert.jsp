@@ -100,21 +100,17 @@
 	%>
 	<br>
 
-	</div>
-	<div class="col-md-4 mb-3">
-		<label for="validationServer02">Id</label> <input type="text"
-			class="form-control is-valid" id="validationServer02"
-			placeholder="Last name" name="id" value="<%=car.getId()%>"
-			required>
-		<div class="valid-feedback">Looks good!</div>
-	</div>
+
 	<h2>Engine Information</h2>
-	<form action="./insert" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="action" value="insertCar" /> <input
-			type="hidden" name="pk" value="<%=car.getId()%>" /> <input
-			type="hidden" name="redirect"
-			value="./<%=encodeValue(request.getAttribute("redirect").toString())%>" />
+	<form action="./insert" method="post">
+		<input type="hidden" name="action" value="insertCar" />
 		<fieldset class="form-row">
+			<div class="col-md-4 mb-3">
+				<label for="validationServer02">Id</label> <input type="text"
+					class="form-control is-valid" id="validationServer02"
+					placeholder="Last name" name="pk" required>
+				<div class="valid-feedback">Looks good!</div>
+			</div>
 			<div class="form-group">
 				<label>Transmission</label> <select class="custom-select"
 					name="transmission" id="transmission" required>
@@ -123,9 +119,7 @@
 					if (transmissions != null) {
 						for (Transmission tr : transmissions) {
 					%>
-					<option value="<%=tr.getId()%>"
-						<%if (car.getTransmission().getId() == tr.getId()) {%>
-						selected="selected" <%}%>><%=tr.getTransmission()%></option>
+					<option value="<%=tr.getId()%>"><%=tr.getTransmission()%></option>
 					<%
 						}
 					}
@@ -138,7 +132,7 @@
 				<label for="validationServer02">Engine Type</label> <input
 					type="text" class="form-control is-valid" id="validationServer02"
 					placeholder="Last name" name="enginetype"
-					value="<%=car.getEnginetype()%>" required>
+					required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 
@@ -148,14 +142,14 @@
 				<div class="col-md-4 mb-3">
 					<label for="validationServer03">Horsepower</label> <input
 						type="text" class="form-control is-valid" placeholder="First name"
-						name="horsepower" id="horsepower" value="<%=car.getHorsepower()%>"
+						name="horsepower" id="horsepower"
 						required>
 					<div class="valid-feedback">Looks good!</div>
 				</div>
 				<div class="col-md-4 mb-3">
 					<label for="validationServer04">Torque</label> <input type="text"
 						class="form-control is-valid" placeholder="Last name"
-						name="torque" id="torque" value="<%=car.getTorque()%>" required>
+						name="torque" id="torque" required>
 					<div class="valid-feedback">Looks good!</div>
 				</div>
 
@@ -177,7 +171,7 @@
 				<label for="validationServer05">Number of Forward Gears</label> <input
 					type="text" class="form-control is-valid"
 					name="numberofforwardgears" id="numberofforwardgears"
-					value="<%=car.getNumberofforwardgears()%>" required>
+					required>
 				<div class="invalid-feedback">Please provide a valid number.</div>
 			</div>
 			<div class="form-group">
@@ -188,9 +182,7 @@
 					if (drivelines != null) {
 						for (DriveLine dl : drivelines) {
 					%>
-					<option value="<%=dl.getId()%>"
-						<%if (car.getDriveline().getId() == dl.getId()) {%>
-						selected="selected" <%}%>><%=dl.getDriveLine()%></option>
+					<option value="<%=dl.getId()%>"><%=dl.getDriveLine()%></option>
 					<%
 						}
 					}
@@ -205,20 +197,20 @@
 			<div class="col-md-4 mb-3">
 				<label for="validationServer08">Make</label> <input type="text"
 					class="form-control is-valid" placeholder="Last name" name="make"
-					id="make" value="<%=car.getMake()%>" required>
+					id="make" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer08">Model Year</label> <input
 					type="text" class="form-control is-valid" placeholder="Last name"
-					name="modelyear" id="modelyear" value="<%=car.getModelyear()%>"
+					name="modelyear" id="modelyear"
 					required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer09">Name</label> <input type="text"
 					class="form-control is-valid" placeholder="Last name" name="name"
-					id="name" value="<%=car.getName()%>" required>
+					id="name" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="form-group">
@@ -229,9 +221,7 @@
 					if (classifications != null) {
 						for (Classification cl : classifications) {
 					%>
-					<option value="<%=cl.getId()%>"
-						<%if (car.getClassification().getId() == cl.getId()) {%>
-						selected="selected" <%}%>><%=cl.getClassification()%></option>
+					<option value="<%=cl.getId()%>"><%=cl.getClassification()%></option>
 					<%
 						}
 					}
@@ -243,7 +233,7 @@
 			<div class="col-md-4 mb-3">
 				<label for="validationServer10">Year</label> <input type="text"
 					class="form-control is-valid" name="year" id="year"
-					placeholder="Year" value="<%=car.getYear()%>" required>
+					placeholder="Year" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 		</fieldset>
@@ -253,19 +243,19 @@
 			<div class="col-md-4 mb-3">
 				<label for="validationServer12">Width</label> <input type="text"
 					name="width" id="width" class="form-control is-valid"
-					placeholder="First name" value="<%=car.getWidth()%>" required>
+					placeholder="First name" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer13">Length</label> <input type="text"
 					class="form-control is-valid" name="length" id="length"
-					placeholder="Last name" value="<%=car.getLength()%>" required>
+					placeholder="Last name" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer14">Height</label> <input type="text"
 					class="form-control is-valid" name="height" id="height"
-					placeholder="Last name" value="<%=car.getHeight()%>" required>
+					placeholder="Last name" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 
@@ -277,13 +267,13 @@
 				<label for="validationServer15">Highway mpg</label> <input
 					type="text" class="form-control is-valid" name="highwaympg"
 					id="highwaympg" placeholder="First name"
-					value="<%=car.getHighwaympg()%>" required>
+					required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer16">City mph</label> <input type="text"
 					class="form-control is-valid" name="citymph" id="citymph"
-					placeholder="Last name" value="<%=car.getCitymph()%>" required>
+					placeholder="Last name" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="form-group">
@@ -294,9 +284,7 @@
 					if (fueltypes != null) {
 						for (Fuel ft : fueltypes) {
 					%>
-					<option value="<%=ft.getId()%>"
-						<%if (car.getFueltype().getId() == ft.getId()) {%>
-						selected="selected" <%}%>><%=ft.getFuelType()%></option>
+					<option value="<%=ft.getId()%>"><%=ft.getFuelType()%></option>
 					<%
 						}
 					}
@@ -316,7 +304,7 @@
 		<button class="btn btn-primary btn-lg" type="submit">Insertar</button>
 	</form>
 
-	
+
 
 	<button class="btn btn-primary hBack"
 		onclick="location.href = 'http://localhost:8080/proyecto-web/';">REGRESAR

@@ -210,17 +210,14 @@ public class CarServiceImpl implements CarService {
 				modelyear, name, classification, year, width, length, height, highwaympg, citymph, fuelType);
 	}
 
-	@Override //
+	@Override 
 	public int insert(Car c) {
 		
 		carDao.save(c);
 		
 		return 0;
 
-		// return carDao.insert(id, transmission, engineType, horsepower, torque,
-		// numberofforwardgears, pk, driveline, make,
-		// modelyear, name, classification, year, width, length, height, highwaympg,
-		// citymph, fuelType);
+	
 	}
 
 	@Override
