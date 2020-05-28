@@ -158,8 +158,24 @@ public class UtilServiceImpl implements UtilsService {
 		return c;
 	}
 	
+	public Classification getClassificationById(int m) throws Exception{
+		Classification c = classificationDao.findClassificationById(m);
+		if(c == null) {
+			throw new Exception("Classification con nombre "+ m +" no encontrada");
+		}
+		return c;
+	}
+	
 	public DriveLine getDriveLineByName(String m) throws Exception{
 		DriveLine d = driveLineDao.findDriveLineByName(m);
+		if(d == null) {
+			throw new Exception("DriveLine con nombre "+ m +" no encontrada");
+		}
+		return d;
+	}
+	
+	public DriveLine getDriveLineById(int m) throws Exception{
+		DriveLine d = driveLineDao.findDriveLineById(m);
 		if(d == null) {
 			throw new Exception("DriveLine con nombre "+ m +" no encontrada");
 		}
@@ -174,10 +190,28 @@ public class UtilServiceImpl implements UtilsService {
 		}
 		return f;
 	}
+	
+	@Override
+	public Fuel getFuelTypeById(int m) throws Exception {
+		Fuel f = fuelTypeDao.findFuelById(m);
+		if(f == null) {
+			throw new Exception("FuelType con nombre "+ m +" no encontrada");
+		}
+		return f;
+	}
 
 	@Override
 	public Transmission getTransmissionByName(String m) throws Exception {
 		Transmission t = transmissionDao.findTransmissionByName(m);
+		if(t == null) {
+			throw new Exception("Transmission con nombre "+ m +" no encontrada");
+		}
+		return t;
+	}
+	
+	@Override
+	public Transmission getTransmissionById(int m) throws Exception {
+		Transmission t = transmissionDao.findTransmissionById(m);
 		if(t == null) {
 			throw new Exception("Transmission con nombre "+ m +" no encontrada");
 		}

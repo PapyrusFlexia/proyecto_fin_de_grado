@@ -11,6 +11,8 @@ public interface TransmissionDao {
 	List<Transmission> findTransmissions();
 
 	Transmission findTransmissionByName(String name);
+	
+	Transmission findTransmissionById(int id);
 
 	Transmission save(Transmission t);
 

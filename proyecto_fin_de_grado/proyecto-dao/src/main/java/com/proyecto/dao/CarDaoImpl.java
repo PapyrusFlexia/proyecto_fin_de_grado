@@ -211,7 +211,6 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 	// CREAR METODOS PARA LOS FILTROS //////////////
 
 	@Override
-	@Transactional
 	public Car save(Car c) {
 		Car c1 = findCarByName(c.getName());
 		if (c1 == null) {

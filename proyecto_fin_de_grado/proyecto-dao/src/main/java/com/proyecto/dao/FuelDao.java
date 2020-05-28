@@ -11,6 +11,8 @@ public interface FuelDao {
 	List<Fuel> findFuel();
 
 	Fuel findFuelByName(String name);
+	
+	Fuel findFuelById(int id);
 
 	Fuel save(Fuel f);
 

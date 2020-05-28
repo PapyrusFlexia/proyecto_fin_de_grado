@@ -38,6 +38,18 @@ public class ClassificationDaoImpl extends AbstractDao<Integer, Classification> 
 			return null;
 		}
 	}
+	
+	public Classification findClassificationById(int id) {
+
+		try {
+			Classification c = (Classification) getEntityManager()
+					.createQuery("SELECT c FROM Classification c where c.classification.id = :classification")
+					.setParameter("classification", id).getSingleResult();
+			return c;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 
 	public void deleteById(String id) {
 		Classification cl = (Classification) getEntityManager()

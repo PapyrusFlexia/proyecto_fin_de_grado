@@ -11,6 +11,8 @@ public interface DriveLineDao {
 	List<DriveLine> findDriveLines();
 
 	DriveLine findDriveLineByName(String name);
+	
+	DriveLine findDriveLineById(int id);
 
 	DriveLine save(DriveLine d);
 

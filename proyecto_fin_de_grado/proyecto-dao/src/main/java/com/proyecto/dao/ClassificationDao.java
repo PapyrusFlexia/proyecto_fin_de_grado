@@ -11,6 +11,8 @@ public interface ClassificationDao {
 	List<Classification> findClassifications();
 
 	Classification findClassificationByName(String name);
+	
+	Classification findClassificationById(int id);
 
 	Classification save(Classification c);
 

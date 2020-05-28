@@ -46,10 +46,18 @@ public interface UtilsService {
 	
 	public Classification getClassificationByName(String m) throws Exception;
 	
+	public Classification getClassificationById(int m) throws Exception; 
+	
 	public DriveLine getDriveLineByName(String m) throws Exception;
+	
+	public DriveLine getDriveLineById(int m) throws Exception;
 	
 	public Fuel getFuelTypeByName(String m) throws Exception;
 	
+	public Fuel getFuelTypeById(int m) throws Exception;
+	
 	public Transmission getTransmissionByName(String m) throws Exception;
+	
+	public Transmission getTransmissionById(int m) throws Exception;
 }
 

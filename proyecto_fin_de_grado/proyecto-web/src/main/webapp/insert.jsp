@@ -105,12 +105,6 @@
 	<form action="./insert" method="post">
 		<input type="hidden" name="action" value="insertCar" />
 		<fieldset class="form-row">
-			<div class="col-md-4 mb-3">
-				<label for="validationServer02">Id</label> <input type="text"
-					class="form-control is-valid" id="validationServer02"
-					placeholder="Last name" name="pk" required>
-				<div class="valid-feedback">Looks good!</div>
-			</div>
 			<div class="form-group">
 				<label>Transmission</label> <select class="custom-select"
 					name="transmission" id="transmission" required>

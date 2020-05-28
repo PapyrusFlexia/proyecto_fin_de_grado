@@ -37,6 +37,18 @@ public class TransmissionDaoImpl extends AbstractDao<Integer, Transmission> impl
 			return null;
 		}
 	}
+	
+	public Transmission findTransmissionById(int id) {
+
+		try {
+			Transmission t = (Transmission) getEntityManager()
+					.createQuery("SELECT t FROM Transmission t where t.transmission.id = :transmission")
+					.setParameter("transmission", id).getSingleResult();
+			return t;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 
 	@Override
 	public Transmission save(Transmission t) {

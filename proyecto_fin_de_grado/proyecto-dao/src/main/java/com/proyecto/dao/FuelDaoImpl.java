@@ -36,6 +36,17 @@ public class FuelDaoImpl extends AbstractDao<Integer, Fuel> implements FuelDao {
 			return null;
 		}
 	}
+	
+	public Fuel findFuelById(int id) {
+
+		try {
+			Fuel f = (Fuel) getEntityManager().createQuery("SELECT f FROM Fuel f where f.fuelType.id = :fueltype")
+					.setParameter("fueltype", id).getSingleResult();
+			return f;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 
 	@Override
 	public Fuel save(Fuel f) {

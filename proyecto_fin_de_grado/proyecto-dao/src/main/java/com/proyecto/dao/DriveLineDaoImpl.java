@@ -39,6 +39,18 @@ public class DriveLineDaoImpl extends AbstractDao<Integer, DriveLine> implements
 			return null;
 		}
 	}
+	
+	public DriveLine findDriveLineById(int id) {
+
+		try {
+			DriveLine d = (DriveLine) getEntityManager()
+					.createQuery("SELECT d FROM DriveLine d where d.driveLine.id = :driveLine")
+					.setParameter("driveLine", id).getSingleResult();
+			return d;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 
 	@Override
 	public DriveLine save(DriveLine d) {
