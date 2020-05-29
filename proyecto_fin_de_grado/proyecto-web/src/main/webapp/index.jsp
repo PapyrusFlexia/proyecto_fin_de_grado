@@ -45,7 +45,7 @@
 
 <body>
 	<%
-		String paginaActual = (String) request.getAttribute("page");
+	String paginaActual = (String) request.getAttribute("page");
 	int siguiente = -1;
 	int anterior = -1;
 	if (paginaActual == null) {
@@ -54,22 +54,41 @@
 	String modeloFiltro = (String) request.getAttribute("make");
 	int modeloFiltroInt = 0;
 	if (modeloFiltro != null && !modeloFiltro.equals("") && !modeloFiltro.equals("null")) {
-		modeloFiltroInt = Integer.valueOf(modeloFiltro);
+		try {
+
+			modeloFiltroInt = Integer.valueOf(modeloFiltro);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	String annoFiltro = (String) request.getAttribute("year");
 	int annoFiltroInt = 0;
 	if (annoFiltro != null && !annoFiltro.equals("") && !annoFiltro.equals("null")) {
-		annoFiltroInt = Integer.valueOf(annoFiltro);
+		try {
+
+			annoFiltroInt = Integer.valueOf(annoFiltro);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	String hybridFiltro = (String) request.getAttribute("hybrid");
-	int hybridFiltroInt = 0;
+	boolean hybridFiltroInt;
 	if (hybridFiltro != null && !hybridFiltro.equals("") && !hybridFiltro.equals("null")) {
-		hybridFiltroInt = Integer.valueOf(hybridFiltro);
+		try {
+			hybridFiltroInt = Boolean.valueOf(hybridFiltro);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 	String classificationFiltro = (String) request.getAttribute("classification");
 	int classificationFiltroInt = 0;
 	if (classificationFiltro != null && !classificationFiltro.equals("") && !classificationFiltro.equals("null")) {
-		classificationFiltroInt = Integer.valueOf(classificationFiltro);
+		try {
+			classificationFiltroInt = Integer.valueOf(classificationFiltro);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	int paginaComienzo = Integer.valueOf(paginaActual);
 	if (paginaComienzo > 1) {
@@ -92,7 +111,7 @@
 
 		<div class="container">
 			<div class="row">
-				<div class="col-md-3 col-sm-3">
+				<div class="col-md-3 col-sm-3 ml-5">
 					<div class="form-group">
 						<select class="form-control" data-live-search="true"
 							title="Filter by year" id="year">
@@ -109,7 +128,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="col-md-3 col-sm-3">
+				<div class="col-md-3 col-sm-3 ml-5">
 					<div class="form-group">
 						<select class="form-control" data-live-search="true"
 							title="Filter by makes" id="make">
@@ -127,7 +146,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-3 col-sm-3">
+				<div class="col-md-3 col-sm-3 ml-5">
 					<div class="form-group">
 						<select class="form-control" data-live-search="true"
 							title="Filter by hybrid" id="hybrid">
@@ -141,26 +160,6 @@
 								}
 							%>
 						</select>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-3">
-					<div class="form-group">
-						<select class="form-control" data-live-search="true"
-							title="Filter by classification" id="classification">
-							<option value="-1">FILTRAR POR CLASIFICACIÓN</option>
-							<%
-								if (classificationTabla != null) {
-								for (Classification classification : classificationTabla) {
-							%>
-							<option
-								<%if (classification.getId() == classificationFiltroInt) {%>
-								selected <%}%> value="<%=classification.getId()%>"><%=classification.getClassification()%></option>
-							<%
-								}
-							}
-							%>
-						</select>
-
 					</div>
 				</div>
 			</div>
@@ -205,7 +204,7 @@
 							<td><%=c.getName()%></td>
 							<td><%=c.getMake()%></td>
 							<td><%=c.getYear()%></td>
-							<td><%=e.isHybrid()%></td>
+							<td><%=c.isHybrid()%></td>
 							<td><%=c.getClassification().getClassification()%></td>
 							<td><a
 								href="./?action=detalles&pk=<%=c.getId()%>&redirect=<%=encodeValue(request.getQueryString())%>">Detalles |</a>
@@ -907,7 +906,6 @@
 		try {
 			url = URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
 		} catch (Exception ex) {
-
 		}
 		return url;
 	}%>

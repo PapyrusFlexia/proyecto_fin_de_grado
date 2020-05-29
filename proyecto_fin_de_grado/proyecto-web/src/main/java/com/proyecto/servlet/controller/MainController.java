@@ -3,6 +3,7 @@ package com.proyecto.servlet.controller;
 import java.io.IOException;
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,8 +19,10 @@ import org.springframework.stereotype.Controller;
 import com.proyecto.dao.CarDao;
 import com.proyecto.dao.CarDaoImpl;
 import com.proyecto.dao.ClassificationDao;
+import com.proyecto.dao.EngineDao;
 import com.proyecto.dao.MakeDao;
 import com.proyecto.model.Car;
+import com.proyecto.model.Engine;
 import com.proyecto.services.CarService;
 import com.proyecto.services.UtilsService;
 
@@ -34,6 +37,9 @@ public class MainController {
 	
 	@Autowired
 	private MakeDao makeDao;
+	
+	@Autowired
+	private EngineDao engineDao;
 	
 	@Autowired
 	private ClassificationDao classificationDao;
@@ -65,31 +71,24 @@ public class MainController {
 	public void filtrar(HttpServletRequest request, HttpServletResponse response) {
 
 		String annoFiltro = (String) request.getParameter("year");
-		
 		String makeFiltro = (String) request.getParameter("make");
-		int annoFiltroInt = Integer.parseInt(annoFiltro);
 		String hybridFiltro = (String) request.getParameter("hybrid");
-		boolean hybridFiltroBoolean = Boolean.parseBoolean(hybridFiltro); 
-		String classificationFiltro = (String) request.getParameter("classification");
+		
 	
-		List<Predicate<Car>> p = new ArrayList<Predicate<Car>>();
 		List<Car> cars = new ArrayList<>();
 		
 		if (!annoFiltro.equals("null") && !annoFiltro.equals("0") ) {
-			//p.add(filtro.anno(Integer.parseInt(annoFiltro)));
+			int annoFiltroInt = Integer.parseInt(annoFiltro);
 			cars = carDao.findYearByName(annoFiltroInt); /////////// PASARLO POR CARSERVICE Y PASARLE BOOLEAN E INTEGER EN CARDAOIMPL Y HACER 15, 25, 50 en PAGINATION
-			
+		
+		}
 		if (!makeFiltro.equals("null") && !makeFiltro.equals("0") && !makeFiltro.equals("")) {
-			//p.add(filtro.make(makeFiltro));
+	
 			cars = carDao.findMakeByName(makeFiltro);
 		}
-		if (!hybridFiltro.equals("null") && !hybridFiltro.equals("0") && !hybridFiltro.equals("")) {
-			//p.add(filtro.hibrido(Boolean.valueOf(hybridFiltro)));
+		else if (!hybridFiltro.equals("null") && !hybridFiltro.equals("0") && !hybridFiltro.equals("")) {
+			boolean hybridFiltroBoolean = Boolean.parseBoolean(hybridFiltro); 
 			cars = carDao.findHybridByName(hybridFiltroBoolean);
-		}
-		if (!classificationFiltro.equals("null") && !classificationFiltro.equals("0") && !classificationFiltro.equals("")) {
-			//p.add(filtro.clasificacion(classificationFiltro));
-			cars = carDao.findClassificationByName(classificationFiltro);
 		}
 		String page = request.getParameter("page");
 		int begin = 0;
@@ -99,24 +98,17 @@ public class MainController {
 			end = begin + 10;
 		}
 
-		/**List<Make> contador = carService.getCarsCount(0);
-		long ultima = contador / 10;
-		int r = (int) contador % 10;
-		if (Long.valueOf(request.getParameter("page")) == ultima) { /////////////////////////////////
-			end = begin + r;
-		}*/
+		
 
 		
 		request.setAttribute("cars", cars);
 		request.setAttribute("make", makeFiltro);
 		request.setAttribute("year", annoFiltro);
 		request.setAttribute("hybrid", hybridFiltro);
-		request.setAttribute("classification", classificationFiltro);
-		//request.setAttribute("total", contador);
+	
 		request.setAttribute("page", page);
-		//request.setAttribute("ultima", ultima);
 
-	}
+
 	}
 
 	

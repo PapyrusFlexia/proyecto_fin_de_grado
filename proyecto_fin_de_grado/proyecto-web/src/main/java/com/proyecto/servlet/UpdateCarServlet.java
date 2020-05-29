@@ -52,6 +52,7 @@ public class UpdateCarServlet extends AbstractServlet {
 
 		String numberofforwardgears = request.getParameter("numberofforwardgears");
 		String make = request.getParameter("make");
+		String hybrid = request.getParameter("hybrid");
 		String modelyear = request.getParameter("modelyear");
 		String name = request.getParameter("name");
 		String classification = request.getParameter("classification");
@@ -85,7 +86,7 @@ public class UpdateCarServlet extends AbstractServlet {
 				&& horsepower != null && Integer.valueOf(horsepower) > 0 && torque != null
 				&& Integer.valueOf(torque) > 0 && numberofforwardgears != null
 				&& !numberofforwardgears.equals("") && driveline != null && !driveline.equals("") && make != null
-				&& !make.equals("") && modelyear != null && !modelyear.equals("") && classification != null
+				&& !make.equals("") && hybrid != null && modelyear != null && !modelyear.equals("") && classification != null
 				&& !classification.equals("") && year != null && !year.equals("") && Integer.valueOf(year) >= 2009
 				&& Integer.valueOf(year) <= 2020 && width != null && Integer.valueOf(width) > 0 && length != null
 				&& Integer.valueOf(length) > 0 && height != null && Integer.valueOf(height) > 0 && highwaympg != null
@@ -94,7 +95,7 @@ public class UpdateCarServlet extends AbstractServlet {
 
 			carService.update(Integer.parseInt(pk), transmission, enginetype, Integer.parseInt(horsepower),
 					Integer.parseInt(horsepower), Integer.parseInt(numberofforwardgears),
-					driveline, make, modelyear, name, classification, Integer.parseInt(year), Integer.parseInt(width),
+					driveline, make, Boolean.parseBoolean(hybrid),  modelyear, name, classification, Integer.parseInt(year), Integer.parseInt(width),
 					Integer.parseInt(length), Integer.parseInt(height), Integer.parseInt(highwaympg),
 					Integer.parseInt(citymph), fuelType);
 
@@ -112,7 +113,7 @@ public class UpdateCarServlet extends AbstractServlet {
 		request.setAttribute("pk", utilsService.getCarsPk());
 		request.setAttribute("years", utilsService.getCarsYears());
 		request.setAttribute("makes", utilsService.getCarsMakes());
-		request.setAttribute("hybrids", utilsService.getEngineHybrids());
+		request.setAttribute("hybrids", utilsService.getCarsHybrids());
 		request.setAttribute("classifications",  utilsService.getCarsClassificationsTabla());
 
 		request.getRequestDispatcher("/detalles.jsp").forward(request, response);

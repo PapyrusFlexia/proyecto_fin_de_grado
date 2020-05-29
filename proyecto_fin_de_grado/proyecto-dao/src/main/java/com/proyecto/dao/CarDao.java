@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.proyecto.model.Car;
 import com.proyecto.model.Classification;
+import com.proyecto.model.Engine;
 import com.proyecto.model.User;
 
 public interface CarDao {
@@ -14,7 +15,7 @@ public interface CarDao {
 	Car save(Car c);
 
 	int update(int id, String transmission, String enginetype, int horsepower, int torque,
-			int numberofforwardgears, String driveline, String make, String modelyear, String name,
+			int numberofforwardgears, String driveline, String make, boolean hybrid, String modelyear, String name,
 			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
 			String fuelType);
 	
@@ -46,11 +47,13 @@ public interface CarDao {
 
 	List<Car> getCarsMakesFilter(int m);
 
-	List<Car> findYearByName(Integer annoFiltro);
+	List<Car> findYearByName(int annoFiltro);
+	
+	List<Boolean> getCarsHybrids();
+	
+	List<Car> findHybridByName(Boolean name);
 
-	List<Car> findHybridByName(Boolean hybridFiltro);
-
-	List<Car> findClassificationByName(String name);
+	List<Car> findClassificationByName(int name);
 
 	List<Car> findMakeByName(String name);
 

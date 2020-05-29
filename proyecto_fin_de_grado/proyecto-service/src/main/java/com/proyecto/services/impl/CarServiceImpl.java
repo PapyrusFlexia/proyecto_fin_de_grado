@@ -202,11 +202,11 @@ public class CarServiceImpl implements CarService {
 
 	@Override // ELIMINADO ID MAKE y HYBRID
 	public int update(int id, String transmission, String engineType, int horsepower, int torque,
-			int numberofforwardgears, String driveline, String make, String modelyear, String name,
+			int numberofforwardgears, String driveline, String make, boolean hybrid, String modelyear, String name,
 			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
 			String fuelType) {
 
-		return carDao.update(id, transmission, engineType, horsepower, torque, numberofforwardgears, driveline, make,
+		return carDao.update(id, transmission, engineType, horsepower, torque, numberofforwardgears, driveline, make, hybrid,
 				modelyear, name, classification, year, width, length, height, highwaympg, citymph, fuelType);
 	}
 

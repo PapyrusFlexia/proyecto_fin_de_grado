@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.proyecto.model.Car;
 import com.proyecto.model.Classification;
+import com.proyecto.model.Engine;
 import com.proyecto.model.User;
 
 @Repository("carDao")
@@ -156,7 +157,7 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		}
 	}
 
-	public List<Car> findYearByName(Integer name) {
+	public List<Car> findYearByName(int name) {
 
 		try {
 			List<Car> year = (List<Car>) getEntityManager().createQuery("SELECT c FROM Car c where c.year = :year")
@@ -167,40 +168,51 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		}
 	}
 
-	public List<Car> findHybridByName(Boolean name) {
-
-		try {
-			List<Car> hybrid = (List<Car>) getEntityManager()
-					.createQuery("SELECT c FROM Car c where c.hybrid = :hybrid").setParameter("hybrid", name)
-					.getResultList();
-			return hybrid;
-		} catch (NoResultException e) {
-			return null;
-		}
-	}
-
 	public List<Car> findMakeByName(String name) {
 
 		try {
-			List<Car> make = (List<Car>) getEntityManager().createQuery("SELECT m FROM Make m where m.make = :make")
-					.setParameter("make", name).getSingleResult();
+			List<Car> make = (List<Car>) getEntityManager().createQuery("SELECT c FROM Car c where c.make = :make")
+					.setParameter("make", name).getResultList();
 			return make;
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Boolean> getCarsHybrids() { 
 
-	public List<Car> findClassificationByName(String name) {
+		List<Boolean> listCarsHybrids = getEntityManager()
+				.createQuery("SELECT DISTINCT c.hybrid FROM Car c ORDER BY c.hybrid").getResultList();
+
+		return listCarsHybrids;
+	}
+
+public List<Car> findHybridByName(Boolean name) {
+
+	try {
+		List<Car> hybrid = (List<Car>) getEntityManager()
+				.createQuery("SELECT c FROM Car c where c.hybrid = :hybrid").setParameter("hybrid", name)
+				.getResultList();
+		return hybrid;
+	} catch (NoResultException e) {
+		return null;
+	}
+}
+
+	public List<Car> findClassificationByName(int name) {
 
 		try {
 			List<Car> c = (List<Car>) getEntityManager()
-					.createQuery("SELECT c FROM Classification c where c.classification = :classification")
-					.setParameter("classification", name).getSingleResult();
+					.createQuery("SELECT c FROM Classification c where c.classification.id = :classification")
+					.setParameter("classification", name).getResultList();
 			return c;
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
+
 
 	@Override
 	public long totalCar() {
@@ -236,16 +248,16 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 	 */
 
 	public int update(int id, String transmission, String enginetype, int horsepower, int torque,
-			int numberofforwardgears, String driveline, String make, String modelyear, String name,
+			int numberofforwardgears, String driveline, String make, boolean hybrid, String modelyear, String name,
 			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
 			String fuelType) {
 
 		int executed = getEntityManager().createQuery(
-				"UPDATE Car c set c.transmission.id = :transmission, c.enginetype = :enginetype, c.horsepower = :horsepower, c.torque = :torque, c.numberofforwardgears = :numberofforwardgears, c.driveline.id = :driveline, c.make = :make, c.modelyear = :modelyear, c.name = :name, c.classification.id = :classification, c.year = :year, c.width = :width, c.length = :length, c.height = :height, c.highwaympg = :highwaympg, c.citymph = :citymph, c.fueltype.id = :fueltype WHERE c.id = :id")
+				"UPDATE Car c set c.transmission.id = :transmission, c.enginetype = :enginetype, c.horsepower = :horsepower, c.torque = :torque, c.numberofforwardgears = :numberofforwardgears, c.driveline.id = :driveline, c.make = :make, c.hybrid = :hybrid, c.modelyear = :modelyear, c.name = :name, c.classification.id = :classification, c.year = :year, c.width = :width, c.length = :length, c.height = :height, c.highwaympg = :highwaympg, c.citymph = :citymph, c.fueltype.id = :fueltype WHERE c.id = :id")
 				.setParameter("id", id).setParameter("transmission", Integer.valueOf(transmission))
 				.setParameter("enginetype", enginetype).setParameter("horsepower", horsepower)
 				.setParameter("torque", torque).setParameter("numberofforwardgears", numberofforwardgears)
-				.setParameter("driveline", Integer.valueOf(driveline)).setParameter("make", make)
+				.setParameter("driveline", Integer.valueOf(driveline)).setParameter("make", make).setParameter("hybrid", hybrid)
 				.setParameter("modelyear", modelyear).setParameter("name", name)
 				.setParameter("classification", Integer.valueOf(classification)).setParameter("year", year)
 				.setParameter("width", width).setParameter("length", length).setParameter("height", height)

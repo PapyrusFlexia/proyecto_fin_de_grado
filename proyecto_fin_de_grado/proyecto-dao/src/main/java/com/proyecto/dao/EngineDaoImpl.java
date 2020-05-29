@@ -33,15 +33,7 @@ public class EngineDaoImpl extends AbstractDao<Serializable, Engine> implements 
 		}
 	}
 
-	@Override
-		@SuppressWarnings("unchecked")
-		public List<Boolean> getEngineHybrids() { 
 
-			List<Boolean> listCarsHybrids = getEntityManager()
-					.createQuery("SELECT DISTINCT e.hybrid FROM Engine e ORDER BY e.hybrid").getResultList();
-
-			return listCarsHybrids;
-		}
 	
 	@Override
 	public long totalEngine() {
@@ -51,7 +43,7 @@ public class EngineDaoImpl extends AbstractDao<Serializable, Engine> implements 
 
 	@Override
 	public Engine save(Engine e) {
-		Engine e1 = findEngineByEngineType(e.getEngineType());
+		Engine e1 = findEngineByEngineType(e.getEnginetype());
 		if (e1 == null) {
 			persist(e);
 		}

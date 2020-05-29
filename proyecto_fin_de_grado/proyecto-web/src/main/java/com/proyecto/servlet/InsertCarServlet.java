@@ -34,7 +34,7 @@ public class InsertCarServlet extends AbstractServlet {
 		request.setAttribute("pk", utilsService.getCarsPk());
 		request.setAttribute("years", utilsService.getCarsYears());
 		request.setAttribute("makes", utilsService.getCarsMakes());
-		request.setAttribute("hybrids", utilsService.getEngineHybrids());
+		request.setAttribute("hybrids", utilsService.getCarsHybrids());
 		request.setAttribute("classifications", utilsService.getCarsClassificationsTabla());
 		request.setAttribute("transmissions", utilsService.getCarsTransmissions());
 		request.setAttribute("drivelines", utilsService.getCarsDriveLines());
@@ -60,6 +60,7 @@ public class InsertCarServlet extends AbstractServlet {
 		// String id = request.getParameter("pk");
 		String numberofforwardgears = request.getParameter("numberofforwardgears");
 		String make = request.getParameter("make");
+		String hybrid = request.getParameter("hybrid");
 		String modelyear = request.getParameter("modelyear");
 		String name = request.getParameter("name");
 		String classification = request.getParameter("classification");
@@ -79,7 +80,7 @@ public class InsertCarServlet extends AbstractServlet {
 				&& horsepower != null && Integer.valueOf(horsepower) > 0 && torque != null
 				&& Integer.valueOf(torque) > 0 && numberofforwardgears != null && !numberofforwardgears.equals("")
 				&& driveline != null && !driveline.equals("") && make != null
-				&& !make.equals("") && modelyear != null && !modelyear.equals("") && classification != null
+				&& !make.equals("") && hybrid != null && modelyear != null && !modelyear.equals("") && classification != null
 				&& !classification.equals("") && year != null && !year.equals("") && Integer.valueOf(year) >= 2009
 				&& Integer.valueOf(year) <= 2020 && width != null && Integer.valueOf(width) > 0 && length != null
 				&& Integer.valueOf(length) > 0 && height != null && Integer.valueOf(height) > 0 && highwaympg != null
@@ -95,6 +96,7 @@ public class InsertCarServlet extends AbstractServlet {
 				car.setHorsepower(Integer.valueOf(horsepower));
 				car.setLength(Integer.valueOf(length));
 				car.setMake(make);
+				car.setHybrid(Boolean.valueOf(hybrid));
 				car.setModelyear(modelyear);
 				car.setName(name);
 				car.setNumberofforwardgears(Integer.valueOf(numberofforwardgears));

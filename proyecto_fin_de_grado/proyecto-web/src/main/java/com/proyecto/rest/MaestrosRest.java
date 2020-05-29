@@ -34,7 +34,7 @@ public class MaestrosRest {
 	
 	@GetMapping(value="/hybrids", produces = "application/json")
 	public @ResponseBody List<Boolean> getHybrids() {
-		return utilsService.getEngineHybrids();
+		return utilsService.getCarsHybrids();
 	}
 	
 	@GetMapping(value="/classifications", produces = "application/json")

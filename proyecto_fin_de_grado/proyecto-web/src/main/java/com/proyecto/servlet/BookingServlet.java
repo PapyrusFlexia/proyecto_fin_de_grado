@@ -65,7 +65,7 @@ public class BookingServlet extends AbstractServlet {
 
 		request.setAttribute("years", utilsService.getCarsYears());
 		request.setAttribute("makes", utilsService.getCarsMakes());
-		request.setAttribute("hybrids", utilsService.getEngineHybrids());
+		request.setAttribute("hybrids", utilsService.getCarsHybrids());
 		request.setAttribute("classifications",  utilsService.getCarsClassificationsTabla());
 		request.getRequestDispatcher(dispatcher).forward(request, response);
 	}

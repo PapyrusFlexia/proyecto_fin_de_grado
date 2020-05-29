@@ -64,7 +64,7 @@ public class DeleteCarServlet extends AbstractServlet {
 		request.setAttribute("id", utilsService.getCarsId());
 		request.setAttribute("years", utilsService.getCarsYears());
 		request.setAttribute("makes", utilsService.getCarsMakes());
-		request.setAttribute("hybrids", utilsService.getEngineHybrids());
+		request.setAttribute("hybrids", utilsService.getCarsHybrids());
 		request.setAttribute("classifications",  utilsService.getCarsClassificationsTabla());
 		
 		request.getRequestDispatcher("/detalles.jsp").forward(request, response);

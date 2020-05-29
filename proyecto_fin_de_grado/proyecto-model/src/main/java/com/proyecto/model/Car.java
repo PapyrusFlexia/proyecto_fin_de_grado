@@ -127,6 +127,10 @@ public class Car implements Comparable<Car>, Serializable {
 	@Column(name = "MAKE", nullable = false)
 	private String make;
 
+	@NotNull
+	@Column(name = "HYBRID", nullable = false)
+	private boolean hybrid;
+
 	@NotEmpty
 	@Column(name = "MODELYEAR", nullable = false)
 	private String modelyear;
@@ -150,11 +154,11 @@ public class Car implements Comparable<Car>, Serializable {
 	public Car() {
 
 	}
-	
+
 	public Car(int pk, int id, Transmission transmission, String enginetype, DriveLine driveline,
 			int numberofforwardgears, int horsepower, int torque, int width, int length, int height, int citymph,
-			Fuel fueltype, int highwaympg, Classification classification, String make, String modelyear, String name,
-			int year) {
+			Fuel fueltype, int highwaympg, Classification classification, String make, boolean hybrid, String modelyear,
+			String name, int year) {
 		super();
 		this.pk = pk;
 		this.id = id;
@@ -172,6 +176,7 @@ public class Car implements Comparable<Car>, Serializable {
 		this.highwaympg = highwaympg;
 		this.classification = classification;
 		this.make = make;
+		this.hybrid = hybrid;
 		this.modelyear = modelyear;
 		this.name = name;
 		this.year = year;
@@ -305,6 +310,14 @@ public class Car implements Comparable<Car>, Serializable {
 		this.make = make;
 	}
 
+	public boolean isHybrid() {
+		return hybrid;
+	}
+
+	public void setHybrid(boolean hybrid) {
+		this.hybrid = hybrid;
+	}
+
 	public String getModelyear() {
 		return modelyear;
 	}
@@ -351,8 +364,8 @@ public class Car implements Comparable<Car>, Serializable {
 				+ ", driveline=" + driveline + ", numberofforwardgears=" + numberofforwardgears + ", horsepower="
 				+ horsepower + ", torque=" + torque + ", width=" + width + ", length=" + length + ", height=" + height
 				+ ", citymph=" + citymph + ", fueltype=" + fueltype + ", highwaympg=" + highwaympg + ", classification="
-				+ classification + ", make=" + make + ", modelyear=" + modelyear + ", name=" + name + ", year=" + year
-				+ "]";
+				+ classification + ", make=" + make + ", hybrid=" + hybrid + ", modelyear=" + modelyear + ", name="
+				+ name + ", year=" + year + "]";
 	}
 
 }

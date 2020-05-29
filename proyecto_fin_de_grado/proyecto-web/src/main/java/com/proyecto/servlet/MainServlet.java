@@ -30,13 +30,13 @@ public class MainServlet extends AbstractServlet {
 		String filterMake = request.getParameter("make");
 		String filterYear = request.getParameter("year");
 		String filterHybrid = request.getParameter("hybrid");
-		String filterClassification = request.getParameter("classification");
-		if (action == null || action.equals("") && (filterMake == null && filterYear == null && filterHybrid == null && filterClassification == null)) {
+
+		if (action == null || action.equals("") && (filterMake == null && filterYear == null && filterHybrid == null)) {
 			mainController.MainAction(request, response);
-		} else if ("paginacion".contentEquals(action) && (filterMake == null && filterYear == null && filterHybrid == null && filterClassification == null)) {
+		} else if ("paginacion".contentEquals(action) && (filterMake == null && filterYear == null && filterHybrid == null)) {
 			mainController.paginacion(request, response);
 		}
-		if (filterMake != null || filterYear != null || filterHybrid != null || filterClassification != null) {
+		if (filterMake != null || filterYear != null || filterHybrid != null) {
 			mainController.filtrar(request, response);
 		} else if ("detalles".equals(action)) {
 			try {
@@ -47,11 +47,6 @@ public class MainServlet extends AbstractServlet {
 				request.setAttribute("message", e.getMessage());
 				dispatcher = "./error.jsp";
 			}
-
-		/**}else if("datatable".equals(action)) {
-			dispatcher = "./datatable.jsp";
-		} */
-			
 		}else if("booking".equals(action)) {
 			dispatcher = "./booking.jsp";
 			try {
@@ -81,8 +76,7 @@ public class MainServlet extends AbstractServlet {
 
 		request.setAttribute("years", utilsService.getCarsYears());
 		request.setAttribute("makes", utilsService.getCarsMakes());
-		request.setAttribute("hybrids", utilsService.getEngineHybrids());
-		request.setAttribute("classifications",  utilsService.getCarsClassificationsTabla());
+		request.setAttribute("hybrids", utilsService.getCarsHybrids());
 		request.getRequestDispatcher(dispatcher).forward(request, response);
 		
 

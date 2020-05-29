@@ -87,6 +87,7 @@ public class PopulateServlet extends AbstractServlet {
 							.getTransmissionByName(json.getJSONObject("engineinformation").getString("transmission")));
 					c.setEnginetype(json.getJSONObject("engineinformation").getString("enginetype"));
 					c.setMake(json.getJSONObject("identification").getString("make"));
+					c.setHybrid(json.getJSONObject("engineinformation").getBoolean("hybrid"));
 					c.setClassification(utilsService
 							.getClassificationByName(json.getJSONObject("identification").getString("classification")));
 					c.setName(json.getJSONObject("identification").getString("id"));
@@ -104,19 +105,11 @@ public class PopulateServlet extends AbstractServlet {
 			} else if (param != null && param.equals("engine")) {
 				try {
 					Engine e = new Engine();
-					e.setCitymph(json.getJSONObject("fuelinformation").getInt("citymph"));
+				
 					e.setDriveline(json.getJSONObject("engineinformation").getString("driveline"));
-					e.setEngineType(json.getJSONObject("engineinformation").getString("enginetype"));
+					e.setEnginetype(json.getJSONObject("engineinformation").getString("enginetype"));
 					e.setFueltype(utilsService
 							.getFuelTypeByName(json.getJSONObject("fuelinformation").getString("fueltype")));
-					e.setHighwaympg(json.getJSONObject("fuelinformation").getInt("highwaympg"));
-					e.setHorsepower(json.getJSONObject("engineinformation").getJSONObject("enginestatistics")
-							.getInt("horsepower"));
-					e.setHybrid(json.getJSONObject("engineinformation").getBoolean("hybrid"));
-					e.setNumberOfForwardGears(json.getJSONObject("engineinformation").getInt("numberofforwardgears"));
-					e.setTorque(
-							json.getJSONObject("engineinformation").getJSONObject("enginestatistics").getInt("torque"));
-					
 					e.setTransmission(json.getJSONObject("engineinformation").getString("transmission"));
 					
 		

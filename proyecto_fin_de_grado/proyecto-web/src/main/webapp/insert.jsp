@@ -153,8 +153,8 @@
 					<label class="mt-2 col-form-label" for="hybrid">Hybrid:</label>
 					<div class="form-check ml-1 mt-3">
 						<%
-							Engine e = new Engine();
-						String hybridSelected = e.isHybrid() ? " checked=''checked'" : "";
+							Car c = new Car();
+						String hybridSelected = c.isHybrid() ? " checked=''checked'" : "";
 						%>
 						<input class="form-check-input valid" type="checkbox"
 							name="hybrid" id="hybrid" <%=hybridSelected%>>

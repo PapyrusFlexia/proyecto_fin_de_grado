@@ -20,8 +20,6 @@ public interface EngineDao {
 
 	void deleteById(String id);
 	
-	List<Boolean> getEngineHybrids();
-	
 	List<Engine> findAllEngines();
 
 	Engine getByPk(Integer key);

@@ -22,7 +22,7 @@ public interface CarService {
 	Engine saveEngine(Engine e);
 	
 	int update(int id, String transmission, String engineType, int horsepower, int torque,
-			int numberofforwardgears, String driveline, String make, String modelyear, String name,
+			int numberofforwardgears, String driveline, String make, boolean hybrid, String modelyear, String name,
 			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
 			String fuelType);
 	

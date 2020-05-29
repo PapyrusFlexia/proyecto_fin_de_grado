@@ -21,7 +21,7 @@ public interface UtilsService {
 	
 	public List<Integer> getCarsPk();
 	
-	public List<Boolean> getEngineHybrids();
+	public List<Boolean> getCarsHybrids();
 	
 	public List<Classification> getCarsClassificationsTabla();
 	

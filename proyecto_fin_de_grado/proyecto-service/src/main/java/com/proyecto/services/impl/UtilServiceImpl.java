@@ -77,9 +77,9 @@ public class UtilServiceImpl implements UtilsService {
 		return carDao.getCarsYears();
 	}
 	
-	public List<Boolean> getEngineHybrids() {
+	public List<Boolean> getCarsHybrids() {
 
-		return engineDao.getEngineHybrids();
+		return carDao.getCarsHybrids();
 	}
 	
 	public List<Integer> getCarsId() {
