@@ -5,22 +5,22 @@ import java.util.Comparator;
 
 import com.proyecto.model.Car;
 
-public class CarMakeComparator extends CarComparator implements Comparator<Car> {
-
-	public CarMakeComparator(boolean desc) {
-		super.desc = desc;
+public class CarMakeComparator extends CarComparator implements Comparator<Car>{
+	
+	public CarMakeComparator(boolean asc) {
+		super.asc = asc;
 	}
 	
 	@Override
-	public int compare(Car o1, Car o2) {
-		int compare = o1.getMake().compareTo(o2.getMake()); 
-		
-		return (desc)?compare: (-1)*compare;
+	public int compare(Car car1, Car car2) {
+
+		int mult = 1;
+		if (!asc) {
+			mult = -1;
+		}
+
+		return mult * (car1.getMake().compareTo(car2.getMake()));
+
 	}
-
-	
-	
-
-	
 	
 }

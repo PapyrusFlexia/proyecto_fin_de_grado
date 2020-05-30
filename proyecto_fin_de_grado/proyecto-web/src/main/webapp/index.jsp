@@ -18,6 +18,11 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <title>Organizatium</title>
+<style>
+th {
+	cursor: pointer;
+}
+</style>
 <meta content="" name="descriptison">
 <meta content="" name="keywords">
 
@@ -45,7 +50,7 @@
 
 <body>
 	<%
-	String paginaActual = (String) request.getAttribute("page");
+		String paginaActual = (String) request.getAttribute("page");
 	int siguiente = -1;
 	int anterior = -1;
 	if (paginaActual == null) {
@@ -122,7 +127,7 @@
 							<option <%if (year.equals(annoFiltro)) {%> selected <%}%>
 								value="<%=year%>"><%=year%></option>
 							<%
-								//ERRORES EN CARDAO, CREAR MYSQL QUERY Y MIRAR UTILSSERVICE
+								
 							}
 							%>
 						</select>
@@ -139,7 +144,7 @@
 							<option <%if (model.equals(modeloFiltro)) {%> selected <%}%>
 								value="<%=model%>"><%=model%></option>
 							<%
-								//ERRORES EN CARDAO, CREAR MYSQL QUERY Y MIRAR UTILSSERVICE
+								
 							}
 							%>
 						</select>
@@ -168,30 +173,32 @@
 					data-aos="fade-left" data-aos-delay="200"></div>
 
 
-				<table class="table table-bordered table-striped text-center">
+				<table class="table table-bordered table-striped text-center"
+					id="myTable">
 					<thead class="thead-light">
 						<tr>
-							<th scope="col">ID<br> <a><span
-									class="glyphicon glyphicon-chevron-up"></span><span
-									class="glyphicon glyphicon-chevron-down"></span></a></th>
-							<th scope="col">Modelo<br> <a><span
-									class="glyphicon glyphicon-chevron-up"></span><span
-									class="glyphicon glyphicon-chevron-down"></span></a></th>
-							<th scope="col">Marca<br> <a><span
-									class="glyphicon glyphicon-chevron-up"></span><span
-									class="glyphicon glyphicon-chevron-down"></span></a></th>
-							<th scope="col">Año<br> <a><span
-									class="glyphicon glyphicon-chevron-up"></span><span
-									class="glyphicon glyphicon-chevron-down"></span></a></th>
-							<th scope="col">Híbrido<br> <a><span
-									class="glyphicon glyphicon-chevron-up"></span><span
-									class="glyphicon glyphicon-chevron-down"></span></a></th>
-							<th scope="col">Clasificación<br> <a><span
-									class="glyphicon glyphicon-chevron-up"></span><span
-									class="glyphicon glyphicon-chevron-down"></span></a></th>
-							<th scope="col">Acciones</th>
+							<th scope="col"><p class="text-center">ID</p></th>
+							<th scope="col" onclick="sortModel(0)"><p
+									class="text-center">Modelo</p>
+								<button type="button" class="btn btn-default">
+									<span class="icofont-expand-alt float-right"></span>
+								</button></th>
+							<th scope="col" onclick="sortMake(0)"><p class="text-center">Marca</p>
+								<button type="button" class="btn btn-default">
+									<span class="icofont-expand-alt float-right"></span>
+								</button>
+								<br></th>
+							<th scope="col" onclick="sortYear(0)"><p class="text-center">Año</p>
+								<button type="button" class="btn btn-default">
+									<span class="icofont-expand-alt float-right"></span>
+								</button>
+								<br></th>
+							<th scope="col"><p class="text-center">Híbrido</p></th>
+							<th scope="col"><p class="text-center">Clasificación</p></th>
+							<th scope="col"><p class="text-center">Detalles</p></th>
 
 						</tr>
+
 					</thead>
 					<tbody>
 						<%
@@ -207,9 +214,8 @@
 							<td><%=c.isHybrid()%></td>
 							<td><%=c.getClassification().getClassification()%></td>
 							<td><a
-								href="./?action=detalles&pk=<%=c.getId()%>&redirect=<%=encodeValue(request.getQueryString())%>">Detalles |</a>
-								<a
-								href="http://localhost:8080/proyecto-web/insert">Insertar</a>
+								href="./?action=detalles&pk=<%=c.getId()%>&redirect=<%=encodeValue(request.getQueryString())%>">Detalles
+									|</a> <a href="http://localhost:8080/proyecto-web/insert">Insertar</a>
 							</td>
 						</tr>
 
@@ -1002,6 +1008,134 @@
 							$("#classification option[value=<%=classificationTabla%>']").attr('selected', 'selected');
 	<%}%>
 		});
+	</script>
+
+	<script>
+		function sortYear(n) {
+			var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+			table = document.getElementById("myTable");
+			switching = true;
+			dir = "asc";
+
+			while (switching) {
+				switching = false;
+				rows = table.rows;
+				for (i = 1; i < (rows.length - 1); i++) {
+					shouldSwitch = false;
+					x = rows[i].getElementsByTagName("TD")[n];
+					y = rows[i + 1].getElementsByTagName("TD")[n];
+					if (dir == "asc") {
+						if (x.innerHTML.toLowerCase() > y.innerHTML
+								.toLowerCase()) {
+							shouldSwitch = true;
+							break;
+						}
+					} else if (dir == "desc") {
+						if (x.innerHTML.toLowerCase() < y.innerHTML
+								.toLowerCase()) {
+							shouldSwitch = true;
+							break;
+						}
+					}
+				}
+				if (shouldSwitch) {
+					rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+					switching = true;
+
+					switchcount++;
+				} else {
+
+					if (switchcount == 0 && dir == "asc") {
+						dir = "desc";
+						switching = true;
+					}
+				}
+			}
+		}
+
+		function sortModel(n) {
+			var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+			table = document.getElementById("myTable");
+			switching = true;
+			dir = "asc";
+
+			while (switching) {
+				switching = false;
+				rows = table.rows;
+				for (i = 1; i < (rows.length - 1); i++) {
+					shouldSwitch = false;
+					x = rows[i].getElementsByTagName("TD")[n];
+					y = rows[i + 1].getElementsByTagName("TD")[n];
+					if (dir == "asc") {
+						if (x.innerHTML.toLowerCase() > y.innerHTML
+								.toLowerCase()) {
+							shouldSwitch = true;
+							break;
+						}
+					} else if (dir == "desc") {
+						if (x.innerHTML.toLowerCase() < y.innerHTML
+								.toLowerCase()) {
+							shouldSwitch = true;
+							break;
+						}
+					}
+				}
+				if (shouldSwitch) {
+					rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+					switching = true;
+
+					switchcount++;
+				} else {
+
+					if (switchcount == 0 && dir == "asc") {
+						dir = "desc";
+						switching = true;
+					}
+				}
+			}
+		}
+
+		function sortMake(n) {
+			var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+			table = document.getElementById("myTable");
+			switching = true;
+			dir = "asc";
+
+			while (switching) {
+				switching = false;
+				rows = table.rows;
+				for (i = 1; i < (rows.length - 1); i++) {
+					shouldSwitch = false;
+					x = rows[i].getElementsByTagName("TD")[n];
+					y = rows[i + 1].getElementsByTagName("TD")[n];
+					if (dir == "asc") {
+						if (x.innerHTML.toLowerCase() > y.innerHTML
+								.toLowerCase()) {
+							shouldSwitch = true;
+							break;
+						}
+					} else if (dir == "desc") {
+						if (x.innerHTML.toLowerCase() < y.innerHTML
+								.toLowerCase()) {
+							shouldSwitch = true;
+							break;
+						}
+					}
+				}
+				if (shouldSwitch) {
+					rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+					switching = true;
+
+					switchcount++;
+				} else {
+
+					if (switchcount == 0 && dir == "asc") {
+						dir = "desc";
+						switching = true;
+					}
+				}
+			}
+		}
 	</script>
 
 

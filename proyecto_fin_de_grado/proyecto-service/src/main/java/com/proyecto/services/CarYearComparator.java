@@ -5,10 +5,10 @@ import java.util.Comparator;
 
 import com.proyecto.model.Car;
 
-public class CarYearComparator extends CarComparator implements Comparator<Car> {
+public class CarYearComparator extends CarComparator implements Comparator<Car>{
 
-	public CarYearComparator(boolean desc) {
-		super.desc = desc;
+	public CarYearComparator(boolean asc) {
+		super.asc = asc;
 	}
 	
 	@Override
@@ -16,18 +16,13 @@ public class CarYearComparator extends CarComparator implements Comparator<Car> 
 		Integer valA = car1.getYear();
 		Integer valB = car2.getYear();
 
-		int mult = -1;
-		if (!desc) {
-			mult = 1;
+
+		if (!asc) {
+			return valA.compareTo(valB)*-1;
+		}else {
+			return valA.compareTo(valB);
 		}
 
-		if (valA < valB) {
-			return mult * -1;
-		} else if (valA > valB) {
-			return mult * 1;
-		} else {
-			return mult * (car1.getMake().compareTo(car2.getMake()));
-		}
 	}
 
 	
