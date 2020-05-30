@@ -52,7 +52,6 @@
 form[action*="./delete"] {
     display: inline;
 }
-
 form[action*="./update"] {
     display: inline;
 }

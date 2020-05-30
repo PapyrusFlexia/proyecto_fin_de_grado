@@ -86,7 +86,7 @@ public class UpdateCarServlet extends AbstractServlet {
 				&& horsepower != null && Integer.valueOf(horsepower) > 0 && torque != null
 				&& Integer.valueOf(torque) > 0 && numberofforwardgears != null
 				&& !numberofforwardgears.equals("") && driveline != null && !driveline.equals("") && make != null
-				&& !make.equals("") && hybrid != null && modelyear != null && !modelyear.equals("") && classification != null
+				&& !make.equals("") && modelyear != null && !modelyear.equals("") && classification != null
 				&& !classification.equals("") && year != null && !year.equals("") && Integer.valueOf(year) >= 2009
 				&& Integer.valueOf(year) <= 2020 && width != null && Integer.valueOf(width) > 0 && length != null
 				&& Integer.valueOf(length) > 0 && height != null && Integer.valueOf(height) > 0 && highwaympg != null

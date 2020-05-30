@@ -39,7 +39,7 @@ public class DeleteCarServlet extends AbstractServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String dispatcher = "./detalles.jsp";
+		String dispatcher = "./index.jsp";
 		String id = request.getParameter("id");
 		String redirect = request.getParameter("redirect");
 
@@ -67,7 +67,7 @@ public class DeleteCarServlet extends AbstractServlet {
 		request.setAttribute("hybrids", utilsService.getCarsHybrids());
 		request.setAttribute("classifications",  utilsService.getCarsClassificationsTabla());
 		
-		request.getRequestDispatcher("/detalles.jsp").forward(request, response);
+		request.getRequestDispatcher("/delete.jsp").forward(request, response);
 	}
 
 	public static String decodeValue(String value) {

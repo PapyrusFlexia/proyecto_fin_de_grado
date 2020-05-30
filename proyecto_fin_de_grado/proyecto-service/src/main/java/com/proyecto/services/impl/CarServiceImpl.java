@@ -2,7 +2,6 @@ package com.proyecto.services.impl;
 
 import java.util.ArrayList;
 
-
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -26,9 +25,7 @@ import com.proyecto.model.Engine;
 import com.proyecto.model.Fuel;
 import com.proyecto.model.Transmission;
 import com.proyecto.model.comparators.CarComparator;
-import com.proyecto.services.CarMakeComparator;
 import com.proyecto.services.CarService;
-import com.proyecto.services.CarYearComparator;
 import com.proyecto.services.data.DatabaseJson;
 
 @Service("carService")
@@ -139,15 +136,14 @@ public class CarServiceImpl implements CarService {
 	 */
 	public long getCarsCount(List<Predicate<Car>> ps) {
 
-		assert ps != null;
 		Stream<Car> stream = getCars(-1, -1).stream();
-		for (Predicate<Car> p : ps) {
-			stream = stream.filter(p);
+		if (ps != null) {
+			for (Predicate<Car> p : ps) {
+				stream = stream.filter(p);
+			}
 		}
 		return stream.count();
 	}
-	
-	
 
 	/**
 	 * Obtiene el n�mero de coches que cumplen el predicado
@@ -173,8 +169,6 @@ public class CarServiceImpl implements CarService {
 
 		return cars.stream().sorted().collect(Collectors.toList()).subList(start, end);
 	}
-	
-	
 
 	/*
 	 * public List<Car> getCars(int start, int end, Predicate<Car> p, CarComparator
@@ -422,31 +416,10 @@ public class CarServiceImpl implements CarService {
 	 * return carsHybrid.stream().distinct().sorted().collect(Collectors.toList());
 	 * }
 	 */
-	
-	public List<Car> getCars(int start, long end, List<Predicate<Car>> ps) {
 
-		assert ps != null;
-		Stream<Car> stream = getCars(-1, -1).stream();
-		Stream<Car> stream2 = getCars(-1, -1).stream();
-		for (Predicate<Car> p : ps) {
-			stream = stream.filter(p);
-			stream2 = stream2.filter(p);
-		}
-		int count = (int) stream2.count();
-		List<Car> cars = new ArrayList<Car>();
-		if (count < 10) {
-			end = count;
-			cars = stream.collect(Collectors.toList()).subList(0, (int) end);
-		} else {
-			cars = stream.collect(Collectors.toList()).subList(start, (int) end);
-		}
-
-		return cars;
-	}
-
-	public List<Car> getCarsCompare(int start, int end, List<Predicate<Car>> ps, CarYearComparator comparator) {
+	public List<Car> getCarsCompare(int start, int end, List<Predicate<Car>> ps, CarComparator comparator) {
 		long total = getCarsCount(ps);
-		List<Car> cars = getCars(0, total, ps);
+		List<Car> cars = getCars(0, (int) total, ps); ///////////
 		if (start < 0) {
 			start = 0;
 		}
@@ -456,23 +429,8 @@ public class CarServiceImpl implements CarService {
 		if (comparator != null) {
 			return cars.stream().sorted(comparator).collect(Collectors.toList()).subList(start, end);
 		}
-		return cars.stream().sorted().collect(Collectors.toList()).subList(start, end);
-	}
-	
-	public List<Car> getCarsCompare(int start, int end, List<Predicate<Car>> ps, CarMakeComparator comparator) {
-		long total = getCarsCount(ps);
-		List<Car> cars = getCars(0, total, ps);
-		if (start < 0) {
-			start = 0;
-		}
-		if (total < end) {
-			end = (int) total;
-		}
-		if (comparator != null) {
-			return cars.stream().sorted(comparator).collect(Collectors.toList()).subList(start, end);
-		}
-		return cars.stream().sorted().collect(Collectors.toList()).subList(start, end);
-	}
+		return cars.stream().sorted(comparator).collect(Collectors.toList()).subList(start, end);
 
+	}
 
 }

@@ -127,8 +127,7 @@ th {
 							<option <%if (year.equals(annoFiltro)) {%> selected <%}%>
 								value="<%=year%>"><%=year%></option>
 							<%
-								
-							}
+								}
 							%>
 						</select>
 					</div>
@@ -144,8 +143,7 @@ th {
 							<option <%if (model.equals(modeloFiltro)) {%> selected <%}%>
 								value="<%=model%>"><%=model%></option>
 							<%
-								
-							}
+								}
 							%>
 						</select>
 					</div>
@@ -186,16 +184,14 @@ th {
 							<th scope="col" onclick="sortMake(0)"><p class="text-center">Marca</p>
 								<button type="button" class="btn btn-default">
 									<span class="icofont-expand-alt float-right"></span>
-								</button>
-								<br></th>
+								</button> <br></th>
 							<th scope="col" onclick="sortYear(0)"><p class="text-center">Año</p>
 								<button type="button" class="btn btn-default">
 									<span class="icofont-expand-alt float-right"></span>
-								</button>
-								<br></th>
+								</button> <br></th>
 							<th scope="col"><p class="text-center">Híbrido</p></th>
 							<th scope="col"><p class="text-center">Clasificación</p></th>
-							<th scope="col"><p class="text-center">Detalles</p></th>
+							<th scope="col"><p class="text-center">Acciones</p></th>
 
 						</tr>
 
@@ -268,6 +264,11 @@ th {
 							<li class="page-item"><a class="page-link"
 								href="./?action=paginacion&page=<%=anterior%>"><%=anterior%></a></li>
 							<%
+								} else if (annoFiltro != null && modeloFiltro != null && hybridFiltro != null && classificationFiltro != null) {
+							%>
+							<li class="page-item"><a class="page-link"
+								href="./?action=paginacion&year=<%=annoFiltro%>&make=<%=modeloFiltro%>&hybrid=<%=hybridFiltro%>&classification=<%=classificationFiltro%>&page=<%=anterior%>"><%=anterior%></a></li>
+							<%
 								}
 							%>
 
@@ -293,7 +294,7 @@ th {
 							<li class="page-item"><a class="page-link"
 								href="./?action=paginacion&page=<%=siguiente%>">Siguiente</a></li>
 							<%
-								} else if (annoFiltro != null && modeloFiltro != null && hybridFiltro != null && classificationFiltro != null) {
+								} else if (annoFiltro != null || modeloFiltro != null || hybridFiltro != null || classificationFiltro != null) {
 							%>
 							<li class="page-item"><a class="page-link"
 								href="./?action=paginacion&year=<%=annoFiltro%>&make=<%=modeloFiltro%>&hybrid=<%=hybridFiltro%>&classification=<%=classificationFiltro%>&page=<%=siguiente%>">Siguiente</a></li>
@@ -309,6 +310,8 @@ th {
 				</div>
 
 			</div>
+
+
 		</section>
 
 		<section id="about" class="about">

@@ -1,4 +1,3 @@
-
 package com.proyecto.services;
 
 import java.util.List;
@@ -63,12 +62,8 @@ public interface CarService {
 	//public List<Boolean> getHybrid();
 	
 	public long  totalCar();
-	
-	public List<Car> getCars(int start, long end, List<Predicate<Car>> ps);
 
-	public List<Car> getCarsCompare(int start, int end, List<Predicate<Car>> ps, CarYearComparator yearcomparator);
-	
-	public List<Car> getCarsCompare(int start, int end, List<Predicate<Car>> ps, CarMakeComparator makecomparator);
+	public List<Car> getCarsCompare(int start, int end, List<Predicate<Car>> plist, CarComparator carComparator);
 
 
 
