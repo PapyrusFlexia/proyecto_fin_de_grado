@@ -40,7 +40,7 @@ public class InsertCarServlet extends AbstractServlet {
 		request.setAttribute("drivelines", utilsService.getCarsDriveLines());
 		request.setAttribute("fueltypes", utilsService.getCarsFuelTypes());
 
-		request.getRequestDispatcher("/insert.jsp").forward(request, response);
+		request.getRequestDispatcher("./insert.jsp").forward(request, response);
 		;
 
 	}
@@ -72,10 +72,9 @@ public class InsertCarServlet extends AbstractServlet {
 		String citymph = request.getParameter("citymph");
 		String fuelType = request.getParameter("fuelType");
 		String pk = request.getParameter("pk");
-		String redirect = request.getParameter("redirect");
+		//String redirect = request.getParameter("redirect");
 
 		// Validator
-		//&& pk != null && !pk.equals("")
 		if (transmission != null && !transmission.equals("") && enginetype != null && !enginetype.equals("")
 				&& horsepower != null && Integer.valueOf(horsepower) > 0 && torque != null
 				&& Integer.valueOf(torque) > 0 && numberofforwardgears != null && !numberofforwardgears.equals("")
@@ -111,11 +110,19 @@ public class InsertCarServlet extends AbstractServlet {
 				car = carService.save(car);
 				carService.insert(car);
 
-				request.setAttribute("executed", "ok");
-
+				
 			} catch (Exception e) {
-				System.out.println("Error" + e.getMessage());
+				request.setAttribute("executed", "ok");
+				request.getRequestDispatcher("./insert.jsp").forward(request, response);
+				try {
+					mainController.insertar(request, response);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				dispatcher = "./insert.jsp";
 			}
+			
+			
 
 		}
 	}

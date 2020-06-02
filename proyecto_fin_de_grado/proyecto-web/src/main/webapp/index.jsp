@@ -45,7 +45,35 @@ th {
 <link href="assets/vendor/aos/aos.css" rel="stylesheet">
 
 <link href="assets/css/style.css" rel="stylesheet">
+<style>
+#busqueda {
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 100%; /* Full-width */
+  font-size: 18px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
+}
 
+#myTable {
+  border-collapse: collapse; /* Collapse borders */
+  width: 100%; /* Full-width */
+  border: 1px solid #ddd; /* Add a grey border */
+  font-size: 16px; /* Increase font-size */
+}
+
+#myTable th, #myTable td {
+  padding: 13px; /* Add padding */
+}
+
+#myTable tr {
+  /* Add a bottom border to all table rows */
+  border-bottom: 1px solid #ddd;
+}
+
+
+</style>
 </head>
 
 <body>
@@ -113,7 +141,7 @@ th {
 	<jsp:include page="head.jsp" />
 
 	<section id="hero">
-
+	
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3 col-sm-3 ml-5">
@@ -170,25 +198,21 @@ th {
 				<div class="col-lg-6 order-1 order-lg-2 hero-img"
 					data-aos="fade-left" data-aos-delay="200"></div>
 
-
+<input type="text" id="busqueda" onkeyup="buscar()" placeholder="Buscar por modelo...">
 				<table class="table table-bordered table-striped text-center"
 					id="myTable">
 					<thead class="thead-light">
 						<tr>
 							<th scope="col"><p class="text-center">ID</p></th>
 							<th scope="col" onclick="sortModel(0)"><p
-									class="text-center">Modelo</p>
-								<button type="button" class="btn btn-default">
-									<span class="icofont-expand-alt float-right"></span>
-								</button></th>
-							<th scope="col" onclick="sortMake(0)"><p class="text-center">Marca</p>
-								<button type="button" class="btn btn-default">
-									<span class="icofont-expand-alt float-right"></span>
-								</button> <br></th>
-							<th scope="col" onclick="sortYear(0)"><p class="text-center">Año</p>
-								<button type="button" class="btn btn-default">
-									<span class="icofont-expand-alt float-right"></span>
-								</button> <br></th>
+									class="text-center">Modelo</p><span style="float:center;"><i class="icofont-expand-alt"></i></span>
+								</th>
+							<th scope="col" onclick="sortMake(0)"><p
+									class="text-center">Marca</p><span style="float:center;"><i class="icofont-expand-alt"></i></span>
+								</th>
+							<th scope="col" onclick="sortYear(0)"><p
+									class="text-center">Modelo</p><span style="float:center;"><i class="icofont-expand-alt"></i></span>
+								</th>
 							<th scope="col"><p class="text-center">Híbrido</p></th>
 							<th scope="col"><p class="text-center">Clasificación</p></th>
 							<th scope="col"><p class="text-center">Acciones</p></th>
@@ -1139,6 +1163,29 @@ th {
 				}
 			}
 		}
+		
+		function buscar() {
+		  // Declare variables
+		  var input, filter, table, tr, td, i, txtValue;
+		  input = document.getElementById("busqueda");
+		  filter = input.value.toUpperCase();
+		  table = document.getElementById("myTable");
+		  tr = table.getElementsByTagName("tr");
+
+		  // Loop through all table rows, and hide those who don't match the search query
+		  for (i = 0; i < tr.length; i++) {
+		    td = tr[i].getElementsByTagName("td")[1];
+		    if (td) {
+		      txtValue = td.textContent || td.innerText;
+		      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+		        tr[i].style.display = "";
+		      } else {
+		        tr[i].style.display = "none";
+		      }
+		    }
+		  }
+		}
+
 	</script>
 
 

@@ -18,12 +18,14 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto.dao.CarDao;
 import com.proyecto.dao.EngineDao;
+import com.proyecto.dao.UserDao;
 import com.proyecto.model.Car;
 import com.proyecto.model.Classification;
 import com.proyecto.model.DriveLine;
 import com.proyecto.model.Engine;
 import com.proyecto.model.Fuel;
 import com.proyecto.model.Transmission;
+import com.proyecto.model.User;
 import com.proyecto.model.comparators.CarComparator;
 import com.proyecto.services.CarService;
 import com.proyecto.services.data.DatabaseJson;
@@ -35,6 +37,9 @@ public class CarServiceImpl implements CarService {
 
 	@Autowired
 	private CarDao carDao;
+	
+	@Autowired
+	private UserDao userDao;
 
 	@Autowired
 	private EngineDao engineDao;
@@ -194,6 +199,11 @@ public class CarServiceImpl implements CarService {
 	public Car save(Car c) {
 		return carDao.save(c);
 	}
+	
+	@Override
+	public User saveUser(User u) {
+		return userDao.save(u);
+	}
 
 	@Override
 	public Engine saveEngine(Engine e) {
@@ -214,6 +224,16 @@ public class CarServiceImpl implements CarService {
 	public int insert(Car c) {
 		
 		carDao.save(c);
+		
+		return 0;
+
+	
+	}
+	
+	@Override 
+	public int insertUser(User u) {
+		
+		userDao.save(u);
 		
 		return 0;
 

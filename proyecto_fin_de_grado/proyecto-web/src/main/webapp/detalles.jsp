@@ -55,6 +55,110 @@ form[action*="./delete"] {
 form[action*="./update"] {
     display: inline;
 }
+
+.loader {
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.loader-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+/* Spinner */
+.lds-roller {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+.lds-roller div {
+    animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    transform-origin: 32px 32px;
+}
+.lds-roller div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #333;
+    margin: -3px 0 0 -3px;
+}
+.lds-roller div:nth-child(1) {
+    animation-delay: -0.036s;
+}
+.lds-roller div:nth-child(1):after {
+    top: 50px;
+    left: 50px;
+}
+.lds-roller div:nth-child(2) {
+    animation-delay: -0.072s;
+}
+.lds-roller div:nth-child(2):after {
+    top: 54px;
+    left: 45px;
+}
+.lds-roller div:nth-child(3) {
+    animation-delay: -0.108s;
+}
+.lds-roller div:nth-child(3):after {
+    top: 57px;
+    left: 39px;
+}
+.lds-roller div:nth-child(4) {
+    animation-delay: -0.144s;
+}
+.lds-roller div:nth-child(4):after {
+    top: 58px;
+    left: 32px;
+}
+.lds-roller div:nth-child(5) {
+    animation-delay: -0.18s;
+}
+.lds-roller div:nth-child(5):after {
+    top: 57px;
+    left: 25px;
+}
+.lds-roller div:nth-child(6) {
+    animation-delay: -0.216s;
+}
+.lds-roller div:nth-child(6):after {
+    top: 54px;
+    left: 19px;
+}
+.lds-roller div:nth-child(7) {
+    animation-delay: -0.252s;
+}
+.lds-roller div:nth-child(7):after {
+    top: 50px;
+    left: 14px;
+}
+.lds-roller div:nth-child(8) {
+    animation-delay: -0.288s;
+}
+.lds-roller div:nth-child(8):after {
+    top: 45px;
+    left: 10px;
+}
+@keyframes lds-roller {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 </style>
 
 </head>
@@ -110,7 +214,7 @@ form[action*="./update"] {
 </div>
 <%}%>
 	<br>
-	<h2 class="m-5 pt-5">Engine Information</h2>
+	<h2>Engine Information</h2>
 	<form action="./update" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="action" value="updateCar" /> <input type="hidden" name="pk" value="<%=car.getId()%>" /> <input type="hidden" name="redirect" value="./<%=encodeValue(request.getAttribute("redirect").toString()) %>" />
 		<fieldset class="form-row m-5 pb-5 ">
@@ -135,7 +239,7 @@ form[action*="./update"] {
 			<div class="col-md-4 mb-3">
 				<label for="validationServer02">Engine Type</label> <input
 					type="text" class="form-control is-valid" id="validationServer02"
-					placeholder="Last name" name="enginetype"
+					placeholder="Last name" name="enginetype" 
 					value="<%=car.getEnginetype()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
@@ -147,7 +251,7 @@ form[action*="./update"] {
 					<label for="validationServer03">Horsepower</label> <input
 						type="text" class="form-control is-valid"
 						placeholder="First name"
-						name="horsepower" id="horsepower" value="<%=car.getHorsepower()%>"
+						name="horsepower" id="horsepower" id="horsepower"  pattern="[0-9]{1,19}" title="Solo acepta números, 1 valor mínimo" value="<%=car.getHorsepower()%>"
 						required>
 					<div class="valid-feedback">Looks good!</div>
 				</div>
@@ -155,7 +259,7 @@ form[action*="./update"] {
 					<label for="validationServer04">Torque</label> <input type="text"
 						class="form-control is-valid" 
 						placeholder="Last name"
-						name="torque" id="torque" value="<%=car.getTorque()%>"
+						name="torque" id="torque" pattern="[0-9]{1,19}" title="Solo acepta números, 1 valor mínimo" value="<%=car.getTorque()%>"
 						required>
 					<div class="valid-feedback">Looks good!</div>
 				</div>
@@ -176,7 +280,7 @@ form[action*="./update"] {
 			<div class="col-md-4 mb-3">
 				<label for="validationServer05">Number of Forward Gears</label> <input
 					type="text" class="form-control is-valid"
-					name="numberofforwardgears" id="numberofforwardgears" value="<%=car.getNumberofforwardgears()%>"
+					name="numberofforwardgears" id="numberofforwardgears" pattern="[0-9]{0,19}" title="Solo acepta números" value="<%=car.getNumberofforwardgears()%>"
 					required>
 				<div class="invalid-feedback">Please provide a valid number.</div>
 			</div>
@@ -205,7 +309,7 @@ form[action*="./update"] {
 				<label for="validationServer08">Make</label> <input
 					type="text" class="form-control is-valid" 
 					placeholder="Last name"
-					name="make" id="make" value="<%=car.getMake()%>" required>
+					name="make" id="make" pattern="^[A-Z][A-Za-z]{2,19}$" title="La marca solo acepta letras y la primera en mayúsculas" value="<%=car.getMake()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
@@ -219,7 +323,7 @@ form[action*="./update"] {
 				<label for="validationServer09">Name</label> <input type="text"
 					class="form-control is-valid"
 					placeholder="Last name"
-					name="name" id="name" value="<%=car.getName()%>" required>
+					name="name" id="name" data-toggle="tooltip" data-placement="right" title="El nombre debe ser único" value="<%=car.getName()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="form-group w-50">
@@ -242,7 +346,7 @@ form[action*="./update"] {
 			<div class="col-md-4 mb-3">
 				<label for="validationServer10">Year</label> <input type="text"
 					class="form-control is-valid"
-					name="year" id="year" placeholder="Year"
+					name="year" id="year" pattern="^(2009|2010|2011|2012)" title="El año solo acepta años del 2009 al 2012" placeholder="Year"
 					value="<%=car.getYear()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
@@ -252,7 +356,7 @@ form[action*="./update"] {
 		<fieldset class="form-row m-5 pb-5">
 			<div class="col-md-4 mb-3">
 				<label for="validationServer12">Width</label> <input type="text"
-					name="width" id="width" class="form-control is-valid"
+					name="width" id="width" pattern="[0-9]{0,19}" title="Solo acepta números" class="form-control is-valid"
 					placeholder="First name"
 					value="<%=car.getWidth()%>" required>
 				<div class="valid-feedback">Looks good!</div>
@@ -260,14 +364,14 @@ form[action*="./update"] {
 			<div class="col-md-4 mb-3">
 				<label for="validationServer13">Length</label> <input type="text"
 					class="form-control is-valid" 
-					name="length" id="length" placeholder="Last name"
+					name="length" id="length" pattern="[0-9]{0,19}" title="Solo acepta números" placeholder="Last name"
 					value="<%=car.getLength()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer14">Height</label> <input type="text"
 					class="form-control is-valid"
-					name="height" id="height" placeholder="Last name"
+					name="height" id="height" pattern="[0-9]{0,19}" title="Solo acepta números" placeholder="Last name"
 					value="<%=car.getHeight()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
@@ -279,14 +383,14 @@ form[action*="./update"] {
 			<div class="col-md-4 mb-3">
 				<label for="validationServer15">Highway mpg</label> <input
 					type="text" class="form-control is-valid" 
-					name="highwaympg" id="highwaympg" placeholder="First name"
+					name="highwaympg" id="highwaympg" pattern="[0-9]{0,19}" title="Solo acepta números" placeholder="First name"
 					value="<%=car.getHighwaympg()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer16">City mph</label> <input type="text"
 					class="form-control is-valid"
-					name="citymph" id="citymph" placeholder="Last name"
+					name="citymph" id="citymph" pattern="[0-9]{0,19}" title="Solo acepta números" placeholder="Last name"
 					value="<%=car.getCitymph()%>" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
@@ -325,6 +429,25 @@ form[action*="./update"] {
 	<button class="btn btn-primary hBack" onclick="location.href = 'http://localhost:8080/proyecto-web/';">REGRESAR A
 		LOS COCHES</button>
 		
+		<div class="loader text-center">
+    <div class="loader-inner">
+        <div class="lds-roller mb-3">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        
+
+        <h4 class="text-uppercase font-weight-bold">Cargando</h4>
+        <p class="font-italic text-muted">Cargando dentro de <strong class="countdown text-dark font-weight-bold">3 </strong> segundos</p>
+    </div>
+</div>
+		
 		
 	
 		
@@ -339,6 +462,22 @@ form[action*="./update"] {
 		return result;
 	}%>
 	<script>
+	(function() {
+		  'use strict';
+		  window.addEventListener('load', function() {
+		    var forms = document.getElementsByClassName('needs-validation');
+		    var validation = Array.prototype.filter.call(forms, function(form) {
+		      form.addEventListener('submit', function(event) {
+		        if (form.checkValidity() === false) {
+		          event.preventDefault();
+		          event.stopPropagation();
+		        }
+		        form.classList.add('was-validated');
+		      }, false);
+		    });
+		  }, false);
+		})();
+	
 $("#input-ke-1").fileinput({
     theme: "explorer",
     uploadUrl: "/file-upload-batch/2",
@@ -364,6 +503,35 @@ $("#input-ke-1").fileinput({
 $(document).ready(function(){
 	  $('.toast').toast('show');
 	});
+	
+$(function () {
+	  $('[data-toggle="tooltip"]').tooltip()
+	});
+	
+$(document).ready(function(){
+    $(window).on('load', function () {
+        setTimeout(function () {
+            $('.loader').hide(300);
+        }, 2000);
+    });
+
+
+
+    $(window).on('load', function () {
+        var loadingCounter = setInterval(function () {
+            var count = parseInt($('.countdown').html());
+            if (count !== 0) {
+                $('.countdown').html(count - 1);
+            } else {
+                clearInterval();
+            }
+        }, 1000);
+    });
+    $('#reload').on('click', function (e) {
+        e.preventDefault();
+        location.reload();
+    });
+});
 </script>
 </body>
 

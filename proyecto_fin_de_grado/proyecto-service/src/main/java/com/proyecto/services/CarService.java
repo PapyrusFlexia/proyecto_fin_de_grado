@@ -2,12 +2,14 @@ package com.proyecto.services;
 
 import java.util.List;
 
+
 import java.util.Optional;
 import java.util.function.Predicate;
 
 import com.proyecto.model.Car;
 import com.proyecto.model.Engine;
 import com.proyecto.model.comparators.CarComparator;
+import com.proyecto.model.User;
 
 
 public interface CarService {
@@ -18,6 +20,8 @@ public interface CarService {
 
 	public Car save(Car c);
 	
+	public User saveUser(User u);
+	
 	Engine saveEngine(Engine e);
 	
 	int update(int id, String transmission, String engineType, int horsepower, int torque,
@@ -26,6 +30,8 @@ public interface CarService {
 			String fuelType);
 	
 	int insert(Car c);
+	
+	int insertUser(User u);
 	
 	int delete(int id);
 

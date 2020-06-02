@@ -1,3 +1,4 @@
+
 package com.proyecto.dao;
 
 import java.util.Collection;
@@ -16,25 +17,15 @@ import com.proyecto.model.User;
 @Transactional
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
-	public User findById(int id) {
-		User user = getByKey(id);
-		if(user!=null){
-			initializeCollection(user.getUserProfiles());
-		}
-		return user;
-	}
+	
+	
 
 	public User findByEmail(String email) {
-		System.out.println("email : "+email);
 		try{
 			User user = (User) getEntityManager()
 					.createQuery("SELECT u FROM User u WHERE u.email = :email")
 					.setParameter("email", email)
 					.getSingleResult();
-			
-			if(user!=null){
-				initializeCollection(user.getUserProfiles());
-			}
 			return user; 
 		}catch(NoResultException ex){
 			return null;
@@ -49,8 +40,12 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		return users;
 	}
 
-	public void save(User user) {
-		persist(user);
+	public User save(User user) {
+		User u1 = findByEmail(user.getEmail());
+		if (u1 == null) {
+			persist(user);
+		}
+		return u1;
 	}
 
 	public void deleteByEmail(String email) {

@@ -37,21 +37,10 @@ public class User implements Serializable{
 	@NotEmpty
 	@Column(name="LAST_NAME", nullable=false)
 	private String lastName;
-
-	@NotEmpty
-	@Column(name="enabled", nullable=false)
-	private boolean enabled;
 	
 	@NotEmpty
 	@Column(name="EMAIL", nullable=false)
 	private String email;
-
-	@NotEmpty
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "USER_USER_PROFILE", 
-             joinColumns = { @JoinColumn(name = "USER_ID") }, 
-             inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
-	private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
 
 	public Integer getId() {
 		return id;
@@ -93,21 +82,6 @@ public class User implements Serializable{
 		this.email = email;
 	}
 
-	public Set<UserProfile> getUserProfiles() {
-		return userProfiles;
-	}
-
-	public void setUserProfiles(Set<UserProfile> userProfiles) {
-		this.userProfiles = userProfiles;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
 	
 	@Override
 	public int hashCode() {

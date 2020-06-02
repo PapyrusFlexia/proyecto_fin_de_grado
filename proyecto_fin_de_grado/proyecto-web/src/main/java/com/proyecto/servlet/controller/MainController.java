@@ -170,6 +170,14 @@ public class MainController {
 
 	}
 	
+	public void insertarUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		String redirect = request.getParameter("redirect");
+		request.setAttribute("redirect", redirect);
+	
+
+	}
+	
 	public void booking(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String pk = request.getParameter("pk");

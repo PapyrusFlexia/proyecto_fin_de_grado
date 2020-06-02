@@ -41,6 +41,12 @@
 
 <link href="assets/css/style.css" rel="stylesheet">
 <script src="assets/vendor/jquery/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+	<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+
+<script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
 
 </head>
 
@@ -128,7 +134,7 @@
 		
 
 
-				<table class="table table-bordered table-striped text-center">
+				<table class="table table-bordered table-striped text-center" id="booking" class="display">
 					<thead class="thead-light">
 						<tr>
 							<th scope="col">Modelo<br> <a><span
@@ -270,8 +276,15 @@
 		}
 		return url;
 	}%>
-	
+	<script>
+	$(document).ready(function() {
+	    $('#booking').DataTable( {
+	        "order": [[ 3, "desc" ]]
+	    } );
+	} );
+	</script>
 	<script type="text/javascript">
+	
 		$(document)
 				.ready(
 						
@@ -281,7 +294,10 @@
 							});
 						
 		});
+		
+		
 	</script>
+	
 
 
 	

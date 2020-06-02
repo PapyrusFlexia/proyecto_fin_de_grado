@@ -1,7 +1,6 @@
 <%@page import="java.io.UnsupportedEncodingException"%>
 <%@page import="java.nio.charset.StandardCharsets"%>
 <%@page import="java.net.URLEncoder"%>
-<%@page import="com.proyecto.model.Car"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -10,6 +9,8 @@
 	<head>
 		<link rel="stylesheet" href="./css/bootstrap.min.css" >
 		<link rel="stylesheet" href="./css/bootstrap-select.min.css">
+		<link href="assets/img/icon1.png" rel="icon">
+		<link href="assets/img/icon1.png" rel="apple-touch-icon">
 		<meta charset="UTF-8">
 		<title>Organizatium</title>
 		
@@ -318,32 +319,16 @@
 				
 				
 				    <form action="./login" method="post">
-				      <input type="text" id="login" class="fadeIn second" name="login" placeholder="Nombre de usuario">
-				      <input type="password" id="password" class="fadeIn third" name="pass" placeholder="Contraseña">
+				      <input type="text" id="login" class="fadeIn second" name="login" placeholder="Nombre de usuario" required>
+				      <input type="password" id="password" class="fadeIn third" name="pass" placeholder="Contraseña" required>
 			
-								<table cellspacing="15">
-									<tr>
-
-
-										<td>¿Eres humano?</td>
-										<td><input type="text" name="code"></td>
-									</tr>
-
-								</table>
-								<br> <img
-									src="http://localhost:8080/proyecto-web/CaptchaServlet">
-									
-									
 						
-							<br> <br>
-
-						
-				      <input type="submit" class="fadeIn fourth" value="Log In">
+				      <input type="submit" class="fadeIn fourth" value="Loguearse">
 				    </form>
 				
 				   
 				    <div id="formFooter">
-				      <a class="underlineHover" href="#">¿Has olvidado la contraseña?</a>
+				      <a class="underlineHover" href="http://localhost:8080/proyecto-web/register" >¿No tienes usuario? ¡Create una cuenta!</a>
 				    </div>
 				
 				  </div>

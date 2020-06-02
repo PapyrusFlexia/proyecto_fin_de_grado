@@ -43,7 +43,110 @@
 <link href="assets/vendor/aos/aos.css" rel="stylesheet">
 
 <link href="assets/css/style.css" rel="stylesheet">
+<style>
+.loader {
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
 
+.loader-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+/* Spinner */
+.lds-roller {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+.lds-roller div {
+    animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    transform-origin: 32px 32px;
+}
+.lds-roller div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #333;
+    margin: -3px 0 0 -3px;
+}
+.lds-roller div:nth-child(1) {
+    animation-delay: -0.036s;
+}
+.lds-roller div:nth-child(1):after {
+    top: 50px;
+    left: 50px;
+}
+.lds-roller div:nth-child(2) {
+    animation-delay: -0.072s;
+}
+.lds-roller div:nth-child(2):after {
+    top: 54px;
+    left: 45px;
+}
+.lds-roller div:nth-child(3) {
+    animation-delay: -0.108s;
+}
+.lds-roller div:nth-child(3):after {
+    top: 57px;
+    left: 39px;
+}
+.lds-roller div:nth-child(4) {
+    animation-delay: -0.144s;
+}
+.lds-roller div:nth-child(4):after {
+    top: 58px;
+    left: 32px;
+}
+.lds-roller div:nth-child(5) {
+    animation-delay: -0.18s;
+}
+.lds-roller div:nth-child(5):after {
+    top: 57px;
+    left: 25px;
+}
+.lds-roller div:nth-child(6) {
+    animation-delay: -0.216s;
+}
+.lds-roller div:nth-child(6):after {
+    top: 54px;
+    left: 19px;
+}
+.lds-roller div:nth-child(7) {
+    animation-delay: -0.252s;
+}
+.lds-roller div:nth-child(7):after {
+    top: 50px;
+    left: 14px;
+}
+.lds-roller div:nth-child(8) {
+    animation-delay: -0.288s;
+}
+.lds-roller div:nth-child(8):after {
+    top: 45px;
+    left: 10px;
+}
+@keyframes lds-roller {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+</style>
 </head>
 
 <body>
@@ -80,32 +183,33 @@
 		String executed = (String) request.getAttribute("executed");
 	if ("ok".equals(executed)) {
 	%>
-	<div aria-live="polite" aria-atomic="true"
-		style="position: relative; min-height: 200px;">
-		<div class="toast" style="position: absolute; top: 0; right: 0;">
-			<div class="toast-header">
-				<img src="..." class="rounded mr-2" alt="..."> <strong
-					class="mr-auto">Bootstrap</strong> <small>11 mins ago</small>
-				<button type="button" class="ml-2 mb-1 close" data-dismiss="toast"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="toast-body">Hello, world! This is a toast message.
-			</div>
-		</div>
-	</div>
+<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">	
+
+
+
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
+  <div class="toast-header">
+    <strong class="mr-auto">¡INSERTADO!</strong>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+   El coche se ha insertado correctamente
+  </div>
+</div>
+</div>
 	<%
 		}
 	%>
 	<br>
 
 
-	<h2>Engine Information</h2>
+	<h2 class="m-5 pb-5">Engine Information</h2>
 	<form action="./insert" method="post">
 		<input type="hidden" name="action" value="insertCar" />
-		<fieldset class="form-row">
-			<div class="form-group">
+		<fieldset class="form-row m-5 pb-5 ">
+			<div class="form-group w-50">
 				<label>Transmission</label> <select class="custom-select"
 					name="transmission" id="transmission" required>
 					<%
@@ -136,14 +240,14 @@
 				<div class="col-md-4 mb-3">
 					<label for="validationServer03">Horsepower</label> <input
 						type="text" class="form-control is-valid" placeholder="First name"
-						name="horsepower" id="horsepower"
+						name="horsepower" id="horsepower"  pattern="[0-9]{1,19}" title="Solo acepta números, 1 valor mínimo"
 						required>
 					<div class="valid-feedback">Looks good!</div>
 				</div>
 				<div class="col-md-4 mb-3">
 					<label for="validationServer04">Torque</label> <input type="text"
 						class="form-control is-valid" placeholder="Last name"
-						name="torque" id="torque" required>
+						name="torque" id="torque" pattern="[0-9]{1,19}" title="Solo acepta números, 1 valor mínimo" required>
 					<div class="valid-feedback">Looks good!</div>
 				</div>
 
@@ -164,11 +268,11 @@
 			<div class="col-md-4 mb-3">
 				<label for="validationServer05">Number of Forward Gears</label> <input
 					type="text" class="form-control is-valid"
-					name="numberofforwardgears" id="numberofforwardgears"
+					name="numberofforwardgears" id="numberofforwardgears" pattern="[0-9]{0,19}" title="Solo acepta números"
 					required>
 				<div class="invalid-feedback">Please provide a valid number.</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group w-50">
 				<label>Driveline</label> <select class="custom-select"
 					name="driveline" id="driveline" required>
 					<%
@@ -186,12 +290,12 @@
 					feedback</div>
 			</div>
 		</fieldset>
-		<h2>Identification</h2>
-		<fieldset class="form-row">
+		<h2 class="m-5 pb-5">Identification</h2>
+		<fieldset class="form-row m-5 pb-5 ">
 			<div class="col-md-4 mb-3">
 				<label for="validationServer08">Make</label> <input type="text"
 					class="form-control is-valid" placeholder="Last name" name="make"
-					id="make" required>
+					id="make"  pattern="^[A-Z][A-Za-z]{2,19}$" title="La marca solo acepta letras y la primera en mayúsculas" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
@@ -202,12 +306,13 @@
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
-				<label for="validationServer09">Name</label> <input type="text"
+				<label for="validationServer09">Name</label>
+				<input type="text"
 					class="form-control is-valid" placeholder="Last name" name="name"
-					id="name" required>
+					id="name" data-toggle="tooltip" data-placement="right" title="El nombre debe ser único" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group w-50">
 				<label>Classification</label> <select class="custom-select"
 					name="classification" id="classification" required>
 					<%
@@ -226,51 +331,51 @@
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer10">Year</label> <input type="text"
-					class="form-control is-valid" name="year" id="year"
+					class="form-control is-valid" name="year" id="year" pattern="^(2009|2010|2011|2012)" title="El año solo acepta años del 2009 al 2012"
 					placeholder="Year" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 		</fieldset>
 
-		<h2>Dimensions</h2>
-		<fieldset class="form-row">
+		<h2 class="m-5 pb-5">Dimensions</h2>
+		<fieldset class="form-row m-5 pb-5 ">
 			<div class="col-md-4 mb-3">
 				<label for="validationServer12">Width</label> <input type="text"
-					name="width" id="width" class="form-control is-valid"
+					name="width" id="width" pattern="[0-9]{0,19}" title="Solo acepta números" class="form-control is-valid"
 					placeholder="First name" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer13">Length</label> <input type="text"
-					class="form-control is-valid" name="length" id="length"
+					class="form-control is-valid" name="length" id="length" pattern="[0-9]{0,19}" title="Solo acepta números"
 					placeholder="Last name" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer14">Height</label> <input type="text"
-					class="form-control is-valid" name="height" id="height"
+					class="form-control is-valid" name="height" id="height" pattern="[0-9]{0,19}" title="Solo acepta números"
 					placeholder="Last name" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 
 		</fieldset>
 
-		<h2>Fuel Information</h2>
-		<fieldset class="form-row">
+		<h2 class="m-5 pb-5">Fuel Information</h2>
+		<fieldset class="form-row m-5 pb-5 ">
 			<div class="col-md-4 mb-3">
 				<label for="validationServer15">Highway mpg</label> <input
 					type="text" class="form-control is-valid" name="highwaympg"
-					id="highwaympg" placeholder="First name"
+					id="highwaympg" pattern="[0-9]{0,19}" title="Solo acepta números" placeholder="First name"
 					required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationServer16">City mph</label> <input type="text"
-					class="form-control is-valid" name="citymph" id="citymph"
+					class="form-control is-valid" name="citymph" id="citymph" pattern="[0-9]{0,19}" title="Solo acepta números"
 					placeholder="Last name" required>
 				<div class="valid-feedback">Looks good!</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group w-50">
 				<label>Fuel Type</label> <select class="custom-select"
 					name="fuelType" id="fuelType" required>
 					<%
@@ -297,14 +402,29 @@
 		</fieldset>
 		<button class="btn btn-primary btn-lg" type="submit">Insertar</button>
 	</form>
+	
+	
+	<button class="btn btn-primary hBack" onclick="location.href = 'http://localhost:8080/proyecto-web/';">REGRESAR A
+		LOS COCHES</button>
 
+<div class="loader text-center">
+    <div class="loader-inner">
+        <div class="lds-roller mb-3">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        
 
-
-	<button class="btn btn-primary hBack"
-		onclick="location.href = 'http://localhost:8080/proyecto-web/';">REGRESAR
-		A LOS COCHES</button>
-
-
+        <h4 class="text-uppercase font-weight-bold">Cargando</h4>
+        <p class="font-italic text-muted">Cargando dentro de <strong class="countdown text-dark font-weight-bold">3 </strong> segundos</p>
+    </div>
+</div>
 
 
 	<jsp:include page="footer.jsp" />
@@ -318,6 +438,24 @@
 		return result;
 	}%>
 	<script>
+	(function() {
+		  'use strict';
+		  window.addEventListener('load', function() {
+		    var forms = document.getElementsByClassName('needs-validation');
+		    var validation = Array.prototype.filter.call(forms, function(form) {
+		      form.addEventListener('submit', function(event) {
+		        if (form.checkValidity() === false) {
+		          event.preventDefault();
+		          event.stopPropagation();
+		        }
+		        form.classList.add('was-validated');
+		      }, false);
+		    });
+		  }, false);
+		})();
+
+
+	
 		$("#input-ke-1")
 				.fileinput(
 						{
@@ -354,6 +492,40 @@
 							initialPreviewDownloadUrl : 'https://picsum.photos/1920/1080?image={key}'
 						});
 	</script>
+	<script>
+$(document).ready(function(){
+	  $('.toast').toast('show');
+	});
+	
+$(function () {
+	  $('[data-toggle="tooltip"]').tooltip()
+	})
+	
+	$(document).ready(function(){
+    $(window).on('load', function () {
+        setTimeout(function () {
+            $('.loader').hide(300);
+        }, 2000);
+    });
+
+
+
+    $(window).on('load', function () {
+        var loadingCounter = setInterval(function () {
+            var count = parseInt($('.countdown').html());
+            if (count !== 0) {
+                $('.countdown').html(count - 1);
+            } else {
+                clearInterval();
+            }
+        }, 1000);
+    });
+    $('#reload').on('click', function (e) {
+        e.preventDefault();
+        location.reload();
+    });
+});
+</script>
 </body>
 
 </html>
