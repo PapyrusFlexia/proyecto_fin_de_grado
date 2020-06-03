@@ -12,11 +12,13 @@ public interface CarImageDao {
 
 	
 
-	CarImage save(CarImage ci);
-
-	int update(int id, int image,  String name, int car_id);
+	CarImage saveImage(CarImage ci);
+	
+	CarImage getCarImageByCarId(int carid);
 	
 	long totalCarImage();
+	
+	
 
 	void deleteById(String id);
 	

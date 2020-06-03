@@ -31,7 +31,20 @@ public class CarImageDaoImpl extends AbstractDao<Serializable, CarImage> impleme
 			return null;
 		}
 	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public CarImage getCarImageByCarId(int carid) {
 
+		try {
+			CarImage ci = (CarImage) getEntityManager().createQuery("SELECT ci FROM CarImage ci WHERE ci.carid = :carid")
+					.setParameter("carid", carid).getSingleResult();
+			return ci;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
 	@Override
 	public long totalCarImage() {
 		long totalCarImage = (long) getEntityManager().createQuery("SELECT COUNT (ci.id) FROM CarImage ci")
@@ -40,12 +53,10 @@ public class CarImageDaoImpl extends AbstractDao<Serializable, CarImage> impleme
 	}
 
 	@Override
-	public CarImage save(CarImage ci) {
-		CarImage ci1 = findCarImageByName(ci.getName());
-		if (ci1 == null) {
-			persist(ci);
-		}
-		return ci1;
+	public CarImage saveImage(CarImage ci) {
+
+			return persist(ci);
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -61,18 +72,11 @@ public class CarImageDaoImpl extends AbstractDao<Serializable, CarImage> impleme
 		delete(region);
 	}
 
-	public int update(int id, int image, String name, int car_id) {
-
-		int executed = getEntityManager().createQuery(
-				"UPDATE CarImage ci set ci.id = :id, ci.image = :image, ci.name = :name, ci.car_id = :car_id WHERE b.id = :id")
-				.setParameter("id", id).setParameter("image", image).setParameter("name", name)
-				.setParameter("car_id", car_id).executeUpdate();
-
-		return executed;
-	}
 
 	public CarImage getByPk(Integer key) {
 		return getByKey(key);
 	}
+
+	
 
 }

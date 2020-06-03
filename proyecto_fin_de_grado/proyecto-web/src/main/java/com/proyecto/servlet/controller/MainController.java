@@ -22,6 +22,7 @@ import com.proyecto.dao.ClassificationDao;
 import com.proyecto.dao.EngineDao;
 import com.proyecto.dao.MakeDao;
 import com.proyecto.model.Car;
+import com.proyecto.model.CarImage;
 import com.proyecto.model.Engine;
 import com.proyecto.services.CarService;
 import com.proyecto.services.UtilsService;
@@ -121,8 +122,10 @@ public class MainController {
 		}
 		String redirect = request.getParameter("redirect");
 		Car car = carService.getCarByPk(Integer.valueOf(pk));
+		CarImage carImage = carService.getCarImageByCarPk(Integer.valueOf(pk));
 		request.setAttribute("redirect", redirect);
 		request.setAttribute("car", car);
+		request.setAttribute("carImage", carImage);
 		request.setAttribute("make", utilsService.getCarsMakes());
 		request.setAttribute("drivelines", utilsService.getCarsDriveLines());
 		request.setAttribute("classifications", utilsService.getCarsClassificationsTabla());

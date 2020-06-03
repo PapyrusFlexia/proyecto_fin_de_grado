@@ -1,6 +1,7 @@
 package com.proyecto.model;
 
 import java.io.Serializable;
+import java.util.Base64;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +23,7 @@ public class CarImage implements Serializable {
 
 	private byte[] image;
 	private String name;
+	private Integer carid;
 
 	public int getId() {
 		return id;
@@ -45,6 +47,19 @@ public class CarImage implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getCarid() {
+		return carid;
+	}
+
+	public void setCarid(Integer carid) {
+		this.carid = carid;
+	}
+
+	public String getImageInBase64() {
+		return Base64.getEncoder().encodeToString(this.image);
+
 	}
 
 }

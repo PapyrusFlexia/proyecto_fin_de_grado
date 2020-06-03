@@ -9,6 +9,7 @@
 <%@page import="com.proyecto.model.DriveLine"%>
 <%@page import="com.proyecto.model.Make"%>
 <%@page import="com.proyecto.model.Transmission"%>
+<%@page import="com.proyecto.model.CarImage"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -23,7 +24,9 @@
 <title>Organizatium</title>
 <meta content="" name="descriptison">
 <meta content="" name="keywords">
-
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+	crossorigin="anonymous"></script>
 <link href="assets/img/icon1.png" rel="icon">
 <link href="assets/img/icon1.png" rel="apple-touch-icon">
 
@@ -41,11 +44,36 @@
 	rel="stylesheet">
 <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
 <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+<!-- if using RTL (Right-To-Left) orientation, load the RTL CSS file after fileinput.css by uncommenting below -->
+<!-- link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css" /-->
+<!-- the font awesome icon library if using with `fas` theme (or Bootstrap 4.x). Note that default icons used in the plugin are glyphicons that are bundled only with Bootstrap 3.x. -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
 
+<!-- piexif.min.js is needed for auto orienting image files OR when restoring exif data in resized images and when you
+    wish to resize images before upload. This must be loaded before fileinput.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/piexif.min.js" type="text/javascript"></script>
+<!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview. 
+    This must be loaded before fileinput.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/sortable.min.js" type="text/javascript"></script>
+<!-- purify.min.js is only needed if you wish to purify HTML content in your preview for 
+    HTML files. This must be loaded before fileinput.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/purify.min.js" type="text/javascript"></script>
+<!-- popper.min.js below is needed if you use bootstrap 4.x (for popover and tooltips). You can also use the bootstrap js 
+   3.3.x versions without popper.min.js. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<!-- bootstrap.min.js below is needed if you wish to zoom and preview file content in a detail modal
+    dialog. bootstrap 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<!-- the main fileinput plugin file -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
+<!-- following theme script is needed to use the Font Awesome 5.x theme (`fas`) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fas/theme.min.js"></script>
+<!-- optionally if you need translation for your language then include the locale file as mentioned below (replace LANG.js with your language locale) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/es.js"></script>
 <link href="assets/css/style.css" rel="stylesheet">
 
 <style>
@@ -191,6 +219,8 @@ form[action*="./update"] {
 		<%
 			Car car = (Car) request.getAttribute("car");
 			Engine engine = (Engine) request.getAttribute("engine");
+			CarImage carImage = (CarImage) request.getAttribute("carImage");
+		
 		%>
 	
 	<%
@@ -412,12 +442,14 @@ form[action*="./update"] {
 					feedback</div>
 			</div>
 			
- 
-<div class="file-loading m-5 ">
-    <input id="input-ke-1" name="image" type="file" multiple accept="image" multiple>
-</div>
+			<div class="file-loading">
+				<input id="input-id" name="image" type="file" class="file" multiple>
+			
+			</div>
 
 		</fieldset>
+		
+		
 		<button class="btn btn-primary btn-lg" type="submit">Actualizar</button>
 	</form>
 	
@@ -425,6 +457,7 @@ form[action*="./update"] {
 		<input type="hidden" name="action" value="deleteCar" /> <input type="hidden" name="id" value="<%=car.getId()%>" /> <input type="hidden" name="redirect" value="./<%=encodeValue(request.getAttribute("redirect").toString()) %>" />
 		<button class="btn btn-primary btn-lg" type="submit">Eliminar</button>
 	</form> 
+
 	
 	<button class="btn btn-primary hBack" onclick="location.href = 'http://localhost:8080/proyecto-web/';">REGRESAR A
 		LOS COCHES</button>
@@ -451,7 +484,18 @@ form[action*="./update"] {
 		
 	
 		
-		<jsp:include page="footer.jsp" />
+		<footer id="footer">
+		<div class="container">
+			<div class="row d-flex align-items-center">
+				<div class="col-lg-6 text-lg-left text-center">
+					<div class="copyright">
+						&copy; Copyright <strong>Organizatium</strong>. Todos los derechos
+						reservados.
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
 	<%!public static String encodeValue(String value) {
 		String result = "";
 		try {
@@ -478,26 +522,19 @@ form[action*="./update"] {
 		  }, false);
 		})();
 	
-$("#input-ke-1").fileinput({
-    theme: "explorer",
-    uploadUrl: "/file-upload-batch/2",
-    allowedFileExtensions: ['jpg', 'png', 'gif'],
-    overwriteInitial: false,
-    initialPreviewAsData: true,
-    maxFileSize: 10000,
-    removeFromPreviewOnError: true,
-    initialPreview: [
-        "https://picsum.photos/1920/1080?image=101",
-        "https://picsum.photos/1920/1080?image=102",
-        "https://picsum.photos/1920/1080?image=103"
-    ],
-    initialPreviewConfig: [
-        {caption: "picture-1.jpg", size: 329892, width: "120px", url: "/site/file-delete", key: 101},
-        {caption: "picture-2.jpg", size: 872378, width: "120px", url: "/site/file-delete", key: 102},
-        {caption: "picture-3.jpg", size: 632762, width: "120px", url: "/site/file-delete", key: 103}
-    ],
-    initialPreviewDownloadUrl: 'https://picsum.photos/1920/1080?image={key}'  
+$(document).ready(function(){	 
+	$("#input-id").fileinput({
+		'previewFileType':'jpg', 
+		'language': 'es',
+		overwriteInitial: false,
+	    maxFileSize: 10000,
+		 initialPreview: [
+			 '<img src="data:image/jpg;base64, <%=carImage.getImageInBase64()%>" class="file-preview-image" alt="Imagen1" title="Imagen1">'
+		    ]
+		 
+		});
 });
+
 </script>
 <script>
 $(document).ready(function(){

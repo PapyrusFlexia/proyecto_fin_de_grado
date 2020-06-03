@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import com.proyecto.services.CarService;
 import com.proyecto.services.data.DatabaseJson;
 
 @WebServlet(name = "InsertCarServlet", urlPatterns = { "/insert" })
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 public class InsertCarServlet extends AbstractServlet {
 
 	private static final long serialVersionUID = -1720688734823865429L;
@@ -73,6 +75,22 @@ public class InsertCarServlet extends AbstractServlet {
 		String fuelType = request.getParameter("fuelType");
 		String pk = request.getParameter("pk");
 		//String redirect = request.getParameter("redirect");
+		
+		List<Part> fileParts = request.getParts().stream()
+				.filter(part -> part.getName().contains("image") && part.getSize() > 0).collect(Collectors.toList());
+		List<CarImage> cImages = new ArrayList<>();
+		for (Part p : fileParts) {
+
+			byte[] bytes = IOUtils.toByteArray(p.getInputStream());
+			String nameImage = p.getName();
+			CarImage cImage = new CarImage();
+			cImage.setImage(bytes);
+			cImage.setName(nameImage);
+			cImage.setCarid(0);
+			cImages.add(cImage);
+			//cImages = carService.saveImage(cImage);
+			carService.insertImage(cImage);
+		}
 
 		// Validator
 		if (transmission != null && !transmission.equals("") && enginetype != null && !enginetype.equals("")

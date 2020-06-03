@@ -17,9 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proyecto.dao.CarDao;
+import com.proyecto.dao.CarImageDao;
 import com.proyecto.dao.EngineDao;
 import com.proyecto.dao.UserDao;
 import com.proyecto.model.Car;
+import com.proyecto.model.CarImage;
 import com.proyecto.model.Classification;
 import com.proyecto.model.DriveLine;
 import com.proyecto.model.Engine;
@@ -37,6 +39,9 @@ public class CarServiceImpl implements CarService {
 
 	@Autowired
 	private CarDao carDao;
+	
+	@Autowired
+	private CarImageDao carImageDao;
 	
 	@Autowired
 	private UserDao userDao;
@@ -194,11 +199,23 @@ public class CarServiceImpl implements CarService {
 	public Car getCarByPk(int pk) {
 		return carDao.getByPk(pk);
 	}
+	
+	@Override
+	public CarImage getCarImageByCarPk(int carid) {
+		return carImageDao.getCarImageByCarId(carid);
+	}
+
 
 	@Override
 	public Car save(Car c) {
 		return carDao.save(c);
 	}
+	
+	@Override
+	public CarImage saveImage(CarImage ci) {
+		return carImageDao.saveImage(ci);
+	}
+	
 	
 	@Override
 	public User saveUser(User u) {
@@ -224,6 +241,16 @@ public class CarServiceImpl implements CarService {
 	public int insert(Car c) {
 		
 		carDao.save(c);
+		
+		return 0;
+
+	
+	}
+	
+	@Override 
+	public int insertImage(CarImage ci) {
+		
+		carImageDao.saveImage(ci);
 		
 		return 0;
 

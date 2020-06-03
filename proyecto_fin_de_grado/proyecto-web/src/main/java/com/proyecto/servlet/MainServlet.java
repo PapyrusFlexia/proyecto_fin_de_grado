@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import com.proyecto.model.CarImage;
 import com.proyecto.services.UtilsService;
 import com.proyecto.servlet.controller.MainController;
 
@@ -42,6 +43,7 @@ public class MainServlet extends AbstractServlet {
 			try {
 				mainController.detalles(request, response);
 				dispatcher = "./detalles.jsp";
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				request.setAttribute("message", e.getMessage());
@@ -78,7 +80,7 @@ public class MainServlet extends AbstractServlet {
 		request.setAttribute("makes", utilsService.getCarsMakes());
 		request.setAttribute("hybrids", utilsService.getCarsHybrids());
 		request.getRequestDispatcher(dispatcher).forward(request, response);
-		
+	
 
 	}
 

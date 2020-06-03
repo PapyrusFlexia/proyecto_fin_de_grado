@@ -66,10 +66,10 @@ public class UpdateCarServlet extends AbstractServlet {
 		String pk = request.getParameter("pk");
 		String redirect = request.getParameter("redirect");
 
+		
 		List<Part> fileParts = request.getParts().stream()
 				.filter(part -> part.getName().contains("image") && part.getSize() > 0).collect(Collectors.toList());
 		List<CarImage> cImages = new ArrayList<>();
-		Car c = carService.getCarByPk(Integer.valueOf(pk));
 		for (Part p : fileParts) {
 
 			byte[] bytes = IOUtils.toByteArray(p.getInputStream());
@@ -77,8 +77,11 @@ public class UpdateCarServlet extends AbstractServlet {
 			CarImage cImage = new CarImage();
 			cImage.setImage(bytes);
 			cImage.setName(nameImage);
+			cImage.setCarid(Integer.parseInt(pk));
 			cImages.add(cImage);
+			carService.insertImage(cImage);
 		}
+		
 
 		// Validator
 		
