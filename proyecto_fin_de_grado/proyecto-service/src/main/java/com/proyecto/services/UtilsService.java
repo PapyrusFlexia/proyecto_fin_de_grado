@@ -13,6 +13,8 @@ public interface UtilsService {
 
 	public List<String> getCarsMakes();
 	
+	public List<String> getCarsImages();
+	
 	public List<Car> getCarsMakesFilter(int m);
 	
 	public List<Integer> getCarsYears();

@@ -126,6 +126,7 @@ public class MainController {
 		request.setAttribute("redirect", redirect);
 		request.setAttribute("car", car);
 		request.setAttribute("carImage", carImage);
+		request.setAttribute("carImages", utilsService.getCarsImages());
 		request.setAttribute("make", utilsService.getCarsMakes());
 		request.setAttribute("drivelines", utilsService.getCarsDriveLines());
 		request.setAttribute("classifications", utilsService.getCarsClassificationsTabla());

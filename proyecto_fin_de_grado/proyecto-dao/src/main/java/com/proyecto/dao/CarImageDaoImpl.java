@@ -46,6 +46,16 @@ public class CarImageDaoImpl extends AbstractDao<Serializable, CarImage> impleme
 	}
 	
 	@Override
+	@SuppressWarnings("unchecked")
+	public List<String> getCarImages() { 
+
+		List<String> listCarImages = getEntityManager().createQuery("SELECT DISTINCT ci FROM CarImage ci")
+				.getResultList();
+
+		return listCarImages;
+	}
+	
+	@Override
 	public long totalCarImage() {
 		long totalCarImage = (long) getEntityManager().createQuery("SELECT COUNT (ci.id) FROM CarImage ci")
 				.getSingleResult();

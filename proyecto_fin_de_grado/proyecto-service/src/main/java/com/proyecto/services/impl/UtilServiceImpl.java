@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proyecto.dao.CarDao;
+import com.proyecto.dao.CarImageDao;
 import com.proyecto.dao.ClassificationDao;
 import com.proyecto.dao.DriveLineDao;
 import com.proyecto.dao.EngineDao;
@@ -33,6 +34,9 @@ public class UtilServiceImpl implements UtilsService {
 	
 	@Autowired
 	private MakeDao makeDao;
+	
+	@Autowired
+	private CarImageDao carImageDao;
 
 	@Autowired
 	private FuelDao fuelTypeDao;
@@ -57,6 +61,12 @@ public class UtilServiceImpl implements UtilsService {
 	 * 
 	 * @return
 	 */
+	
+	public List<String> getCarsImages() {
+
+		return carImageDao.getCarImages();
+	}
+	
 	public List<String> getCarsMakes() {
 
 		return carDao.getCarsMakes();

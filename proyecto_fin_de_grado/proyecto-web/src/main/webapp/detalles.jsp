@@ -524,13 +524,35 @@ form[action*="./update"] {
 	
 $(document).ready(function(){	 
 	$("#input-id").fileinput({
-		'previewFileType':'jpg', 
-		'language': 'es',
-		overwriteInitial: false,
-	    maxFileSize: 10000,
 		 initialPreview: [
-			 '<img src="data:image/jpg;base64, <%=carImage.getImageInBase64()%>" class="file-preview-image" alt="Imagen1" title="Imagen1">'
-		    ]
+			 <%
+			 if(carImage !=null){
+					%> 
+					'<img src="data:image/jpg;base64, <%= carImage.getImageInBase64() %>" class="file-preview-image" alt="Imagen1" title="Imagen1">',
+			 <% } %>
+		    ],
+		    initialPreviewConfig: [
+				
+				<% 
+				if(carImage != null){
+					
+
+			 %> {   
+				
+				caption: '<%=carImage.getName()%>',
+				width: '120px',
+				key: <%=carImage.getId()%>,
+				
+				},
+				<%}%>	
+				
+			],
+			initialPreviewAsData : false,
+			overwriteInitial : false,
+			maxFileSize : 1000,
+			browseClass : "btn btn-warning",
+			browseLabel : "Pick Images",
+			browseIcon : "<i class=\"glyphicon glyphicon-picture\"></i> ",
 		 
 		});
 });
