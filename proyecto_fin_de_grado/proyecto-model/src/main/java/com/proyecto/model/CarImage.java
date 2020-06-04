@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -24,6 +25,9 @@ public class CarImage implements Serializable {
 	private byte[] image;
 	private String name;
 	private Integer carid;
+	
+	@Transient
+	private String imageBase64;
 
 	public int getId() {
 		return id;
@@ -39,6 +43,8 @@ public class CarImage implements Serializable {
 
 	public void setImage(byte[] image) {
 		this.image = image;
+		this.imageBase64 = Base64.getEncoder().encodeToString(this.image);
+
 	}
 
 	public String getName() {

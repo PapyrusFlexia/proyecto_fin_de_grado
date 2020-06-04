@@ -443,7 +443,7 @@ form[action*="./update"] {
 			</div>
 			
 			<div class="file-loading">
-				<input id="input-id" name="image" type="file" class="file" multiple>
+				<input id="input-id" name="image" type="file" multiple>
 			
 			</div>
 
@@ -528,7 +528,7 @@ $(document).ready(function(){
 			 <%
 			 if(carImage !=null){
 					%> 
-					'<img src="data:image/jpg;base64, <%= carImage.getImageInBase64() %>" class="file-preview-image" alt="Imagen1" title="Imagen1">',
+					'<img width="213px" src="data:image/jpg;base64, <%= carImage.getImageInBase64() %>" class="file-preview-image" alt="Imagen1" title="Imagen1">'
 			 <% } %>
 		    ],
 		    initialPreviewConfig: [
