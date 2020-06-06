@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.proyecto.model.Booking;
 import com.proyecto.model.Car;
+import com.proyecto.model.CarImage;
 import com.proyecto.model.Classification;
 import com.proyecto.model.User;
 
@@ -37,6 +38,14 @@ public class BookingDaoImpl extends AbstractDao<Serializable, Booking> implement
 		long totalBooking = (long) getEntityManager().createQuery("SELECT COUNT (b.id) FROM Booking b").getSingleResult();
 		return totalBooking;
 	}
+	
+	@Override
+	public Booking saveBooking(Booking b) {
+
+			return persist(b);
+
+	}
+
 
 	@Override
 	public Booking save(Booking b) {
@@ -60,14 +69,14 @@ public class BookingDaoImpl extends AbstractDao<Serializable, Booking> implement
 		delete(booking);
 	}
 
-	public int update(int id, String nickname, String place, int startdate, int finishdate, int numberofusers,
-			int rating, boolean reserved) {
+	public int update(int id, String place, int startdate, int finishdate, int numberofusers,
+			 boolean reserved) {
 
 		int executed = getEntityManager().createQuery(
-				"UPDATE Booking b set b.nickname = :nickname, b.place = :place, b.startdate = :startdate, b.finishdate = :finishdate, b.numberofusers = :numberofusers, b.rating = :rating, b.reserved = :reserved WHERE b.id = :id")
-				.setParameter("id", id).setParameter("nickname", nickname).setParameter("place", place)
+				"UPDATE Booking b set b.place = :place, b.startdate = :startdate, b.finishdate = :finishdate, b.numberofusers = :numberofusers, b.reserved = :reserved WHERE b.id = :id")
+				.setParameter("id", id).setParameter("place", place)
 				.setParameter("startdate", startdate).setParameter("finishdate", finishdate)
-				.setParameter("numberofusers", numberofusers).setParameter("rating", rating).executeUpdate();
+				.setParameter("numberofusers", numberofusers).executeUpdate();
 
 		return executed;
 	}

@@ -1,6 +1,7 @@
 package com.proyecto.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,48 +26,43 @@ public class Booking implements Serializable {
 	private int id;
 
 	@NotNull
-	@Column(name = "NICKNAME", nullable = false)
-	private String nickname;
-
-	@NotNull
 	@Column(name = "PLACE", nullable = false)
 	private String place;
 
 	@NotNull
 	@Column(name = "STARTDATE", nullable = false)
-	private int startdate;
+	private Date startdate;
 
 	@NotNull
 	@Column(name = "FINISHDATE", nullable = false)
-	private int finishdate;
+	private Date finishdate;
 
 	@NotNull
 	@Column(name = "NUMBEROFUSERS", nullable = false)
 	private int numberofusers;
 
 	@NotNull
-	@Column(name = "RATING", nullable = false) ///////// CAMBIADO
-	private int rating;
-
-	@NotNull
-	@Column(name = "RESERVED", nullable = false) ///////// NUEVO
+	@Column(name = "RESERVED", nullable = false)
 	private boolean reserved;
+	
+	@NotNull
+	@Column(name = "CARNAME", nullable = false)
+	private String carname;
 
 	public Booking() {
 
 	}
 
-	public Booking(int id, String nickname, String place, int startdate, int finishdate, int numberofusers, int rating,
-			boolean reserved) {
+	public Booking(int id, String place, Date startdate, Date finishdate, int numberofusers, boolean reserved,
+			String carname) {
 		super();
 		this.id = id;
-		this.nickname = nickname;
 		this.place = place;
 		this.startdate = startdate;
 		this.finishdate = finishdate;
 		this.numberofusers = numberofusers;
-		this.rating = rating;
 		this.reserved = reserved;
+		this.carname = carname;
 	}
 
 	public int getId() {
@@ -77,14 +73,6 @@ public class Booking implements Serializable {
 		this.id = id;
 	}
 
-	public String getNickname() {
-		return nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-
 	public String getPlace() {
 		return place;
 	}
@@ -93,19 +81,19 @@ public class Booking implements Serializable {
 		this.place = place;
 	}
 
-	public int getStartdate() {
+	public Date getStartdate() {
 		return startdate;
 	}
 
-	public void setStartdate(int startdate) {
+	public void setStartdate(Date startdate) {
 		this.startdate = startdate;
 	}
 
-	public int getFinishdate() {
+	public Date getFinishdate() {
 		return finishdate;
 	}
 
-	public void setFinishdate(int finishdate) {
+	public void setFinishdate(Date finishdate) {
 		this.finishdate = finishdate;
 	}
 
@@ -117,14 +105,6 @@ public class Booking implements Serializable {
 		this.numberofusers = numberofusers;
 	}
 
-	public int getRating() {
-		return rating;
-	}
-
-	public void setRating(int rating) {
-		this.rating = rating;
-	}
-
 	public boolean isReserved() {
 		return reserved;
 	}
@@ -133,11 +113,18 @@ public class Booking implements Serializable {
 		this.reserved = reserved;
 	}
 
+	public String getCarname() {
+		return carname;
+	}
+
+	public void setCarname(String carname) {
+		this.carname = carname;
+	}
+
 	@Override
 	public String toString() {
-		return "Booking [id=" + id + ", nickname=" + nickname + ", place=" + place + ", startdate=" + startdate
-				+ ", finishdate=" + finishdate + ", numberofusers=" + numberofusers + ", rating=" + rating
-				+ ", reserved=" + reserved + "]";
+		return "Booking [id=" + id + ", place=" + place + ", startdate=" + startdate + ", finishdate=" + finishdate
+				+ ", numberofusers=" + numberofusers + ", reserved=" + reserved + ", carname=" + carname + "]";
 	}
 
 }

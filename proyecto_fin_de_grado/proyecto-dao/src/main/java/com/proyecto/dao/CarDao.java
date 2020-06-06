@@ -39,6 +39,8 @@ public interface CarDao {
 	
 	List<String> getCarsMakes();
 	
+	List<String> getCarsNames();
+	
 	List<Integer> getCarsId();
 	
 	List<Integer> getCarsPk();

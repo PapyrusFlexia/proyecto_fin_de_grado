@@ -16,10 +16,12 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.proyecto.dao.BookingDao;
 import com.proyecto.dao.CarDao;
 import com.proyecto.dao.CarImageDao;
 import com.proyecto.dao.EngineDao;
 import com.proyecto.dao.UserDao;
+import com.proyecto.model.Booking;
 import com.proyecto.model.Car;
 import com.proyecto.model.CarImage;
 import com.proyecto.model.Classification;
@@ -45,6 +47,9 @@ public class CarServiceImpl implements CarService {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private BookingDao bookingDao;
 
 	@Autowired
 	private EngineDao engineDao;
@@ -221,6 +226,11 @@ public class CarServiceImpl implements CarService {
 	public User saveUser(User u) {
 		return userDao.save(u);
 	}
+	
+	@Override
+	public Booking saveBooking(Booking b) {
+		return bookingDao.saveBooking(b);
+	}
 
 	@Override
 	public Engine saveEngine(Engine e) {
@@ -266,6 +276,17 @@ public class CarServiceImpl implements CarService {
 
 	
 	}
+	
+	@Override 
+	public int insertBooking(Booking b) {
+		
+		bookingDao.saveBooking(b);
+		
+		return 0;
+
+	
+	}
+
 
 	@Override
 	public int delete(int id) {

@@ -72,6 +72,11 @@ public class UtilServiceImpl implements UtilsService {
 		return carDao.getCarsMakes();
 	}
 	
+	public List<String> getCarsNames() {
+
+		return carDao.getCarsNames();
+	}
+	
 	public List<Car> getCarsMakesFilter(int m) {
 
 		return carDao.getCarsMakesFilter(m);

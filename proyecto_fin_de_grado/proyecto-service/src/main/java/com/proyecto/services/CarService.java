@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import com.proyecto.model.Booking;
 import com.proyecto.model.Car;
 import com.proyecto.model.CarImage;
 import com.proyecto.model.Engine;
@@ -25,6 +26,8 @@ public interface CarService {
 	
 	public CarImage saveImage(CarImage ci);
 	
+	public Booking saveBooking(Booking b); 
+	
 	Engine saveEngine(Engine e);
 	
 	int update(int id, String transmission, String engineType, int horsepower, int torque,
@@ -37,6 +40,8 @@ public interface CarService {
 	int insertImage(CarImage ci); 
 	
 	int insertUser(User u);
+	
+	int insertBooking(Booking b);
 	
 	int delete(int id);
 

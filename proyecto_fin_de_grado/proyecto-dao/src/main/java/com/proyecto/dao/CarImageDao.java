@@ -19,7 +19,6 @@ public interface CarImageDao {
 	long totalCarImage();
 	
 	public List<String> getCarImages();
-	
 
 	void deleteById(String id);
 	

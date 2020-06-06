@@ -13,9 +13,10 @@ public interface BookingDao {
 	
 
 	Booking save(Booking b);
+	
+	Booking saveBooking(Booking b);
 
-	int update(int id, String nickname, String place, int startdate, int finishdate, int numberofusers,
-			int rating, boolean reserved);
+	int update(int id, String place, int startdate, int finishdate, int numberofusers, boolean reserved);
 	
 	long totalBooking();
 

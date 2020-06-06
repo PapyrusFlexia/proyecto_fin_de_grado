@@ -16,11 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.proyecto.dao.BookingDao;
 import com.proyecto.dao.CarDao;
 import com.proyecto.dao.CarDaoImpl;
 import com.proyecto.dao.ClassificationDao;
 import com.proyecto.dao.EngineDao;
 import com.proyecto.dao.MakeDao;
+import com.proyecto.model.Booking;
 import com.proyecto.model.Car;
 import com.proyecto.model.CarImage;
 import com.proyecto.model.Engine;
@@ -47,6 +49,9 @@ public class MainController {
 	
 	@Autowired
 	private CarDao carDao;
+	
+	@Autowired
+	private BookingDao bookingDao;
 	
 
 	public void MainAction(HttpServletRequest request, HttpServletResponse response) {
@@ -182,21 +187,23 @@ public class MainController {
 
 	}
 	
-	public void booking(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		String pk = request.getParameter("pk");
-		if (pk == null) {
-			throw new Exception("Coche no encontrado");
-		}
+	public void insertarBooking(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	
 		String redirect = request.getParameter("redirect");
-		Car car = carService.getCarByPk(Integer.valueOf(pk));
 		request.setAttribute("redirect", redirect);
-		request.setAttribute("car", car);
-		request.setAttribute("drivelines", utilsService.getCarsDriveLines());
-		request.setAttribute("classifications", utilsService.getCarsClassificationsTabla());
-		request.setAttribute("years", utilsService.getCarsYears());
-		request.setAttribute("fueltypes", utilsService.getCarsFuelTypes());
-		request.setAttribute("transmissions", utilsService.getCarsTransmissions());
+	
+
+	}
+	
+	public void booking(HttpServletRequest request, HttpServletResponse response)  {
+
+		List<Booking> bookings = new ArrayList<>();
+		bookings = bookingDao.findAllBookings();
+		String redirect = request.getParameter("redirect");
+		request.setAttribute("bookings", bookings);
+		request.setAttribute("redirect", redirect);
+	
+	
 
 	}
 

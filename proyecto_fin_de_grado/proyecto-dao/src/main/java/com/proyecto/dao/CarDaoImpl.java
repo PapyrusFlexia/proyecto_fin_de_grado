@@ -100,6 +100,16 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 
 		return listMakes;
 	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<String> getCarsNames() { 
+
+		List<String> listNames = getEntityManager().createQuery("SELECT c.name FROM Car c ORDER BY c.name")
+				.getResultList();
+
+		return listNames;
+	}
 
 	@Override
 	@SuppressWarnings("unchecked")
