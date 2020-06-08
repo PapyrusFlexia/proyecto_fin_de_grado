@@ -7,7 +7,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -20,6 +22,9 @@ import com.proyecto.model.User;
 @Repository("ratingDao")
 @Transactional
 public class RatingDaoImpl extends AbstractDao<Serializable, Rating> implements RatingDao {
+	
+	@PersistenceContext
+	EntityManager entityManager;
 
 	public Rating findRatingByRating(Integer rating) {
 

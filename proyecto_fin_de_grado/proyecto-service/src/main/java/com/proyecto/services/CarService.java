@@ -3,6 +3,7 @@ package com.proyecto.services;
 import java.util.List;
 
 
+
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -10,6 +11,7 @@ import com.proyecto.model.Booking;
 import com.proyecto.model.Car;
 import com.proyecto.model.CarImage;
 import com.proyecto.model.Engine;
+import com.proyecto.model.Rating;
 import com.proyecto.model.comparators.CarComparator;
 import com.proyecto.model.User;
 
@@ -27,6 +29,8 @@ public interface CarService {
 	public CarImage saveImage(CarImage ci);
 	
 	public Booking saveBooking(Booking b); 
+	
+	public Rating saveRating(Rating r);
 	
 	Engine saveEngine(Engine e);
 	

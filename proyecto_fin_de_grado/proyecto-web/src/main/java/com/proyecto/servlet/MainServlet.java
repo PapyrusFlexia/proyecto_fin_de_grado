@@ -2,7 +2,6 @@ package com.proyecto.servlet;
 
 import java.io.IOException;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +16,8 @@ import com.proyecto.model.CarImage;
 import com.proyecto.services.UtilsService;
 import com.proyecto.servlet.controller.MainController;
 
-@WebServlet(name = "MainServlet", urlPatterns = { "" }, initParams = @WebInitParam(name = "location", value = "Hola"), loadOnStartup = 1)
+@WebServlet(name = "MainServlet", urlPatterns = {
+		"" }, initParams = @WebInitParam(name = "location", value = "Hola"), loadOnStartup = 1)
 public class MainServlet extends AbstractServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -34,7 +34,8 @@ public class MainServlet extends AbstractServlet {
 
 		if (action == null || action.equals("") && (filterMake == null && filterYear == null && filterHybrid == null)) {
 			mainController.MainAction(request, response);
-		} else if ("paginacion".contentEquals(action) && (filterMake == null && filterYear == null && filterHybrid == null)) {
+		} else if ("paginacion".contentEquals(action)
+				&& (filterMake == null && filterYear == null && filterHybrid == null)) {
 			mainController.paginacion(request, response);
 		}
 		if (filterMake != null || filterYear != null || filterHybrid != null) {
@@ -43,13 +44,13 @@ public class MainServlet extends AbstractServlet {
 			try {
 				mainController.detalles(request, response);
 				dispatcher = "./detalles.jsp";
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				request.setAttribute("message", e.getMessage());
 				dispatcher = "./error.jsp";
 			}
-		}else if("booking".equals(action)) {
+		} else if ("booking".equals(action)) {
 			dispatcher = "./booking.jsp";
 			try {
 				mainController.detalles(request, response);
@@ -59,8 +60,8 @@ public class MainServlet extends AbstractServlet {
 				request.setAttribute("message", e.getMessage());
 				dispatcher = "./error.jsp";
 			}
-			
-		}else if("insert".equals(action)) {
+
+		} else if ("insert".equals(action)) {
 			dispatcher = "./insert.jsp";
 			try {
 				mainController.detalles(request, response);
@@ -71,16 +72,15 @@ public class MainServlet extends AbstractServlet {
 				dispatcher = "./error.jsp";
 			}
 		}
-		
-		if(request.getParameter("parse") != null && !request.getParameter("parse").equals("")) {
+
+		if (request.getParameter("parse") != null && !request.getParameter("parse").equals("")) {
 			dispatcher = "./json.jsp";
-		} 
+		}
 
 		request.setAttribute("years", utilsService.getCarsYears());
 		request.setAttribute("makes", utilsService.getCarsMakes());
 		request.setAttribute("hybrids", utilsService.getCarsHybrids());
 		request.getRequestDispatcher(dispatcher).forward(request, response);
-	
 
 	}
 

@@ -89,7 +89,7 @@
     </button>
   </div>
   <div class="toast-body">
-   El coche se ha reservado correctamente
+   El coche se ha reservado y/o valorado correctamente
   </div>
 </div>
 </div>

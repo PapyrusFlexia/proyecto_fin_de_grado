@@ -20,6 +20,7 @@ import com.proyecto.dao.BookingDao;
 import com.proyecto.dao.CarDao;
 import com.proyecto.dao.CarImageDao;
 import com.proyecto.dao.EngineDao;
+import com.proyecto.dao.RatingDao;
 import com.proyecto.dao.UserDao;
 import com.proyecto.model.Booking;
 import com.proyecto.model.Car;
@@ -28,6 +29,7 @@ import com.proyecto.model.Classification;
 import com.proyecto.model.DriveLine;
 import com.proyecto.model.Engine;
 import com.proyecto.model.Fuel;
+import com.proyecto.model.Rating;
 import com.proyecto.model.Transmission;
 import com.proyecto.model.User;
 import com.proyecto.model.comparators.CarComparator;
@@ -50,6 +52,9 @@ public class CarServiceImpl implements CarService {
 	
 	@Autowired
 	private BookingDao bookingDao;
+	
+	@Autowired
+	private RatingDao ratingDao;
 
 	@Autowired
 	private EngineDao engineDao;
@@ -231,6 +236,12 @@ public class CarServiceImpl implements CarService {
 	public Booking saveBooking(Booking b) {
 		return bookingDao.saveBooking(b);
 	}
+	
+	@Override
+	public Rating saveRating(Rating r) {
+		return ratingDao.saveRating(r);
+	}
+
 
 	@Override
 	public Engine saveEngine(Engine e) {

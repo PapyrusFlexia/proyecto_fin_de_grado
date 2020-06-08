@@ -549,7 +549,7 @@ $(document).ready(function(){
 			],
 			initialPreviewAsData : false,
 			overwriteInitial : false,
-			maxFileSize : 1000,
+			maxFileSize : 5000,
 			browseClass : "btn btn-warning",
 			browseLabel : "Pick Images",
 			browseIcon : "<i class=\"glyphicon glyphicon-picture\"></i> ",

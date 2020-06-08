@@ -23,6 +23,8 @@ import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
 
 import com.proyecto.model.Booking;
+import com.proyecto.model.CarImage;
+import com.proyecto.model.Rating;
 import com.proyecto.services.CarService;
 import com.proyecto.services.data.DatabaseJson;
 
@@ -76,7 +78,16 @@ public class BookingServlet extends AbstractServlet {
 	
 		String reserved = request.getParameter("reserved");
 		String carname = request.getParameter("carname");
+		/*String rating = request.getParameter("valorar");
+		
+		Rating ratingStars = new Rating();
+		Booking bookingId = new Booking();
 
+		ratingStars.setRating(Integer.valueOf(rating));
+		ratingStars.setBookingid(bookingId.getId());
+		ratingStars = carService.saveRating(ratingStars);*/
+		
+		
 		// Validator
 		if (numberofusers != null && Integer.valueOf(numberofusers) > 0 && place != null && !place.equals("")
 				&& startdate != null && !startdate.equals("") && finishdate != null

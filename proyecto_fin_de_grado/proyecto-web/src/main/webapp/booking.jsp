@@ -123,6 +123,9 @@
 					<th scope="col">Fecha de fin<br> <a><span
 							class="glyphicon glyphicon-chevron-up"></span><span
 							class="glyphicon glyphicon-chevron-down"></span></a></th>
+					<th scope="col">Valoración<br> <a><span
+							class="glyphicon glyphicon-chevron-up"></span><span
+							class="glyphicon glyphicon-chevron-down"></span></a></th>
 
 
 				</tr>
@@ -138,6 +141,17 @@
 					<td><%=b.getNumberofusers()%></td>
 					<td><%=b.getStartdate()%></td>
 					<td><%=b.getFinishdate()%></td>
+					<td>
+								<div class="star-rating">
+									<span class="fa fa-star-o" data-rating="1" name="valorar" ></span> <span
+										class="fa fa-star-o" data-rating="2"></span> <span
+										class="fa fa-star-o" data-rating="3"></span> <span
+										class="fa fa-star-o" data-rating="4"></span> <span
+										class="fa fa-star-o" data-rating="5"></span> <input
+										type="hidden" name="valorar" id="valorar" class="rating-value"
+										value="">
+								</div>
+						</a></td>
 				</tr>
 
 				<%
@@ -166,12 +180,12 @@
 						<div class="form-group">
 							<input name="numberofusers" id="numberofusers" type="number"
 								class="form-control" placeholder="Número de personas" min="1"
-								max="5" />
+								max="5" required />
 
 						</div>
 						<div class="form-group">
 							<select name="place" id="place" class="form-control"
-								placeholder="Lugar">
+								placeholder="Lugar" required>
 								<option value="Reserva" disabled selected>Selecciona un
 									lugar donde hacer tu reserva</option>
 								<option value="Andalucia">Andalucía</option>
@@ -194,32 +208,18 @@
 						</div>
 						<div class="form-group">
 							<input name="startdate" id="startdate" type="text"
-								class="form-control" placeholder="Fecha de inicio" />
+								class="form-control" placeholder="Fecha de inicio"  required/>
 
 						</div>
 						<div class="form-group">
 							<input name="finishdate" id="finishdate" type="text"
-								class="form-control" placeholder="Fecha de finalización" />
+								class="form-control" placeholder="Fecha de finalización" required />
 
 						</div>
-
-						<div class="form-group">
-							<div class="col-lg-12">
-								<div class="star-rating">
-									<span class="fa fa-star-o" data-rating="1"></span> <span
-										class="fa fa-star-o" data-rating="2"></span> <span
-										class="fa fa-star-o" data-rating="3"></span> <span
-										class="fa fa-star-o" data-rating="4"></span> <span
-										class="fa fa-star-o" data-rating="5"></span> <input
-										type="hidden" name="whatever1" class="rating-value"
-										value="2.56">
-								</div>
-							</div>
-						</div>
-
+						
 						<div class="form-group">
 							<select class="form-control" data-live-search="true"
-								title="Filter by name" name="carname" id="carname">
+								title="Filter by name" name="carname" id="carname" required>
 								<option value="-1">Nombre del coche</option>
 								<%
 									for (String name : nameTabla) {
@@ -365,8 +365,8 @@
 
 		var $star_rating = $('.star-rating .fa');
 
-		var SetRatingStar = function() {
-			return $star_rating
+		var SetRatingStar = function(hermanos) {
+			 return $(hermanos)
 					.each(function() {
 						if (parseInt($star_rating
 								.siblings('input.rating-value').val()) >= parseInt($(
@@ -383,13 +383,14 @@
 		$star_rating.on('click', function() {
 			$star_rating.siblings('input.rating-value').val(
 					$(this).data('rating'));
-			return SetRatingStar();
+			return SetRatingStar($(this).siblings('.fa').andSelf());
 		});
 
 		SetRatingStar();
 		$(document).ready(function() {
 
 		});
+		
 	</script>
 
 

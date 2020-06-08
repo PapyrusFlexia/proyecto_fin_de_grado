@@ -387,7 +387,7 @@ th {
 										<i class="icofont-simple-smile"></i> <span
 											data-toggle="counter-up">65</span>
 										<p>
-											<strong>Cientes felices</strong> que han probado la
+											<strong>Clientes felices</strong> que han probado la
 											experiencia Organizatium.
 										</p>
 									</div>
@@ -418,7 +418,7 @@ th {
 									<div class="count-box">
 										<i class="icofont-award"></i> <span data-toggle="counter-up">1</span>
 										<p>
-											<strong>Aprobado</strong> en la cr eación y desarrollo del
+											<strong>Aprobado</strong> en la creación y desarrollo del
 											proyecto de aplicaciones web.
 										</p>
 									</div>
