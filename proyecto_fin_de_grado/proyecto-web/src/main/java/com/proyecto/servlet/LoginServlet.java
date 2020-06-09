@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String login = request.getParameter("login");
+		String login = request.getParameter("mail");
 		String pass = request.getParameter("pass");
 		
 		if(getInitParameter("login").equals(login) && 

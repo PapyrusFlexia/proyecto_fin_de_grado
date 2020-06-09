@@ -10,8 +10,6 @@ import com.proyecto.model.User;
 
 public interface BookingDao {
 
-	
-
 	Booking save(Booking b);
 	
 	Booking saveBooking(Booking b);

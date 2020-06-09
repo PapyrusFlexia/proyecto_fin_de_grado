@@ -295,7 +295,6 @@
 
 	</head>
 <body>
-
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-2"></div>
@@ -319,13 +318,19 @@
 				
 				
 				    <form action="./login" method="post">
-				      <input type="text" id="login" class="fadeIn second" name="login" placeholder="Nombre de usuario" required>
+				      <input type="text" id="login" class="fadeIn second" name="mail" placeholder="Email" required>
 				      <input type="password" id="password" class="fadeIn third" name="pass" placeholder="Contraseña" required>
 			
 						
-				      <input type="submit" class="fadeIn fourth" value="Loguearse">
+				      <input type="submit" class="fadeIn fourth" value="Acceder">
 				    </form>
-				
+					<%
+					String error = (String) request.getParameter("error");
+						if("".equals(error)){%>
+					<div class="alert alert-danger" role="alert">
+ 						<p style="color:red;"> Email y/o contraseña incorrectos. </p>
+					</div>
+					<%}%>
 				   
 				    <div id="formFooter">
 				      <a class="underlineHover" href="http://localhost:8080/proyecto-web/register" >¿No tienes usuario? ¡Create una cuenta!</a>

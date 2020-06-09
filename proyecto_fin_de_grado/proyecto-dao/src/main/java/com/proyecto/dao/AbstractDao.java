@@ -11,7 +11,6 @@ import javax.transaction.Transactional;
 
 import com.proyecto.model.Car;
 
-
 public abstract class AbstractDao<PK extends Serializable, T> {
 
 	private final Class<T> persistentClass;
@@ -38,23 +37,20 @@ public abstract class AbstractDao<PK extends Serializable, T> {
 		entityManager.persist(entity);
 		return entity;
 	}
-	
+
 	@Transactional
 	protected T update(T entity) {
 		entityManager.merge(entity);
 		return entity;
 	}
-	
+
 	@Transactional
 	protected void delete(T entity) {
 		entityManager.remove(entity);
 	}
 
 	public List<Car> findPaginationCars(int pageSize) {
-		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
 
 }
