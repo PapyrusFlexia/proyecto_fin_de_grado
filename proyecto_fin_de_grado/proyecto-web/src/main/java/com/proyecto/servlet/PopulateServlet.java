@@ -50,25 +50,49 @@ public class PopulateServlet extends AbstractServlet {
 
 			JSONObject json = array.getJSONObject(i);
 			if (param != null && param.equals("fuel")) {
+				try {
 				String fuel = json.getJSONObject("fuelinformation").getString("fueltype");
 				Fuel f = new Fuel();
 				f.setFuelType(fuel);
-				utilsService.saveFuelType(f);
+				utilsService.saveFuelType(f); 
+				response.sendRedirect("http://localhost:8080/proyecto-web/");
+			} catch (Exception e) {
+				System.out.println(json);
+				System.out.println("Error" + e.getMessage());
+			}
 			} else if (param != null && param.equals("drive")) {
+				try {
 				String driveline = json.getJSONObject("engineinformation").getString("driveline");
 				DriveLine d = new DriveLine();
 				d.setDriveLine(driveline);
 				utilsService.saveDriveLine(d);
+				response.sendRedirect("http://localhost:8080/proyecto-web/");
+				} catch (Exception e) {
+					System.out.println(json);
+					System.out.println("Error" + e.getMessage());
+				}
 			} else if (param != null && param.equals("transmission")) {
+				try {
 				String transmission = json.getJSONObject("engineinformation").getString("transmission");
 				Transmission t = new Transmission();
 				t.setTransmission(transmission);
 				utilsService.saveTransmission(t);
+				response.sendRedirect("http://localhost:8080/proyecto-web/");
+				} catch (Exception e) {
+				System.out.println(json);
+				System.out.println("Error" + e.getMessage());
+			}
 			} else if (param != null && param.equals("classification")) {
+				try {
 				String classification = json.getJSONObject("identification").getString("classification");
 				Classification c = new Classification();
 				c.setClassification(classification);
 				utilsService.saveClassification(c);
+				response.sendRedirect("http://localhost:8080/proyecto-web/");
+				} catch (Exception e) {
+				System.out.println(json);
+				System.out.println("Error" + e.getMessage());
+			}
 			
 			} else if (param != null && param.equals("car")) {
 				try {
@@ -97,6 +121,7 @@ public class PopulateServlet extends AbstractServlet {
 					c.setLength(json.getJSONObject("dimensions").getInt("length"));
 					c.setHeight(json.getJSONObject("dimensions").getInt("height"));
 					c = carService.save(c);
+					response.sendRedirect("http://localhost:8080/proyecto-web/");
 				} catch (Exception e) {
 					System.out.println(json);
 					System.out.println("Error" + e.getMessage());
@@ -105,16 +130,13 @@ public class PopulateServlet extends AbstractServlet {
 			} else if (param != null && param.equals("engine")) {
 				try {
 					Engine e = new Engine();
-				
 					e.setDriveline(json.getJSONObject("engineinformation").getString("driveline"));
 					e.setEnginetype(json.getJSONObject("engineinformation").getString("enginetype"));
 					e.setFueltype(utilsService
 							.getFuelTypeByName(json.getJSONObject("fuelinformation").getString("fueltype")));
 					e.setTransmission(json.getJSONObject("engineinformation").getString("transmission"));
-					
-		
 					e = carService.saveEngine(e);
-
+					response.sendRedirect("http://localhost:8080/proyecto-web/");
 				} catch (Exception e) {
 					System.out.println(json);
 					System.out.println("Error" + e.getMessage());

@@ -72,6 +72,91 @@ th {
   border-bottom: 1px solid #ddd;
 }
 
+.lds-roller {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+.lds-roller div {
+    animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    transform-origin: 32px 32px;
+}
+.lds-roller div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #333;
+    margin: -3px 0 0 -3px;
+}
+.lds-roller div:nth-child(1) {
+    animation-delay: -0.036s;
+}
+.lds-roller div:nth-child(1):after {
+    top: 50px;
+    left: 50px;
+}
+.lds-roller div:nth-child(2) {
+    animation-delay: -0.072s;
+}
+.lds-roller div:nth-child(2):after {
+    top: 54px;
+    left: 45px;
+}
+.lds-roller div:nth-child(3) {
+    animation-delay: -0.108s;
+}
+.lds-roller div:nth-child(3):after {
+    top: 57px;
+    left: 39px;
+}
+.lds-roller div:nth-child(4) {
+    animation-delay: -0.144s;
+}
+.lds-roller div:nth-child(4):after {
+    top: 58px;
+    left: 32px;
+}
+.lds-roller div:nth-child(5) {
+    animation-delay: -0.18s;
+}
+.lds-roller div:nth-child(5):after {
+    top: 57px;
+    left: 25px;
+}
+.lds-roller div:nth-child(6) {
+    animation-delay: -0.216s;
+}
+.lds-roller div:nth-child(6):after {
+    top: 54px;
+    left: 19px;
+}
+.lds-roller div:nth-child(7) {
+    animation-delay: -0.252s;
+}
+.lds-roller div:nth-child(7):after {
+    top: 50px;
+    left: 14px;
+}
+.lds-roller div:nth-child(8) {
+    animation-delay: -0.288s;
+}
+.lds-roller div:nth-child(8):after {
+    top: 45px;
+    left: 10px;
+}
+@keyframes lds-roller {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 
 </style>
 </head>
@@ -139,8 +224,8 @@ th {
 
 
 	<jsp:include page="head.jsp" />
-
-	<section id="hero">
+	<br><br>
+	<section class="mt-4">
 	
 		<div class="container">
 			<div class="row">
@@ -258,18 +343,11 @@ th {
 					value="<%=classificationFiltro%>" />
 			</div>
 		</div>
-
-
-	</section>
-
-	<main id="main">
-
-		<section id="clients" class="clients clients">
-			<div class="container">
+		<div class="container">
 
 				<div class="row">
 
-					<div class="row ml-2 mt-3 mb-2 d-flex justify-content-between">
+					<div class="row ml-2 mb-2 d-flex justify-content-between">
 						<%
 							
 						%>
@@ -334,8 +412,154 @@ th {
 				</div>
 
 			</div>
+	</section>
 
+	<main id="main">
 
+	
+			
+		
+		<section id="about" class="about">
+
+				<div class="section-title" data-aos="fade-up">
+					<h2>Poblar tablas</h2>
+				</div>
+
+					<div class="container-fluid d-flex align-items-center ">
+						<div style="float: none; margin: 0 auto;">
+		<nav class="nav-menu d-none d-lg-block align-items-center">
+			<ul>
+	
+				<li class="get-started"><a onclick="spinCar()">Coches</a>
+				<div class="loader text-center" id="populateSpinCar" style="display: none">
+   						 <div class="loader-inner">
+       						 <div class="lds-roller mb-3">
+           						 <div></div>
+           						 <div></div>
+            					 <div></div>
+           						 <div></div>
+           						 <div></div>
+            					 <div></div>
+           						 <div></div>
+           						 <div></div>
+      						  </div>
+        
+
+        					<h4 class="text-uppercase font-weight-bold">Cargando</h4>
+        					<p class="font-italic text-muted">Poblando, esta acción puede tardar unos minutos.</p>
+    					</div>
+					</div>
+					</li>
+					
+				<li class="get-started"><a onclick="spinEngine()">Motores</a>
+				<div class="loader text-center" id="populateSpinEngine" style="display: none">
+   						 <div class="loader-inner">
+       						 <div class="lds-roller mb-3">
+           						 <div></div>
+           						 <div></div>
+            					 <div></div>
+           						 <div></div>
+           						 <div></div>
+            					 <div></div>
+           						 <div></div>
+           						 <div></div>
+      						  </div>
+        
+
+        					<h4 class="text-uppercase font-weight-bold">Cargando</h4>
+        					<p class="font-italic text-muted">Poblando, esta acción puede tardar unos minutos.</p>
+    					</div>
+					</div>
+				</li>
+
+				<li class="get-started"><a onclick="spinFuel()">Combustibles</a>
+					<div class="loader text-center" id="populateSpinFuel" style="display: none">
+   						 <div class="loader-inner">
+       						 <div class="lds-roller mb-3">
+           						 <div></div>
+           						 <div></div>
+            					 <div></div>
+           						 <div></div>
+           						 <div></div>
+            					 <div></div>
+           						 <div></div>
+           						 <div></div>
+      						  </div>
+        
+
+        					<h4 class="text-uppercase font-weight-bold">Cargando</h4>
+        					<p class="font-italic text-muted">Poblando, esta acción puede tardar unos minutos.</p>
+    					</div>
+					</div>
+				</li>
+					
+				<li class="get-started"><a onclick="spinDriveline()">Líneas de transmisión</a>
+				<div class="loader text-center" id="populateSpinDriveline" style="display: none">
+   						 <div class="loader-inner">
+       						 <div class="lds-roller mb-3">
+           						 <div></div>
+           						 <div></div>
+            					 <div></div>
+           						 <div></div>
+           						 <div></div>
+            					 <div></div>
+           						 <div></div>
+           						 <div></div>
+      						  </div>
+        
+
+        					<h4 class="text-uppercase font-weight-bold">Cargando</h4>
+        					<p class="font-italic text-muted">Poblando, esta acción puede tardar unos minutos.</p>
+    					</div>
+					</div>
+				</li>
+					
+				<li class="get-started"><a onclick="spinTransmission()">Transmisiones</a>
+				<div class="loader text-center" id="populateSpinTransmission" style="display: none">
+   						 <div class="loader-inner">
+       						 <div class="lds-roller mb-3">
+           						 <div></div>
+           						 <div></div>
+            					 <div></div>
+           						 <div></div>
+           						 <div></div>
+            					 <div></div>
+           						 <div></div>
+           						 <div></div>
+      						  </div>
+        
+
+        					<h4 class="text-uppercase font-weight-bold">Cargando</h4>
+        					<p class="font-italic text-muted">Poblando, esta acción puede tardar unos minutos.</p>
+    					</div>
+					</div>
+				</li>
+					
+				<li class="get-started"><a onclick="spinClassification()">Clasificaciones</a>
+				<div class="loader text-center" id="populateSpinClassification" style="display: none">
+   						 <div class="loader-inner">
+       						 <div class="lds-roller mb-3">
+           						 <div></div>
+           						 <div></div>
+            					 <div></div>
+           						 <div></div>
+           						 <div></div>
+            					 <div></div>
+           						 <div></div>
+           						 <div></div>
+      						  </div>
+        
+
+        					<h4 class="text-uppercase font-weight-bold">Cargando</h4>
+        					<p class="font-italic text-muted">Poblando, esta acción puede tardar unos minutos.</p>
+    					</div>
+					</div>
+				</li>
+			</ul>
+		</nav>
+		</div>
+	</div>
+			
 		</section>
 
 		<section id="about" class="about">
@@ -599,7 +823,7 @@ th {
 
 					<div class="col-lg-4 col-md-6">
 						<div class="box" data-aos="zoom-in-right" data-aos-delay="200">
-							<h3>Gratis</h3>
+							<h3>Gratuito</h3>
 							<h4>
 								<sup>$</sup>0
 							</h4>
@@ -619,7 +843,7 @@ th {
 					<div class="col-lg-4 col-md-6 mt-4 mt-md-0">
 						<div class="box recommended" data-aos="zoom-in"
 							data-aos-delay="100">
-							<h3>Educación</h3>
+							<h3>Educativo</h3>
 							<h4>
 								<sup>$</sup>27,18
 							</h4>
@@ -638,7 +862,7 @@ th {
 
 					<div class="col-lg-4 col-md-6 mt-4 mt-lg-0">
 						<div class="box" data-aos="zoom-in-left" data-aos-delay="200">
-							<h3>Empresa</h3>
+							<h3>Empresarial</h3>
 							<h4>
 								<sup>$</sup>36,24
 							</h4>
@@ -1005,6 +1229,73 @@ th {
 		    }
 		  }
 		}
+		
+		 function spinCar() {
+	    	  var x = document.getElementById("populateSpinCar");
+	    	  if (x.style.display === "none") {
+	    	    x.style.display = "block";
+	    	    location.href = 'http://localhost:8080/proyecto-web/populate?model=car';
+	    	  }
+	    	}
+		 
+		 function spinEngine() {
+	    	  var x = document.getElementById("populateSpinEngine");
+	    	  if (x.style.display === "none") {
+	    	    x.style.display = "block";
+	    	    location.href = 'http://localhost:8080/proyecto-web/populate?model=engine';
+	    	  }
+	    	}
+		
+		 function spinFuel() {
+	    	  var x = document.getElementById("populateSpinFuel");
+	    	  if (x.style.display === "none") {
+	    	    x.style.display = "block";
+	    	    location.href = 'http://localhost:8080/proyecto-web/populate?model=fuel';
+	    	  }
+	    	}
+		 
+		 function spinDriveline() {
+	    	  var x = document.getElementById("populateSpinDriveline");
+	    	  if (x.style.display === "none") {
+	    	    x.style.display = "block";
+	    	    location.href = 'http://localhost:8080/proyecto-web/populate?model=drive';
+	    	  }
+	    	}
+		 
+		 function spinTransmission() {
+	    	  var x = document.getElementById("populateSpinTransmission");
+	    	  if (x.style.display === "none") {
+	    	    x.style.display = "block";
+	    	    location.href = 'http://localhost:8080/proyecto-web/populate?model=transmission';
+	    	  }
+	    	}
+		 
+		 function spinClassification() {
+	    	  var x = document.getElementById("populateSpinClassification");
+	    	  if (x.style.display === "none") {
+	    	    x.style.display = "block";
+	    	    location.href = 'http://localhost:8080/proyecto-web/populate?model=classification';
+	    	  }
+	    	}
+		
+		// Spinner
+	    $(window).on('load', function () {
+	        var loadingCounter = setInterval(function () {
+	            var count = parseInt($('.countdown').html());
+	            if (count !== 0) {
+	                $('.countdown').html(count - 1);
+	            } else {
+	                clearInterval();
+	            }
+	        }, 1000);
+	    });
+	    $('#reload').on('click', function (e) {
+	        e.preventDefault();
+	        location.reload();
+	    });
+	    
+	  
+	
 
 	</script>
 

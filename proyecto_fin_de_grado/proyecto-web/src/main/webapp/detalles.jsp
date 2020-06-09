@@ -190,7 +190,7 @@ form[action*="./update"] {
 
 
 					<li class="get-started"><a
-						onclick="location.href = 'http://localhost:8080/proyecto-web/login';">Login</a></li>
+						onclick="location.href = 'http://localhost:8080/proyecto-web/login';">Acceso</a></li>
 
 					<li class="get-started"><a
 						onclick="location.href = 'http://localhost:8080/proyecto-web/';">Home</a></li>
