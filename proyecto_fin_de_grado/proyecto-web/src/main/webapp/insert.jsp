@@ -71,6 +71,34 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/LANG.js"></script>
 <link href="assets/css/style.css" rel="stylesheet">
 <style>
+
+#cover {
+
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#cover-caption {
+    width: 100%;
+    position: relative;
+   
+}
+
+/* only used for background overlay not needed for centering */
+form:before {
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+    border-radius: 10px;
+}
+
 .loader {
     width: 100vw;
     height: 100vh;
@@ -190,15 +218,12 @@
 			<nav class="nav-menu d-none d-lg-block">
 				<ul>
 
-
 					<li class="get-started"><a
 						onclick="location.href = 'http://localhost:8080/proyecto-web/login';">Acceso</a></li>
 
 					<li class="get-started"><a
 						onclick="location.href = 'http://localhost:8080/proyecto-web/';">Home</a></li>
 			</nav>
-
-
 		</div>
 	</header>
 	<%
@@ -230,13 +255,20 @@
 		}
 	%>
 	<br>
+<section id="cover" class="min-vh-100">
+    <div id="cover-caption">
+        <div class="container">
+            <div class="row">
+<div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+                                       <h1 class="display-4 py-2 text-truncate">Insertar</h1>
+                    
 
-
-	<h2 class="m-5 pb-5">Engine Information</h2>
+		
+		<h2 class="m-5">Información del motor</h2>
 	<form action="./insert" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="action" value="insertCar" />
-		<fieldset class="form-row m-5 pb-5 ">
-			<div class="form-group w-50">
+		
+			<div class="form-group">
 				<label>Transmission</label> <select class="custom-select"
 					name="transmission" id="transmission" required>
 					<%
@@ -250,40 +282,43 @@
 					}
 					%>
 				</select>
-				<div class="invalid-feedback">Example invalid custom select
-					feedback</div>
+				
+					
 			</div>
-			<div class="col-md-4 mb-3">
-				<label for="validationServer02">Engine Type</label> <input
-					type="text" class="form-control is-valid" id="validationServer02"
-					placeholder="Last name" name="enginetype"
+                           
+			<div>
+				<label for="validationServer02">Tipo de motor</label> <input
+					type="text" class="form-control " id="validationServer02"
+					placeholder="" name="enginetype" 
 					required>
-				<div class="valid-feedback">Looks good!</div>
+				
 			</div>
 
 
-			<fieldset class="col-md-4 mb-3">
-				<h3>Engine Statistics</h3>
-				<div class="col-md-4 mb-3">
-					<label for="validationServer03">Horsepower</label> <input
-						type="text" class="form-control is-valid" placeholder="First name"
-						name="horsepower" id="horsepower"  pattern="[0-9]{1,19}" title="Solo acepta números, 1 valor mínimo"
+		
+				<h2 class="m-5">Estadísticas del motor</h2>
+				<div>
+					<label for="validationServer03">Caballos de potencia</label> <input
+						type="text" class="form-control "
+						placeholder=""
+						name="horsepower" id="horsepower" id="horsepower"  pattern="[0-9]{1,19}" title="Solo acepta números, 1 valor mínimo" 
 						required>
-					<div class="valid-feedback">Looks good!</div>
+					
 				</div>
-				<div class="col-md-4 mb-3">
+				<div>
 					<label for="validationServer04">Torque</label> <input type="text"
-						class="form-control is-valid" placeholder="Last name"
-						name="torque" id="torque" pattern="[0-9]{1,19}" title="Solo acepta números, 1 valor mínimo" required>
-					<div class="valid-feedback">Looks good!</div>
+						class="form-control " 
+						placeholder=""
+						name="torque" id="torque" pattern="[0-9]{1,19}" title="Solo acepta números, 1 valor mínimo"
+						required>
+					
 				</div>
 
-			</fieldset>
 			<div class="form-group">
 				<div class="form-row">
-					<label class="mt-2 col-form-label" for="hybrid">Hybrid:</label>
+					<label class="mt-2 col-form-label" for="hybrid">Híbrido:</label>
 					<div class="form-check ml-1 mt-3">
-						<%
+					<%
 							Car c = new Car();
 						String hybridSelected = c.isHybrid() ? " checked=''checked'" : "";
 						%>
@@ -292,20 +327,20 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4 mb-3">
-				<label for="validationServer05">Number of Forward Gears</label> <input
-					type="text" class="form-control is-valid"
+			<div>
+				<label for="validationServer05">Número de marchas delanteras</label> <input
+					type="text" class="form-control "
 					name="numberofforwardgears" id="numberofforwardgears" pattern="[0-9]{0,19}" title="Solo acepta números"
 					required>
-				<div class="invalid-feedback">Please provide a valid number.</div>
 			</div>
-			<div class="form-group w-50">
-				<label>Driveline</label> <select class="custom-select"
+			<div class="form-group">
+				<label>Línea motriz</label> <select class="custom-select"
 					name="driveline" id="driveline" required>
 					<%
 						List<DriveLine> drivelines = (List<DriveLine>) request.getAttribute("drivelines");
 					if (drivelines != null) {
-						for (DriveLine dl : drivelines) {
+						for(DriveLine dl: drivelines){
+						
 					%>
 					<option value="<%=dl.getId()%>"><%=dl.getDriveLine()%></option>
 					<%
@@ -313,39 +348,39 @@
 					}
 					%>
 				</select>
-				<div class="invalid-feedback">Example invalid custom select
-					feedback</div>
+				
+					
 			</div>
-		</fieldset>
-		<h2 class="m-5 pb-5">Identification</h2>
-		<fieldset class="form-row m-5 pb-5 ">
-			<div class="col-md-4 mb-3">
-				<label for="validationServer08">Make</label> <input type="text"
-					class="form-control is-valid" placeholder="Last name" name="make"
-					id="make"  pattern="^[A-Z][A-Za-z]{2,19}$" title="La marca solo acepta letras y la primera en mayúsculas" required>
-				<div class="valid-feedback">Looks good!</div>
+
+		<h2 class="m-5">Identificación</h2>
+			<div>
+				<label for="validationServer08">Marca</label> <input
+					type="text" class="form-control " 
+					placeholder=""
+					name="make" id="make" pattern="^[A-Z][A-Za-z]{2,19}$" title="La marca solo acepta letras y la primera en mayúsculas" required>
+				
 			</div>
-			<div class="col-md-4 mb-3">
-				<label for="validationServer08">Model Year</label> <input
-					type="text" class="form-control is-valid" placeholder="Last name"
-					name="modelyear" id="modelyear"
-					required>
-				<div class="valid-feedback">Looks good!</div>
+			<div>
+				<label for="validationServer08">Año del modelo</label> <input
+					type="text" class="form-control " 
+					placeholder=""
+					name="modelyear" id="modelyear"  required>
+				
 			</div>
-			<div class="col-md-4 mb-3">
-				<label for="validationServer09">Name</label>
-				<input type="text"
-					class="form-control is-valid" placeholder="Last name" name="name"
-					id="name" data-toggle="tooltip" data-placement="right" title="El nombre debe ser único" required>
-				<div class="valid-feedback">Looks good!</div>
+			<div>
+				<label for="validationServer09">Nombre</label> <input type="text"
+					class="form-control "
+					placeholder=""
+					name="name" id="name" data-toggle="tooltip" data-placement="right" title="El nombre debe ser único" required>
+				
 			</div>
-			<div class="form-group w-50">
-				<label>Classification</label> <select class="custom-select"
+			<div class="form-group">
+				<label>Clasificación</label> <select class="custom-select"
 					name="classification" id="classification" required>
 					<%
 						List<Classification> classifications = (List<Classification>) request.getAttribute("classifications");
 					if (classifications != null) {
-						for (Classification cl : classifications) {
+						for(Classification cl: classifications){
 					%>
 					<option value="<%=cl.getId()%>"><%=cl.getClassification()%></option>
 					<%
@@ -353,62 +388,63 @@
 					}
 					%>
 				</select>
-				<div class="invalid-feedback">Example invalid custom select
-					feedback</div>
+				
+					
 			</div>
-			<div class="col-md-4 mb-3">
-				<label for="validationServer10">Year</label> <input type="text"
-					class="form-control is-valid" name="year" id="year" pattern="^(2009|2010|2011|2012)" title="El año solo acepta años del 2009 al 2012"
-					placeholder="Year" required>
-				<div class="valid-feedback">Looks good!</div>
-			</div>
-		</fieldset>
-
-		<h2 class="m-5 pb-5">Dimensions</h2>
-		<fieldset class="form-row m-5 pb-5 ">
-			<div class="col-md-4 mb-3">
-				<label for="validationServer12">Width</label> <input type="text"
-					name="width" id="width" pattern="[0-9]{0,19}" title="Solo acepta números" class="form-control is-valid"
-					placeholder="First name" required>
-				<div class="valid-feedback">Looks good!</div>
-			</div>
-			<div class="col-md-4 mb-3">
-				<label for="validationServer13">Length</label> <input type="text"
-					class="form-control is-valid" name="length" id="length" pattern="[0-9]{0,19}" title="Solo acepta números"
-					placeholder="Last name" required>
-				<div class="valid-feedback">Looks good!</div>
-			</div>
-			<div class="col-md-4 mb-3">
-				<label for="validationServer14">Height</label> <input type="text"
-					class="form-control is-valid" name="height" id="height" pattern="[0-9]{0,19}" title="Solo acepta números"
-					placeholder="Last name" required>
-				<div class="valid-feedback">Looks good!</div>
-			</div>
-
-		</fieldset>
-
-		<h2 class="m-5 pb-5">Fuel Information</h2>
-		<fieldset class="form-row m-5 pb-5 ">
-			<div class="col-md-4 mb-3">
-				<label for="validationServer15">Highway mpg</label> <input
-					type="text" class="form-control is-valid" name="highwaympg"
-					id="highwaympg" pattern="[0-9]{0,19}" title="Solo acepta números" placeholder="First name"
+			<div>
+				<label for="validationServer10">Año</label> <input type="text"
+					class="form-control "
+					name="year" id="year" pattern="^(2009|2010|2011|2012)" title="El año solo acepta años del 2009 al 2012" placeholder="Year"
 					required>
-				<div class="valid-feedback">Looks good!</div>
+				
 			</div>
-			<div class="col-md-4 mb-3">
-				<label for="validationServer16">City mph</label> <input type="text"
-					class="form-control is-valid" name="citymph" id="citymph" pattern="[0-9]{0,19}" title="Solo acepta números"
-					placeholder="Last name" required>
-				<div class="valid-feedback">Looks good!</div>
+
+		<h2 class="m-5">Dimensiones</h2>
+
+			<div>
+				<label for="validationServer12">Anchura</label> <input type="text"
+					name="width" id="width" pattern="[0-9]{0,19}" title="Solo acepta números" class="form-control "
+					placeholder=""
+					required>
+				
 			</div>
-			<div class="form-group w-50">
-				<label>Fuel Type</label> <select class="custom-select"
-					name="fuelType" id="fuelType" required>
+			<div>
+				<label for="validationServer13">Longitud</label> <input type="text"
+					class="form-control " 
+					name="length" id="length" pattern="[0-9]{0,19}" title="Solo acepta números" placeholder=""
+					required>
+				
+			</div>
+			<div>
+				<label for="validationServer14">Altura</label> <input type="text"
+					class="form-control "
+					name="height" id="height" pattern="[0-9]{0,19}" title="Solo acepta números" placeholder=""
+					required>
+				
+			</div>
+
+		<h2 class="m-5">Información del combustible</h2>
+			<div>
+				<label for="validationServer15">Mpg en carretera</label> <input
+					type="text" class="form-control " 
+					name="highwaympg" id="highwaympg" pattern="[0-9]{0,19}" title="Solo acepta números" placeholder=""
+					required>
+				
+			</div>
+			<div>
+				<label for="validationServer16">Mph en ciudad</label> <input type="text"
+					class="form-control "
+					name="citymph" id="citymph" pattern="[0-9]{0,19}" title="Solo acepta números" placeholder=""
+					required>
+				
+			</div>
+			<div class="form-group">
+				<label>Tipo de combustible</label> <select class="custom-select" name="fuelType" id="fuelType"
+					required>
 					<%
 						List<Fuel> fueltypes = (List<Fuel>) request.getAttribute("fueltypes");
 					if (fueltypes != null) {
-						for (Fuel ft : fueltypes) {
+						for(Fuel ft: fueltypes){
 					%>
 					<option value="<%=ft.getId()%>"><%=ft.getFuelType()%></option>
 					<%
@@ -416,26 +452,28 @@
 					}
 					%>
 				</select>
-				<div class="invalid-feedback">Example invalid custom select
-					feedback</div>
+				
+					
 			</div>
-
-
+			
 			<div class="file-loading">
 				<input id="input-id" name="image" type="file" class="file"  data-preview-file-type="text" multiple
 					accept="image" multiple>
 			
 			</div>
-
-		</fieldset>
+		
 		<button class="btn btn-primary btn-lg" type="submit">Insertar</button>
-	</form>
-	
-	
+		
+                        </form>
+            
 	<button class="btn btn-primary hBack" onclick="location.href = 'http://localhost:8080/proyecto-web/';">REGRESAR A
 		LOS COCHES</button>
-
-<div class="loader text-center">
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+	<div class="loader text-center">
     <div class="loader-inner">
         <div class="lds-roller mb-3">
             <div></div>
@@ -543,8 +581,6 @@ $(function () {
             $('.loader').hide(300);
         }, 2000);
     });
-
-
 
     $(window).on('load', function () {
         var loadingCounter = setInterval(function () {
