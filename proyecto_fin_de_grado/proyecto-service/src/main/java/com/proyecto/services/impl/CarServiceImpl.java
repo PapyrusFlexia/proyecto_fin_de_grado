@@ -76,6 +76,9 @@ public class CarServiceImpl implements CarService {
 		return carDao.findPaginationCars(pageSize, paginaActual);
 	}
 
+	/** Recoge todos los coches
+	 *
+	 */
 	public long getTotalCar() {
 		if (totalCar == 0) {
 			getCars(-1, -1);
@@ -149,7 +152,7 @@ public class CarServiceImpl implements CarService {
 	}
 
 	/**
-	 * Obtiene el n�mero de coches que cumplen el predicado
+	 * Obtiene el número de coches que cumplen el predicado
 	 * 
 	 * @param p
 	 * @return
@@ -166,7 +169,7 @@ public class CarServiceImpl implements CarService {
 	}
 
 	/**
-	 * Obtiene el n�mero de coches que cumplen el predicado
+	 * Obtiene el número de coches que cumplen el predicado
 	 * 
 	 * @param p
 	 * @return
@@ -190,21 +193,8 @@ public class CarServiceImpl implements CarService {
 		return cars.stream().sorted().collect(Collectors.toList()).subList(start, end);
 	}
 
-	/*
-	 * public List<Car> getCars(int start, int end, Predicate<Car> p, CarComparator
-	 * comparator, int limit){
-	 * 
-	 * List<Car> cars = getCars( start, end, p, comparator); return
-	 * cars.stream().limit(limit).collect(Collectors.toList()); }
-	 */
-
-	/**
-	 * public Optional<Car> getCarByPk(int pk) {
-	 * 
-	 * List<Car> cars = getCars(-1, -1); return cars.stream().filter(c -> c.getId()
-	 * == pk).findFirst(); }
-	 */
-
+	/* Llamadas al Dao */
+	
 	@Override
 	public Car getCarByPk(int pk) {
 		return carDao.getByPk(pk);
@@ -248,7 +238,7 @@ public class CarServiceImpl implements CarService {
 		return engineDao.save(e);
 	}
 
-	@Override // ELIMINADO ID MAKE y HYBRID
+	@Override
 	public int update(int id, String transmission, String engineType, int horsepower, int torque,
 			int numberofforwardgears, String driveline, String make, boolean hybrid, String modelyear, String name,
 			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
@@ -264,8 +254,6 @@ public class CarServiceImpl implements CarService {
 		carDao.save(c);
 		
 		return 0;
-
-	
 	}
 	
 	@Override 
@@ -274,8 +262,6 @@ public class CarServiceImpl implements CarService {
 		carImageDao.saveImage(ci);
 		
 		return 0;
-
-	
 	}
 	
 	@Override 
@@ -284,7 +270,6 @@ public class CarServiceImpl implements CarService {
 		userDao.save(u);
 		
 		return 0;
-
 	
 	}
 	
@@ -294,8 +279,6 @@ public class CarServiceImpl implements CarService {
 		bookingDao.saveBooking(b);
 		
 		return 0;
-
-	
 	}
 
 
@@ -305,6 +288,11 @@ public class CarServiceImpl implements CarService {
 
 	}
 
+	/** Obtiene marcas y modelos de los coches
+	 * @param start
+	 * @param stop
+	 * @return
+	 */
 	public List<Car> getMarcaModelo(int start, int stop) {
 
 		// comprobamos los parametros de entrada
@@ -330,6 +318,11 @@ public class CarServiceImpl implements CarService {
 
 	}
 
+	/**  Obtiene marcas, modelos y caballos de potencia de los coches
+	 * @param numberMax
+	 * @param horsepower
+	 * @return
+	 */
 	public List<Car> getMarcaModeloHorsePower(int numberMax, int horsepower) {
 		if (horsepower < 0) {
 			return null;
@@ -344,21 +337,17 @@ public class CarServiceImpl implements CarService {
 		};
 
 		List<Car> listCar = getMarcaModelo(-1, -1);
-		// List<Car> listCarReturn = new ArrayList<>();
-		// int counter = 0;
 		List<Car> listCarReturn1 = listCar.stream().filter(p).limit(numberMax).collect(Collectors.toList());
 
-		/*
-		 * for (Car car : listCar) { if
-		 * (car.getEngineinformation().getEnginestatistics().getHorsepower() >
-		 * horsepower) { listCarReturn.add(car); counter++; if (counter >= numberMax) {
-		 * break; } } }
-		 */
 		System.out.println(listCarReturn1.size());
 		return listCarReturn1;
 
 	}
 
+	/**  Obtiene marcas y modelos de los coches cuya clsificación sea automática
+	 * @param automatico
+	 * @return
+	 */
 	public List<Car> getMarcaModeloAutomaticos(String automatico) {
 		if (!automatico.equals("Automatic transmission")) {
 			return null;
@@ -373,21 +362,16 @@ public class CarServiceImpl implements CarService {
 		};
 
 		List<Car> listCar = getMarcaModelo(-1, -1);
-		// List<Car> listCarReturn = new ArrayList<>();
-		// int counter = 0;
 		List<Car> listCarReturn1 = listCar.stream().filter(p).collect(Collectors.toList());
 
-		/*
-		 * for (Car car : listCar) { if
-		 * (car.getIdentification().getClassification().equals("Automatic transmission"
-		 * )) { listCarReturn.add(car); counter++; if (counter >= listCar.size()) {
-		 * break; } } }
-		 */
 		System.out.println(listCarReturn1.size());
 		return listCarReturn1;
 
 	}
 
+	/**  Obtiene marcas de los coches
+	 *
+	 */
 	public List<String> getCarsMakes() {
 		List<Car> cars = getCars(-1, -1);
 		List<String> carsMakes = new ArrayList<>();
@@ -398,6 +382,9 @@ public class CarServiceImpl implements CarService {
 		return carsMakesSinDuplicados.stream().distinct().sorted().collect(Collectors.toList());
 	}
 
+	/**  Obtiene años de los coches
+	 *
+	 */
 	public List<Integer> getCarsYears() {
 		List<Car> cars = getCars(-1, -1);
 		List<Integer> carsYears = new ArrayList<>();
@@ -408,16 +395,9 @@ public class CarServiceImpl implements CarService {
 		return carsYearsSinDuplicados.stream().distinct().sorted().collect(Collectors.toList());
 	}
 
-	/**
-	 * public List<Boolean> getCarsHybrids() { List<Car> cars = getCars(-1, -1);
-	 * List<Boolean> carsHybrids = new ArrayList<>(); List<Boolean>
-	 * carsHybridsSinDuplicados = new ArrayList<>(new HashSet<>(carsHybrids)); for
-	 * (int i = 0; i < cars.size(); i++) {
-	 * carsHybridsSinDuplicados.add(cars.get(i).getEngine().isHybrid()); } return
-	 * carsHybridsSinDuplicados.stream().distinct().sorted().collect(Collectors.toList());
-	 * }
+	/**  Obtiene clasificaciones de los coches
+	 *
 	 */
-
 	public List<String> getCarsClassificationsTabla() {
 		List<Car> cars = getCars(-1, -1);
 		List<String> carsClassifications = new ArrayList<>();
@@ -427,11 +407,6 @@ public class CarServiceImpl implements CarService {
 		}
 		return carsClassificationsSinDuplicados.stream().distinct().sorted().collect(Collectors.toList());
 	}
-
-	/**
-	 * public long getCarsCount(Predicate<Car> p) { return (long) getCars(-1,
-	 * -1).stream().filter(p).count(); }
-	 */
 
 	public List<Car> getCarsCount(int m) {
 
@@ -443,6 +418,9 @@ public class CarServiceImpl implements CarService {
 		return totalCar;
 	}
 
+	/**  Obtiene drivelines de los coches
+	 *
+	 */
 	public List<String> getCarsDrivelines() {
 		List<Car> cars = getCars(-1, -1);
 		List<String> carsDrivelines = new ArrayList<>();
@@ -452,6 +430,9 @@ public class CarServiceImpl implements CarService {
 		return carsDrivelines.stream().distinct().sorted().collect(Collectors.toList());
 	}
 
+	/**  Obtiene clasificaciones de los coches
+	 *
+	 */
 	public List<String> getCarsClassifications() {
 		List<Car> cars = getCars(-1, -1);
 		List<String> carsClassifications = new ArrayList<>();
@@ -461,6 +442,9 @@ public class CarServiceImpl implements CarService {
 		return carsClassifications.stream().distinct().sorted().collect(Collectors.toList());
 	}
 
+	/**  Obtiene años de los coches
+	 *
+	 */
 	public List<Integer> getCarsAnnos() {
 		List<Car> cars = getCars(-1, -1);
 		List<Integer> carsYears = new ArrayList<>();
@@ -470,6 +454,9 @@ public class CarServiceImpl implements CarService {
 		return carsYears.stream().distinct().sorted().collect(Collectors.toList());
 	}
 
+	/**  Obtiene tipos de combustibles de los coches
+	 *
+	 */
 	public List<String> getCarsFuelTypes() {
 		List<Car> cars = getCars(-1, -1);
 		List<String> carsFuelTypes = new ArrayList<>();
@@ -479,6 +466,9 @@ public class CarServiceImpl implements CarService {
 		return carsFuelTypes.stream().distinct().sorted().collect(Collectors.toList());
 	}
 
+	/**  Obtiene transmisiones de los coches
+	 * @return
+	 */
 	public List<String> getCarsTransmissions() {
 		List<Car> cars = getCars(-1, -1);
 		List<String> carsTransmissions = new ArrayList<>();
@@ -488,17 +478,12 @@ public class CarServiceImpl implements CarService {
 		return carsTransmissions.stream().distinct().sorted().collect(Collectors.toList());
 	}
 
-	/**
-	 * public List<Boolean> getHybrid() { List<Car> cars = getCars(-1, -1);
-	 * List<Boolean> carsHybrid = new ArrayList<>(); for (int i = 0; i <
-	 * cars.size(); i++) { carsHybrid.add(cars.get(i).getEngine().isHybrid()); }
-	 * return carsHybrid.stream().distinct().sorted().collect(Collectors.toList());
-	 * }
+	/** Comparación de coches
+	 *
 	 */
-
 	public List<Car> getCarsCompare(int start, int end, List<Predicate<Car>> ps, CarComparator comparator) {
 		long total = getCarsCount(ps);
-		List<Car> cars = getCars(0, (int) total, ps); ///////////
+		List<Car> cars = getCars(0, (int) total, ps); 
 		if (start < 0) {
 			start = 0;
 		}

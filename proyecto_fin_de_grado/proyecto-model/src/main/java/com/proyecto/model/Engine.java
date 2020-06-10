@@ -113,6 +113,4 @@ public class Engine implements Serializable {
 				+ ", enginetype=" + enginetype + ", fueltype=" + fueltype + "]";
 	}
 
-	
-
 }

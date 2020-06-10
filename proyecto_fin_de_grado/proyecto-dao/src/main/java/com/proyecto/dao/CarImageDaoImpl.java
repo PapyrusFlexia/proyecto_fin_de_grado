@@ -21,6 +21,10 @@ import com.proyecto.model.User;
 @Transactional
 public class CarImageDaoImpl extends AbstractDao<Serializable, CarImage> implements CarImageDao {
 
+	/** Función que encuentra imágenes de los coches por nombre
+	 * @param name
+	 * @return
+	 */
 	public CarImage findCarImageByName(String name) {
 
 		try {
@@ -32,6 +36,9 @@ public class CarImageDaoImpl extends AbstractDao<Serializable, CarImage> impleme
 		}
 	}
 	
+	/** Función que encuentra imágenes de los coches por el id del coche
+	 *
+	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public CarImage getCarImageByCarId(int carid) {
@@ -45,6 +52,9 @@ public class CarImageDaoImpl extends AbstractDao<Serializable, CarImage> impleme
 		}
 	}
 	
+	/** Función que encuentra imágenes de los coches
+	 *
+	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<String> getCarImages() { 
@@ -55,6 +65,9 @@ public class CarImageDaoImpl extends AbstractDao<Serializable, CarImage> impleme
 		return listCarImages;
 	}
 	
+	/** Función que encuentra todas las imágenes de los coches 
+	 *
+	 */
 	@Override
 	public long totalCarImage() {
 		long totalCarImage = (long) getEntityManager().createQuery("SELECT COUNT (ci.id) FROM CarImage ci")
@@ -62,6 +75,9 @@ public class CarImageDaoImpl extends AbstractDao<Serializable, CarImage> impleme
 		return totalCarImage;
 	}
 
+	/** Función que hace un persist del las imágenes de los coches
+	 *
+	 */
 	@Override
 	public CarImage saveImage(CarImage ci) {
 
@@ -69,6 +85,9 @@ public class CarImageDaoImpl extends AbstractDao<Serializable, CarImage> impleme
 
 	}
 
+	/** Función que encuentra todas imágenes de los coches
+	 *
+	 */
 	@SuppressWarnings("unchecked")
 	public List<CarImage> findAllCarImages() {
 		List<CarImage> carImages = getEntityManager().createQuery("SELECT ci FROM CarImage ci ORDER BY ci.id ASC")
@@ -76,6 +95,9 @@ public class CarImageDaoImpl extends AbstractDao<Serializable, CarImage> impleme
 		return carImages;
 	}
 
+	/** Función que elimina imágenes de los coches por id
+	 *
+	 */
 	public void deleteById(String id) {
 		CarImage region = (CarImage) getEntityManager().createQuery("SELECT ci FROM CarImage ci WHERE ci.id = :id")
 				.setParameter("id", id).getSingleResult();
@@ -83,6 +105,9 @@ public class CarImageDaoImpl extends AbstractDao<Serializable, CarImage> impleme
 	}
 
 
+	/** Función que encuentra imágenes de los coches por la clave principal
+	 *
+	 */
 	public CarImage getByPk(Integer key) {
 		return getByKey(key);
 	}

@@ -122,6 +122,9 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		return listId;
 	}
 
+	/** Función que recoge cla clave prncipal de un coche
+	 *
+	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Integer> getCarsPk() {
@@ -132,6 +135,10 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		return listPk;
 	}
 
+	/** Función que encuentra coches por id
+	 * @param id
+	 * @return
+	 */
 	public Car findCarById(int id) {
 
 		try {
@@ -143,6 +150,10 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		}
 	}
 
+	/** Función que encuentra coches por nombre
+	 * @param name
+	 * @return
+	 */
 	public Car findCarByName(String name) {
 
 		try {
@@ -154,6 +165,9 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		}
 	}
 
+	/** Función que encuentra coches por año
+	 *
+	 */
 	public List<Car> findYearByName(int name) {
 
 		try {
@@ -165,6 +179,9 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		}
 	}
 
+	/** Función que encuentra coches por marca
+	 *
+	 */
 	public List<Car> findMakeByName(String name) {
 
 		try {
@@ -176,6 +193,9 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		}
 	}
 
+	/** Función que encuentra coches por híbrido y los ordena por híbrido
+	 *
+	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Boolean> getCarsHybrids() {
@@ -186,6 +206,9 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		return listCarsHybrids;
 	}
 
+	/** Función que encuentra coches por híbrido
+	 *
+	 */
 	public List<Car> findHybridByName(Boolean name) {
 
 		try {
@@ -198,6 +221,9 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		}
 	}
 
+	/** Función que encuentra coches por clasificación
+	 *
+	 */
 	public List<Car> findClassificationByName(int name) {
 
 		try {
@@ -210,14 +236,19 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		}
 	}
 
+	/** Función que encuentra todos los coches
+	 *
+	 */
 	@Override
 	public long totalCar() {
 		long totalCar = (long) getEntityManager().createQuery("SELECT COUNT (c.id) FROM Car c").getSingleResult();
 		return totalCar;
 	}
 
-	// CREAR METODOS PARA LOS FILTROS //////////////
 
+	/** Función que busca coches por nombre y los guarda
+	 *
+	 */
 	@Override
 	public Car save(Car c) {
 		Car c1 = findCarByName(c.getName());
@@ -227,22 +258,29 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		return c1;
 	}
 
+	/** Función que busca todos los coches
+	 *
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Car> findAllCars() {
 		List<Car> cars = getEntityManager().createQuery("SELECT c FROM Car c ORDER BY c.id ASC").getResultList();
 		return cars;
 	}
 
+	/** Función que elimina coches por id
+	 *
+	 */
 	public void deleteById(String id) {
 		Car car = (Car) getEntityManager().createQuery("SELECT c FROM Car c WHERE c.id = :id").setParameter("id", id)
 				.getSingleResult();
 		delete(car);
 	}
 
-	/**
-	 * public Car update(Car c) { return update(c); }
-	 */
+	
 
+	/** Función que actualiza los coches
+	 *
+	 */
 	public int update(int id, String transmission, String enginetype, int horsepower, int torque,
 			int numberofforwardgears, String driveline, String make, boolean hybrid, String modelyear, String name,
 			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
@@ -263,6 +301,9 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		return executed;
 	}
 
+	/** Función que inserta los coches
+	 *
+	 */
 	public int insert(int id, String transmission, String enginetype, int horsepower, int torque,
 			int numberofforwardgears, int pk, String driveline, String make, String modelyear, String name,
 			String classification, int year, int width, int length, int height, int highwaympg, int citymph,
@@ -284,6 +325,9 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		return executed;
 	}
 
+	/** Función que elimina coches por id
+	 *
+	 */
 	public int delete(int id) {
 
 		int executed = getEntityManager().createQuery("DELETE FROM Car c WHERE c.id = :id").setParameter("id", id)
@@ -292,10 +336,9 @@ public class CarDaoImpl extends AbstractDao<Serializable, Car> implements CarDao
 		return executed;
 	}
 
-	/**
-	 * Query check = getEntityManager() .createQuery("SELECT c FROM Car c WHERE name
-	 * = :name and engineType = :engineType") .setParameter("name",
-	 * params.get("c.name")).setParameter("engineType", params.get("c.enginetype"));
+
+	/** Función que recoge la clave principal de un coche
+	 *
 	 */
 	public Car getByPk(Integer key) {
 		return getByKey(key);

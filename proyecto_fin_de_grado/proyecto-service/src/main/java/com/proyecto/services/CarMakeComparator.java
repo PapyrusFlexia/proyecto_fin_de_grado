@@ -11,6 +11,9 @@ public class CarMakeComparator extends CarComparator implements Comparator<Car>{
 		super.asc = asc;
 	}
 	
+	/** Comparación de marcas de los coches
+	 *
+	 */
 	@Override
 	public int compare(Car car1, Car car2) {
 

@@ -20,7 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import com.proyecto.model.Car;
 
 public class DatabaseJson {
-
+	// Esta clase guarda los datos del JSON de coches para que al hacer el persist se suba a la base de datos
     private static JSONArray _jsonArray = new JSONArray();
 
     private static final Logger _log = Logger.getLogger(DatabaseJson.class.getName());

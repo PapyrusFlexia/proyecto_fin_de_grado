@@ -2,6 +2,7 @@ package com.proyecto.services.impl;
 
 import java.util.ArrayList;
 
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,18 +17,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.proyecto.dao.UserDao;
-import com.proyecto.model.UserProfile;
+
 
 @Service("userService")
 public class UserServiceImpl implements UserDetailsService {
-
+	/* Control del login */
 	@Autowired
 	private UserDao userDao;
 
 	/*
-	
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12); // Strength set as 12
-String encodedPassword = encoder.encode("UserPassword");
+	String encodedPassword = encoder.encode("UserPassword");
 	*/
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -39,7 +39,7 @@ String encodedPassword = encoder.encode("UserPassword");
 		return buildUserForAuthentication(u, authorities);
 	}
 
-	// Converts com.proyecto.model.User user to
+	// Convierte com.proyecto.model.User user a
 	// org.springframework.security.core.userdetails.User
 	private User buildUserForAuthentication(com.proyecto.model.User user, List<GrantedAuthority> authorities) {
 		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
@@ -48,11 +48,6 @@ String encodedPassword = encoder.encode("UserPassword");
 	private List<GrantedAuthority> buildUserAuthority() {
 
 		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
-
-		// Build user's authorities
-	/**	for (UserProfile userRole : userRoles	) {
-			setAuths.add(new SimpleGrantedAuthority("UER"));
-		} */
 
 		List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
 

@@ -15,6 +15,9 @@ import com.proyecto.model.User;
 @Transactional
 public class ClassificationDaoImpl extends AbstractDao<Integer, Classification> implements ClassificationDao {
 
+	/** Función que encuentra clasificaciones
+	 *
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Classification> findClassifications() {
@@ -27,6 +30,9 @@ public class ClassificationDaoImpl extends AbstractDao<Integer, Classification> 
 		}
 	}
 
+	/** Función que encuentra clasificaciones por nombre
+	 *
+	 */
 	public Classification findClassificationByName(String name) {
 
 		try {
@@ -39,6 +45,9 @@ public class ClassificationDaoImpl extends AbstractDao<Integer, Classification> 
 		}
 	}
 	
+	/** Función que encuentra clasificaciones por id
+	 *
+	 */
 	public Classification findClassificationById(int id) {
 
 		try {
@@ -51,6 +60,9 @@ public class ClassificationDaoImpl extends AbstractDao<Integer, Classification> 
 		}
 	}
 
+	/** Función que elimina clasificaciones por id
+	 *
+	 */
 	public void deleteById(String id) {
 		Classification cl = (Classification) getEntityManager()
 				.createQuery("SELECT cl FROM Classification cl WHERE cl.id = :id").setParameter("id", id)
@@ -58,6 +70,9 @@ public class ClassificationDaoImpl extends AbstractDao<Integer, Classification> 
 		delete(cl);
 	}
 
+	/** Función que encuentra clasificaciones por nombre y las guarda
+	 *
+	 */
 	@Override
 	public Classification save(Classification c) {
 		if (findClassificationByName(c.getClassification()) == null) {
@@ -66,6 +81,9 @@ public class ClassificationDaoImpl extends AbstractDao<Integer, Classification> 
 		return c;
 	}
 
+	/** Función que encuentra todas las clasificaciones
+	 *
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Classification> findAllClassifications() {
 		List<Classification> classifications = getEntityManager().createQuery("SELECT cl FROM Classification cl ORDER BY cl.id ASC")
@@ -73,6 +91,9 @@ public class ClassificationDaoImpl extends AbstractDao<Integer, Classification> 
 		return classifications;
 	}
 
+	/** Función que encuentra clasificaciones por clave principal
+	 *
+	 */
 	public Classification getByPk(Integer key) {
 		return getByKey(key);
 	}

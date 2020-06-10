@@ -47,28 +47,27 @@ th {
 <link href="assets/css/style.css" rel="stylesheet">
 <style>
 #busqueda {
-  background-position: 10px 12px; /* Position the search icon */
-  background-repeat: no-repeat; /* Do not repeat the icon image */
-  width: 100%; /* Full-width */
-  font-size: 18px; /* Increase font-size */
-  padding: 12px 20px 12px 40px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%; 
+  font-size: 18px; 
+  padding: 12px 20px 12px 40px; 
+  border: 1px solid #ddd; 
+  margin-bottom: 12px; 
 }
 
 #myTable {
-  border-collapse: collapse; /* Collapse borders */
-  width: 100%; /* Full-width */
-  border: 1px solid #ddd; /* Add a grey border */
-  font-size: 16px; /* Increase font-size */
+  border-collapse: collapse; 
+  width: 100%; 
+  border: 1px solid #ddd; 
+  font-size: 16px; 
 }
 
 #myTable th, #myTable td {
-  padding: 13px; /* Add padding */
+  padding: 13px; 
 }
 
 #myTable tr {
-  /* Add a bottom border to all table rows */
   border-bottom: 1px solid #ddd;
 }
 
@@ -157,12 +156,12 @@ th {
     }
 }
 
-
 </style>
 </head>
 
 <body>
 	<%
+	// Recogida de atributos y control de nulos
 		String paginaActual = (String) request.getAttribute("page");
 	int siguiente = -1;
 	int anterior = -1;
@@ -213,7 +212,7 @@ th {
 		anterior = paginaComienzo - 1;
 	}
 	siguiente = paginaComienzo + 1;
-
+// Creación de tablas que se rellenaran con los atributos
 	List<String> idTabla = (List<String>) request.getAttribute("id");
 	List<String> modeloTabla = (List<String>) request.getAttribute("makes");
 	List<Boolean> hybridTabla = (List<Boolean>) request.getAttribute("hybrids");
@@ -358,7 +357,7 @@ th {
 								<%}%>><a class="page-link" <%if (anterior > 0) {%>
 								href="./?action=paginacion&page=<%=anterior%>" <%}%>
 								<%if (anterior < 0 && annoFiltro != null && modeloFiltro != null && hybridFiltro != null
-		&& classificationFiltro != null) {%>
+									&& classificationFiltro != null) {%>
 								tabindex="-1" aria-disabled="true" <%}%>>Anterior</a></li>
 							<%
 								if (anterior > 0) {
@@ -987,7 +986,7 @@ th {
 		return url;
 	}%>
 	<script type="text/javascript">
-	
+	// Control de filtros y paginación
 		$(document)
 				.ready(
 						function() {
@@ -1082,6 +1081,7 @@ th {
 	</script>
 
 	<script>
+	//Filtros por orden
 		function sortYear(n) {
 			var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 			table = document.getElementById("myTable");
@@ -1208,15 +1208,16 @@ th {
 			}
 		}
 		
+		// Búsqueda
 		function buscar() {
-		  // Declare variables
+		  // Declaración de variables
 		  var input, filter, table, tr, td, i, txtValue;
 		  input = document.getElementById("busqueda");
 		  filter = input.value.toUpperCase();
 		  table = document.getElementById("myTable");
 		  tr = table.getElementsByTagName("tr");
 
-		  // Loop through all table rows, and hide those who don't match the search query
+		  //Bucle en todas las filas de la tabla, escondiendo las que no se seleccion en la query
 		  for (i = 0; i < tr.length; i++) {
 		    td = tr[i].getElementsByTagName("td")[1];
 		    if (td) {
@@ -1229,7 +1230,7 @@ th {
 		    }
 		  }
 		}
-		
+	// Populates
 		 function spinCar() {
 	    	  var x = document.getElementById("populateSpinCar");
 	    	  if (x.style.display === "none") {

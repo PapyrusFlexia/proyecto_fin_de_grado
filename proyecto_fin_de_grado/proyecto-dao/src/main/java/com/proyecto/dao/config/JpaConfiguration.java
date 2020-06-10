@@ -48,7 +48,7 @@ public class JpaConfiguration {
 	}
 
 	/*
-	 * Provider specific adapter.
+	 * Adaptador específico del proveedor
 	 */
 	@Bean
 	public JpaVendorAdapter jpaVendorAdapter() {
@@ -57,7 +57,7 @@ public class JpaConfiguration {
 	}
 
 	/*
-	 * Here you can specify any provider specific properties.
+	 * Aquí puede especificar las propiedades específicas de cualquier proveedor
 	 */
 	private Properties jpaProperties() {
 		Properties properties = new Properties();

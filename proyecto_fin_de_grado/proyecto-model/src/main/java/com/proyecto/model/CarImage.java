@@ -62,7 +62,10 @@ public class CarImage implements Serializable {
 	public void setCarid(Integer carid) {
 		this.carid = carid;
 	}
-
+	
+	/** Transforma el tipo de image de byte[] a Base64
+	 * @return
+	 */
 	public String getImageInBase64() {
 		return Base64.getEncoder().encodeToString(this.image);
 

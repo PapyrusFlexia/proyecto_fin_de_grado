@@ -49,7 +49,6 @@ public interface CarService {
 	
 	int delete(int id);
 
-
 	public List<Car> getCars();
 
 	public long getTotalCar();
@@ -66,10 +65,7 @@ public interface CarService {
 
 	public List<Integer> getCarsYears();
 
-	//public List<Boolean> getCarsHybrids();
-
 	public List<String> getCarsClassificationsTabla();
-
 
 	public List<String> getCarsDrivelines();
 
@@ -78,21 +74,11 @@ public interface CarService {
 	public List<Integer> getCarsAnnos();
 
 	public List<String> getCarsFuelTypes();
-
-	//public List<Boolean> getHybrid();
 	
 	public long  totalCar();
 
 	public List<Car> getCarsCompare(int start, int end, List<Predicate<Car>> plist, CarComparator carComparator);
 
 	CarImage getCarImageByCarPk(int carid);
-
-
-
-	
-
-
-
-	
 
 }

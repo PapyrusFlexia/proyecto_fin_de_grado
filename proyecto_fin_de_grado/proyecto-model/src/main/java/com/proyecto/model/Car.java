@@ -46,29 +46,19 @@ public class Car implements Comparable<Car>, Serializable {
 	@JoinColumn(name = "DRIVELINE_ID", referencedColumnName = "ID")
 	private DriveLine driveline;
 
-	// @NotNull
-	// @Column(name = "HYBRID", nullable = false) ///////// CAMBIADO
-	// private Boolean hybrid;
-
 	@NotNull
-	@Column(name = "NUMBEROFFORWARDGEARS", nullable = false) ///////// CAMBIADO
+	@Column(name = "NUMBEROFFORWARDGEARS", nullable = false) 
 	private int numberofforwardgears;
 
 	@NotNull
-	@Column(name = "HORSEPOWER", nullable = false) ///////// CAMBIADO
+	@Column(name = "HORSEPOWER", nullable = false) 
 	private int horsepower;
 
 	@NotNull
-	@Column(name = "TORQUE", nullable = false) ///////// CAMBIADO
+	@Column(name = "TORQUE", nullable = false)
 	private int torque;
 
 	// Dimensions
-	/*
-	 * @NotNull
-	 * 
-	 * @Column(name = "DIMENSIONNAME", nullable = false) /////////// NUEVO private
-	 * String dimensionname;
-	 */
 
 	@NotNull
 	@Column(name = "WIDTH", nullable = false)
@@ -97,31 +87,12 @@ public class Car implements Comparable<Car>, Serializable {
 	@Column(name = "HIGHWAYMPG", nullable = false)
 	private int highwaympg;
 
-	// Region
-
-	/*
-	 * @NotNull
-	 * 
-	 * @Column(name = "REGIONNAME", nullable = false) /////////// NUEVO private
-	 * String regionname;
-	 * 
-	 * @NotNull
-	 * 
-	 * @Column(name = "PRICE", nullable = false) private int price;
-	 */
-
 	// Car
 
 	@NotNull
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "CLASSIFICATION_ID", referencedColumnName = "ID")
 	private Classification classification;
-
-	// @NotNull
-	// @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade =
-	// CascadeType.MERGE)
-	// @JoinColumn(name = "MAKE_ID", referencedColumnName = "ID")
-	// private Make make;
 
 	@NotEmpty
 	@Column(name = "MAKE", nullable = false)
@@ -142,14 +113,6 @@ public class Car implements Comparable<Car>, Serializable {
 	@NotNull
 	@Column(name = "YEAR", nullable = false)
 	private int year;
-
-	/*
-	 * @NotNull
-	 * 
-	 * @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-	 * 
-	 * @JoinColumn(name = "car_id") private List<CarImage> carImages;
-	 */
 
 	public Car() {
 
@@ -342,6 +305,9 @@ public class Car implements Comparable<Car>, Serializable {
 		this.year = year;
 	}
 
+	/** Comparación de ids
+	 *
+	 */
 	@Override
 	public int compareTo(Car o) {
 
@@ -352,6 +318,9 @@ public class Car implements Comparable<Car>, Serializable {
 		}
 	}
 
+	/** Control de ids erroneos
+	 *
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		Car c1 = (Car) obj;

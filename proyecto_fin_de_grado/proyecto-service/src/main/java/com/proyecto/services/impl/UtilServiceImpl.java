@@ -47,21 +47,13 @@ public class UtilServiceImpl implements UtilsService {
 	@Autowired
 	private EngineDao engineDao;
 	
-	//@Autowired
-	//private EngineStatisticsDaoImpl engineStatisticsDao;
-	
 	@Autowired
 	private ClassificationDao classificationDao;
 	
 	@Autowired
 	private CarDao carDao;
 	
-	/**
-	 * Obtiene las marcas distintas de los coches
-	 * 
-	 * @return
-	 */
-	
+	/* Llamadas al Dao */
 	public List<String> getCarsImages() {
 
 		return carImageDao.getCarImages();
@@ -82,11 +74,6 @@ public class UtilServiceImpl implements UtilsService {
 		return carDao.getCarsMakesFilter(m);
 	}
 
-	/**
-	 * Obtiene los a�os distintos de los veh�culos
-	 * 
-	 * @return
-	 */
 	public List<Integer> getCarsYears() {
 
 		return carDao.getCarsYears();
@@ -127,8 +114,6 @@ public class UtilServiceImpl implements UtilsService {
 		return transmissionDao.findTransmissions();
 	}
 
-
-
 	public Car saveMake(Car m) {
 
 		return makeDao.save(m);
@@ -149,13 +134,10 @@ public class UtilServiceImpl implements UtilsService {
 		return transmissionDao.save(t);
 	}
 	
-	
-	
 	public Classification saveClassification(Classification c) {
 
 		return classificationDao.save(c);
 	}
-	
 	
 	public Car getMakeByName(String m) throws Exception{
 		Car make = makeDao.findMakeByName(m);

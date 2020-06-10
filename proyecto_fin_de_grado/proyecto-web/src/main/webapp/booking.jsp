@@ -88,10 +88,10 @@
 				<ul>
 
 
-					<li class="get-started"><a
+					<li class="get-started text-light"><a
 						onclick="location.href = 'http://localhost:8080/proyecto-web/login';">Acceso</a></li>
 
-					<li class="get-started"><a
+					<li class="get-started text-light"><a
 						onclick="location.href = 'http://localhost:8080/proyecto-web/';">Home</a></li>
 			</nav>
 
@@ -272,8 +272,7 @@
 		}
 		return url;
 	}%>
-
-
+<!--  Datatable -->
 	<script>
 		$(document)
 				.ready(
@@ -329,7 +328,7 @@
 						});
 	</script>
 
-
+<!--  Seleccionar fechas (el segundo datepicker coge fechas a partir de la final seleccionada en el primero -->
 	<script>
 		$(function() {
 			let $dt1 = $("#startdate").datepicker({

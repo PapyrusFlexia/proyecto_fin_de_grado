@@ -75,7 +75,6 @@
 
 }
 
-/* only used for background overlay not needed for centering */
 form:before {
     content: '';
     height: 100%;
@@ -197,6 +196,10 @@ form[action*="./update"] {
     }
 }
 
+input { 
+    text-align: center; 
+}
+
 </style>
 
 </head>
@@ -257,7 +260,7 @@ form[action*="./update"] {
     <div id="cover-caption">
         <div class="container">
             <div class="row">
-<div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+<div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 mx-auto text-center form p-4">
                                        <h1 class="display-4 py-2 text-truncate">Actualizar</h1>
                         <form action="./update" method="post" enctype="multipart/form-data" class="justify-content-center">
 		<input type="hidden" name="action" value="updateCar" /> <input type="hidden" name="pk" value="<%=car.getId()%>" /> <input type="hidden" name="redirect" value="./<%=encodeValue(request.getAttribute("redirect").toString()) %>" />
@@ -512,6 +515,7 @@ form[action*="./update"] {
 		return result;
 	}%>
 	<script>
+	//Validación bootstrap
 	(function() {
 		  'use strict';
 		  window.addEventListener('load', function() {

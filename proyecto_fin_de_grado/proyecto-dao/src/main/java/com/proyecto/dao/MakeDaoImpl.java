@@ -15,6 +15,9 @@ import com.proyecto.model.User;
 @Transactional
 public class MakeDaoImpl extends AbstractDao<Integer, Car> implements MakeDao {
 
+	/** Función que encuentra marcas
+	 *
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Car> findMakes() {
@@ -26,6 +29,9 @@ public class MakeDaoImpl extends AbstractDao<Integer, Car> implements MakeDao {
 		}
 	}
 
+	/** Función que encuentra marcas por nombre
+	 *
+	 */
 	public Car findMakeByName(String name) {
 
 		try {
@@ -37,6 +43,9 @@ public class MakeDaoImpl extends AbstractDao<Integer, Car> implements MakeDao {
 		}
 	}
 
+	/** Función que encuentra marcas por nombre y las guarda
+	 * 
+	 */
 	@Override
 	public Car save(Car m) {
 		if (findMakeByName(m.getMake()) == null) {
@@ -45,6 +54,9 @@ public class MakeDaoImpl extends AbstractDao<Integer, Car> implements MakeDao {
 		return m;
 	}
 
+	/** Función que encuentra todas las marcas 
+	 *
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Car> findAllMakes() {
 		List<Car> makes = getEntityManager().createQuery("SELECT m FROM Car m ORDER BY m.id ASC")
@@ -52,12 +64,18 @@ public class MakeDaoImpl extends AbstractDao<Integer, Car> implements MakeDao {
 		return makes;
 	}
 
+	/** Función que elimina marcas por id
+	 *
+	 */
 	public void deleteById(String id) {
 		Car m = (Car) getEntityManager().createQuery("SELECT m FROM Car m WHERE m.id = :id").setParameter("id", id)
 				.getSingleResult();
 		delete(m);
 	}
 
+	/** Función que encuentra marcas por clave principal
+	 *
+	 */
 	public Car getByPk(Integer key) {
 		return getByKey(key);
 	}

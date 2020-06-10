@@ -16,6 +16,9 @@ import com.proyecto.model.User;
 @Transactional
 public class DriveLineDaoImpl extends AbstractDao<Integer, DriveLine> implements DriveLineDao {
 
+	/** Función que encuentra drivelines
+	 *
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<DriveLine> findDriveLines() {
@@ -27,7 +30,10 @@ public class DriveLineDaoImpl extends AbstractDao<Integer, DriveLine> implements
 			return null;
 		}
 	}
-
+ 
+	/** Función que encuentra drivelines por nombre
+	 *
+	 */
 	public DriveLine findDriveLineByName(String name) {
 
 		try {
@@ -40,6 +46,9 @@ public class DriveLineDaoImpl extends AbstractDao<Integer, DriveLine> implements
 		}
 	}
 	
+	/** Función que encuentra drivelines por id
+	 *
+	 */
 	public DriveLine findDriveLineById(int id) {
 
 		try {
@@ -52,6 +61,9 @@ public class DriveLineDaoImpl extends AbstractDao<Integer, DriveLine> implements
 		}
 	}
 
+	/** Función que encuentra drivelines por nombre y las guarda
+	 *
+	 */
 	@Override
 	public DriveLine save(DriveLine d) {
 		if (findDriveLineByName(d.getDriveLine()) == null) {
@@ -60,6 +72,9 @@ public class DriveLineDaoImpl extends AbstractDao<Integer, DriveLine> implements
 		return d;
 	}
 
+	/** Función que encuentra todas las drivelines
+	 *
+	 */
 	@SuppressWarnings("unchecked")
 	public List<DriveLine> findAllDriveLines() {
 		List<DriveLine> drivelines = getEntityManager().createQuery("SELECT dl FROM DriveLine dl ORDER BY dl.id ASC")
@@ -67,12 +82,18 @@ public class DriveLineDaoImpl extends AbstractDao<Integer, DriveLine> implements
 		return drivelines;
 	}
 
+	/** Función que elimina drivelines por id
+	 *
+	 */
 	public void deleteById(String id) {
 		DriveLine dl = (DriveLine) getEntityManager().createQuery("SELECT dl FROM DriveLine dl WHERE dl.id = :id")
 				.setParameter("id", id).getSingleResult();
 		delete(dl);
 	}
 
+	/** Función que encuentra drivelines por clave principal
+	 *
+	 */
 	public DriveLine getByPk(Integer key) {
 		return getByKey(key);
 	}

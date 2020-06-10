@@ -34,8 +34,7 @@ public interface UtilsService {
 	public List<DriveLine>	getCarsDriveLines();
 	
 	public List<Transmission>	getCarsTransmissions();
-
-	
+ 
 	public Car saveMake(Car m);
 	
 	public Fuel saveFuelType(Fuel f);

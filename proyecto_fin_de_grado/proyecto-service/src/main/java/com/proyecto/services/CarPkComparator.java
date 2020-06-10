@@ -10,6 +10,9 @@ public class CarPkComparator extends CarComparator implements Comparator<Car> {
 		super.desc = desc;
 	}
 	
+	/** Comparacion de las marcas de los coches según su clave primaria
+	 *
+	 */
 	@Override
 	public int compare(Car car1, Car car2) {
 		Integer valA = car1.getPk();

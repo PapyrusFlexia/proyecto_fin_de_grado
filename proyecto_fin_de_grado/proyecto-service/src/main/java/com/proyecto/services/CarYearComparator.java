@@ -11,6 +11,9 @@ public class CarYearComparator extends CarComparator implements Comparator<Car>{
 		super.asc = asc;
 	}
 	
+	/** Comparación del año de los coches
+	 *
+	 */
 	@Override
 	public int compare(Car car1, Car car2) {
 		Integer valA = car1.getYear();

@@ -21,7 +21,7 @@ public class Dimensions implements Serializable {
 	private int id;
 
 	@NotNull
-	@Column(name = "DIMENSIONNAME", nullable = false) /////////// NUEVO
+	@Column(name = "DIMENSIONNAME", nullable = false) 
 	private String dimensionname;
 
 	@NotNull

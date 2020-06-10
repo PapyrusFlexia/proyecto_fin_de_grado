@@ -14,7 +14,10 @@ import com.proyecto.model.User;
 @Repository("fuelTypeDao")
 @Transactional
 public class FuelDaoImpl extends AbstractDao<Integer, Fuel> implements FuelDao {
-
+ 
+	/** Función que encuentra combustibles
+	 *
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Fuel> findFuel() {
@@ -26,6 +29,9 @@ public class FuelDaoImpl extends AbstractDao<Integer, Fuel> implements FuelDao {
 		}
 	}
 
+	/** Función que encuentra combustibles por nombre
+	 *
+	 */
 	public Fuel findFuelByName(String name) {
 
 		try {
@@ -37,6 +43,9 @@ public class FuelDaoImpl extends AbstractDao<Integer, Fuel> implements FuelDao {
 		}
 	}
 	
+	/** Función que encuentra combustibles por id
+	 *
+	 */
 	public Fuel findFuelById(int id) {
 
 		try {
@@ -48,6 +57,9 @@ public class FuelDaoImpl extends AbstractDao<Integer, Fuel> implements FuelDao {
 		}
 	}
 
+	/** Función que encuentra combustibles por nombre y los guarda
+	 *
+	 */
 	@Override
 	public Fuel save(Fuel f) {
 		if (findFuelByName(f.getFuelType()) == null) {
@@ -56,6 +68,9 @@ public class FuelDaoImpl extends AbstractDao<Integer, Fuel> implements FuelDao {
 		return f;
 	}
 
+	/** Función que encuentra todos los combustibles
+	 *
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Fuel> findAllFuels() {
 		List<Fuel> fuels = getEntityManager().createQuery("SELECT f FROM Fuel f ORDER BY f.id ASC")
@@ -63,12 +78,18 @@ public class FuelDaoImpl extends AbstractDao<Integer, Fuel> implements FuelDao {
 		return fuels;
 	}
 
+	/** Función que elimina todos los combustible
+	 *
+	 */
 	public void deleteById(String id) {
 		Fuel f = (Fuel) getEntityManager().createQuery("SELECT f FROM Fuel f WHERE f.id = :id").setParameter("id", id)
 				.getSingleResult();
 		delete(f);
 	}
 
+	/** Función que encuentra combustibles por clave principal
+	 *
+	 */
 	public Fuel getByPk(Integer key) {
 		return getByKey(key);
 	}

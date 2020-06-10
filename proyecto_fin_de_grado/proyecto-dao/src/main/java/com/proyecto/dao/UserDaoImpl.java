@@ -17,9 +17,9 @@ import com.proyecto.model.User;
 @Transactional
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
-	
-	
-
+	/** Función que encuentra usuarios por email
+	 *
+	 */
 	public User findByEmail(String email) {
 		try{
 			User user = (User) getEntityManager()
@@ -32,6 +32,9 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		}
 	}
 	
+	/** Función que encuentra todos los usuarios
+	 *
+	 */
 	@SuppressWarnings("unchecked")
 	public List<User> findAllUsers() {
 		List<User> users = getEntityManager()
@@ -40,6 +43,9 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		return users;
 	}
 
+	/** Función que encuentra usuarios por email y los guarda
+	 *
+	 */
 	public User save(User user) {
 		User u1 = findByEmail(user.getEmail());
 		if (u1 == null) {
@@ -48,6 +54,9 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		return u1;
 	}
 
+	/** Función que elimina usuarios por email
+	 *
+	 */
 	public void deleteByEmail(String email) {
 		User user = (User) getEntityManager()
 				.createQuery("SELECT u FROM User u WHERE u.email = :email")
@@ -56,7 +65,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		delete(user);
 	}
 	
-	//An alternative to Hibernate.initialize()
+	//Alternativa a Hibernate.initialize()
 	protected void initializeCollection(Collection<?> collection) {
 	    if(collection == null) {
 	        return;

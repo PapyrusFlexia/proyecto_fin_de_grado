@@ -21,6 +21,10 @@ import com.proyecto.model.User;
 @Transactional
 public class DimensionsDaoImpl extends AbstractDao<Serializable, Dimensions> implements DimensionsDao {
 
+	/** Función que encuentra dimensiones por nombre
+	 * @param name
+	 * @return
+	 */
 	public Dimensions findDimensionsByName(String name) {
 
 		try {
@@ -33,6 +37,9 @@ public class DimensionsDaoImpl extends AbstractDao<Serializable, Dimensions> imp
 		}
 	}
 
+	/** Función que encuentra todas las dimensiones 
+	 *
+	 */
 	@Override
 	public long totalDimensions() {
 		long totalDimensions = (long) getEntityManager().createQuery("SELECT COUNT (d.id) FROM Dimensions d")
@@ -40,6 +47,9 @@ public class DimensionsDaoImpl extends AbstractDao<Serializable, Dimensions> imp
 		return totalDimensions;
 	}
 
+	/** Función que encuentra dimensiones por nombre y las guarda
+	 *
+	 */
 	@Override
 	public Dimensions save(Dimensions d) {
 		Dimensions d1 = findDimensionsByName(d.getDimensionname());
@@ -49,6 +59,9 @@ public class DimensionsDaoImpl extends AbstractDao<Serializable, Dimensions> imp
 		return d1;
 	}
 
+	/** Función que encuentra todas las dimensiones
+	 *
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Dimensions> findAllDimensions() {
 		List<Dimensions> dimensions = getEntityManager().createQuery("SELECT d FROM Dimensions d ORDER BY d.id ASC")
@@ -56,12 +69,18 @@ public class DimensionsDaoImpl extends AbstractDao<Serializable, Dimensions> imp
 		return dimensions;
 	}
 
+	/** Función que elimina dimensiones por id
+	 *
+	 */
 	public void deleteById(String id) {
 		Dimensions dimension = (Dimensions) getEntityManager()
 				.createQuery("SELECT d FROM Dimensions d WHERE d.id = :id").setParameter("id", id).getSingleResult();
 		delete(dimension);
 	}
 
+	/** Función que actualiza las dimensiones
+	 *
+	 */
 	public int update(int id, String name, int height, int length, int width) {
 
 		int executed = getEntityManager().createQuery(
@@ -72,6 +91,9 @@ public class DimensionsDaoImpl extends AbstractDao<Serializable, Dimensions> imp
 		return executed;
 	}
 
+	/** Función que encuentra dimensiones por clave principal
+	 *
+	 */
 	public Dimensions getByPk(Integer key) {
 		return getByKey(key);
 	}

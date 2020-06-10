@@ -91,6 +91,9 @@ public class User implements Serializable{
 		return result;
 	}
 
+	/** Control de null o de id erroneo
+	 *
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
